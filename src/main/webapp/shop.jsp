@@ -13,7 +13,11 @@
 <body>
 	<%@ include file = "common.jsp" %>
 	<% ProductDao productDao = new ProductDao();
-	   List<ProductDto> productList = productDao.selectProductList();%>
+	   /* List<ProductDto> productList = productDao.selectProductList(); */
+	   ProductDto productDto = new ProductDto();
+	   productDto = productDao.selectProductByCode(101);
+
+	   %>
 	   <h1>서핑 용품</h1>
 <%-- 	<% for(ProductDto item : productList){ 
 		%> <h1><%=item.getPname()%></h1>  <%

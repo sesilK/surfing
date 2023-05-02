@@ -21,10 +21,8 @@ public class DBConnectionManager {
 			conn = DriverManager.getConnection(db_url, db_id, db_pw); 
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conn;
@@ -43,7 +41,6 @@ public class DBConnectionManager {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
