@@ -13,7 +13,7 @@ import oracle.DBConnectionManager;
 public class ProductDao {
 	
 	//select (List)
-	public List<ProductDto> selectPersonInfoList(){
+	public List<ProductDto> selectProductList(){
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -34,7 +34,7 @@ public class ProductDao {
 				ProductDto personDto = new ProductDto();
 				
 				personDto.setCode(rs.getInt("code"));
-				personDto.setPname(rs.getString("name"));
+				personDto.setPname(rs.getString("pname"));
 				personDto.setPrice(rs.getInt("price"));
 				personDto.setStock(rs.getInt("stock"));
 
@@ -48,44 +48,44 @@ public class ProductDao {
 		return productList;
 	}
 	
-//	//select
-//	public PersonDto selectPersonInfoById(int id) {
-//		Connection conn = null;
-//		PreparedStatement psmt = null;
-//		ResultSet rs = null;
-//		PersonDto personDto = null;
-//		
-//		//select 한개 단일
-//		try {
-//			conn = DBConnectionManager.getconnection();
-//
-//			// 쿼리문!
-//			String sql = "select * from t_person_info"
-//						+" WHERE id = ?  Order by id";
-//
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setInt(1, id);
-//
-//			rs = psmt.executeQuery(); //쿼리를 실행!!
-//
-//			if(rs.next()) {
-//				personDto = new PersonDto();
-//				
-//				personDto.setId(rs.getInt("id"));
-//				personDto.setName(rs.getString("name"));
-//			}
-//
-//			// DB에 쿼리문 실행
-//			// 쿼리 결과를 반환 -> 활용
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			DBConnectionManager.close(rs, psmt, conn);			
-//		}
-//		
-//		return personDto;
-//	}
+	//select
+	public ProductDto selectProductByCode(int code) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		ProductDto productDto = null;
+		
+		//select 한개 단일
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+			String sql = "select * from s_product"
+						+" WHERE code = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, code);
+
+			rs = psmt.executeQuery(); //쿼리를 실행!!
+
+			if(rs.next()) {
+				productDto = new ProductDto();
+				
+				productDto.setPname(rs.getString("pname"));
+				productDto.setPrice(rs.getInt("price"));
+			}
+
+			// DB에 쿼리문 실행
+			// 쿼리 결과를 반환 -> 활용
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);			
+		}
+		
+		return productDto;
+	}
 //	
 //	//update
 //	public int updatePersonInfo(int id, String name) {
