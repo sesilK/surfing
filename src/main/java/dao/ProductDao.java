@@ -11,9 +11,9 @@ import dto.ProductDto;
 import oracle.DBConnectionManager;
 
 public class ProductDao {
-	
+
 	//select (List)
-	public List<ProductDto> selectPersonInfoList(){
+	public List<ProductDto> selectProductList(){
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
