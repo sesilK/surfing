@@ -31,14 +31,14 @@ public class ProductDao {
 			productList = new ArrayList<ProductDto>();
 
 			while(rs.next()) {
-				ProductDto personDto = new ProductDto();
+				ProductDto productDto = new ProductDto();
 				
-				personDto.setCode(rs.getInt("code"));
-				personDto.setPname(rs.getString("name"));
-				personDto.setPrice(rs.getInt("price"));
-				personDto.setStock(rs.getInt("stock"));
+				productDto.setCode(rs.getInt("code"));
+				productDto.setPname(rs.getString("name"));
+				productDto.setPrice(rs.getInt("price"));
+				productDto.setStock(rs.getInt("stock"));
 
-				productList.add(personDto);
+				productList.add(productDto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
