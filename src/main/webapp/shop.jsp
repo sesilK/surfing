@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="dao.ProductDao"%>
 <%@ page import="dto.ProductDto"%>
+<% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>

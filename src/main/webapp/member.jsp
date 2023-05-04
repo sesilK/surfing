@@ -41,10 +41,10 @@
 					alert('비밀번호를 입력해주세요');
 					inputPW.focus();
 				} else {
-					<% 
+<%-- 					<% 
 	 				PersonDao personDao = new PersonDao();
 					PersonDto personDto = personDao.selectLogin(inputID);
-				%>
+				%> --%>
 					
 					
 					form.submit();

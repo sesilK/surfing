@@ -11,7 +11,7 @@ import dto.ProductDto;
 import oracle.DBConnectionManager;
 
 public class ProductDao {
-	
+
 	//select (List)
 	public List<ProductDto> selectProductList(){
 		Connection conn = null;
@@ -39,8 +39,6 @@ public class ProductDao {
 				productDto.setPname(rs.getString("pname"));
 				productDto.setPrice(rs.getInt("price"));
 				productDto.setStock(rs.getInt("stock"));
-				productDto.setSprice(rs.getString("SPRICE"));
-				
 				productList.add(productDto);
 			}
 		} catch (SQLException e) {
@@ -80,6 +78,7 @@ public class ProductDao {
 				productDto.setPrice(rs.getInt("price"));
 				productDto.setStock(rs.getInt("stock"));
 				productDto.setSprice(rs.getString("SPRICE"));
+				
 			}
 
 			// DB에 쿼리문 실행
