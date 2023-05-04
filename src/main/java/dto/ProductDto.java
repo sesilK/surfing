@@ -5,6 +5,7 @@ public class ProductDto {
 	String pname;
 	int price;
 	int stock;
+	String sprice;
 	
 	public int getCode() {
 		return code;
@@ -29,6 +30,12 @@ public class ProductDto {
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	public String getSprice() {
+		return sprice;
+	}
+	public void setSprice(String sprice) {
+		this.sprice = sprice;
 	}
 	@Override
 	public String toString() {

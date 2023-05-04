@@ -7,93 +7,91 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.ProductDto;
+import dto.PersonDto;
 import oracle.DBConnectionManager;
 
-public class ProductDao {
+public class PersonDao {
 	
 	//select (List)
-	public List<ProductDto> selectProductList(){
+	public List<PersonDto> selectPersonInfoList(){
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		List<ProductDto> productList = null;
+		List<PersonDto> personInfoList = null;
 		
 		try {
 			conn = DBConnectionManager.getConnection();
 		
-			String sql= "SELECT code, pname, price, "
-					  + " TO_CHAR(price,'9,999,999') SPRICE, "
-					  + " stock FROM s_product";
+			String sql= "SELECT * FROM person_info";
 
 			psmt = conn.prepareStatement(sql);
 
 			rs = psmt.executeQuery();
 			
-			productList = new ArrayList<ProductDto>();
+			personInfoList = new ArrayList<PersonDto>();
 
 			while(rs.next()) {
-				ProductDto productDto = new ProductDto();
+				PersonDto personDto = new PersonDto();
 				
-				productDto.setCode(rs.getInt("code"));
-				productDto.setPname(rs.getString("pname"));
-				productDto.setPrice(rs.getInt("price"));
-				productDto.setStock(rs.getInt("stock"));
-				productDto.setSprice(rs.getString("SPRICE"));
-				
-				productList.add(productDto);
+				personDto.setId(rs.getString("id"));
+				personDto.setPw(rs.getString("pw"));
+				personDto.setRating(rs.getInt("rating"));
+				personDto.setName(rs.getString("name"));
+				personDto.setJumin(rs.getInt("jumin"));
+				personDto.setAddress(rs.getString("address"));
+				personDto.setEmail(rs.getString("email"));				
+
+				personInfoList.add(personDto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBConnectionManager.close(rs, psmt, conn);
 		}
-		return productList;
+		return personInfoList;
 	}
 	
 	//select
-	public ProductDto selectProductByCode(int code) {
+	public PersonDto selectLogin(String id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		ProductDto productDto = null;
+		PersonDto personDto = null;
 		
 		//select 한개 단일
 		try {
 			conn = DBConnectionManager.getConnection();
 
-			String sql= "SELECT code, pname, price, "
-					  + " TO_CHAR(price,'9,999,999') SPRICE, "
-					  + " stock FROM s_product"
-					  + " WHERE code = ?";
+			String sql = "select * from person_info"
+						+" WHERE id = ?";
 
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, code);
+			psmt.setString(1, id);
+			
+			rs = psmt.executeQuery();
 
-			rs = psmt.executeQuery(); //쿼리를 실행!!
 
 			if(rs.next()) {
-				productDto = new ProductDto();
+				personDto = new PersonDto();
 				
-				productDto.setCode(rs.getInt("code"));
-				productDto.setPname(rs.getString("pname"));
-				productDto.setPrice(rs.getInt("price"));
-				productDto.setStock(rs.getInt("stock"));
-				productDto.setSprice(rs.getString("SPRICE"));
+				personDto.setId(rs.getString("id"));
+				personDto.setPw(rs.getString("pw"));
+				personDto.setRating(rs.getInt("rating"));
+				personDto.setName(rs.getString("name"));
+				personDto.setJumin(rs.getInt("jumin"));
+				personDto.setAddress(rs.getString("address"));
+				personDto.setEmail(rs.getString("email"));
 			}
 
-			// DB에 쿼리문 실행
-			// 쿼리 결과를 반환 -> 활용
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBConnectionManager.close(rs, psmt, conn);			
 		}
 		
-		return productDto;
+		return personDto;
 	}
-//	
+	
 //	//update
 //	public int updatePersonInfo(int id, String name) {
 //		Connection conn = null;
@@ -102,7 +100,7 @@ public class ProductDao {
 //		int result = 0;
 //		
 //		try {
-//			conn = DBConnectionManager.getconnection();
+//			conn = DBConnectionManager.getConnection();
 //		
 //			String sql= "UPDATE t_person_info"
 //					+ " SET name = ? "
@@ -124,7 +122,7 @@ public class ProductDao {
 //		
 //		return result;
 //	}
-//	
+	
 //	//update
 //		public int updatePersonInfo(PersonDto personDto) {
 //			Connection conn = null;
@@ -155,37 +153,44 @@ public class ProductDao {
 //			
 //			return result;
 //		}
-//	
-//	
-//	//insert
-//	public int insertPersonInfo(String name) {
-//		Connection conn = null;
-//		PreparedStatement psmt = null;
-//		ResultSet rs = null;
-//		int result = 0;
-//		
-//		try {
-//			conn = DBConnectionManager.getconnection();
-//		
-//			String sql= "INSERT INTO t_person_info"
-//					+ " VALUES( (SELECT NVL(MAX(id),0)+1 FROM t_person_info), ?)";
-//
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setString(1,name);
-//
-//			result = psmt.executeUpdate();
-//			
-//			System.out.println("처리결과: " + result);
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			DBConnectionManager.close(rs, psmt, conn);
-//		}
-//		
-//		return result;
-//	}
-//	
+	
+	
+	//insert
+	public int insertPerson(String id, String pw, int rating, String name, int jumin, 
+								String address, String email) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+		
+			String sql= "INSERT INTO person_info"
+					+ " VALUES(?,?,?,?,?,?,?)";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,id);
+			psmt.setString(2,pw);
+			psmt.setInt(3,rating);
+			psmt.setString(4,name);
+			psmt.setInt(5,jumin);
+			psmt.setString(6,address);
+			psmt.setString(7,email);
+
+			result = psmt.executeUpdate();
+			
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
+	
 //	//delete
 //	public int deletePersonInfo(int id) {
 //
@@ -195,7 +200,7 @@ public class ProductDao {
 //		int result = 0;
 //
 //		try {
-//			conn = DBConnectionManager.getconnection();
+//			conn = DBConnectionManager.getConnection();
 //
 //			// 쿼리문!
 //			String sql = "DELETE FROM t_person_info"
@@ -216,5 +221,5 @@ public class ProductDao {
 //
 //		return result;
 //	}
-
+	
 }
