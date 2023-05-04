@@ -11,11 +11,6 @@
 </head>
 <body>
 	<%@ include file = "common.jsp" %>
-<%-- 	<%
-		String id = request.getParameter("id");
-		PersonDao personDao = new PersonDao();
-		PersonDto personDto = personDao.selectLogin(id);
-	%> --%>
 	
 	<form name="loginForm" action="member_proc.jsp" method="post">
 	    <input type="text" id="inputID" name="id" placeholder="아이디"><br>
@@ -41,12 +36,6 @@
 					alert('비밀번호를 입력해주세요');
 					inputPW.focus();
 				} else {
-<%-- 					<% 
-	 				PersonDao personDao = new PersonDao();
-					PersonDto personDto = personDao.selectLogin(inputID);
-				%> --%>
-					
-					
 					form.submit();
 				}
 			}			

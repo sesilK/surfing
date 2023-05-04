@@ -52,7 +52,7 @@ public class PersonDao {
 	}
 	
 	//select
-	public PersonDto selectLogin(String id) {
+	public PersonDto selectPersonInfoById(String id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -90,6 +90,40 @@ public class PersonDao {
 		}
 		
 		return personDto;
+	}
+	
+	
+	//select
+	public int login(String id, String pw) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		PersonDto personDto = null;
+		
+		//select 한개 단일
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql = "select pw from person_info WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+
+			if(rs.next()) {
+				if(rs.getString(1).equals(pw)) {
+					return 1;	//비밀번호 일치
+				} else {
+					return 0;	//비밀번호 불일치
+				}
+			}
+			return -1;	//존재하지 않는 아이디
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);			
+		}
+		return -2;	//데이터베이스 오류
 	}
 	
 //	//update

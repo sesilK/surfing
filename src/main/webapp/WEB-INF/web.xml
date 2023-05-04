@@ -10,4 +10,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+<!--   <servlet>
+  	<servlet-name>자바파일명</servlet-name>
+  	<servlet-class>패키지명.자바파일명</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	 <servlet-name>자바파일명</servlet-name>
+	 <url-pattern>/jsp파일 명</url-pattern>
+  </servlet-mapping> -->
+  
 </web-app>
