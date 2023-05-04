@@ -18,9 +18,10 @@
 <body>
 <%
     PersonDao personDao = new PersonDao();
-    int result = personDao.Login(personDto.getId(), personDto.getPw());
+    int result = personDao.login(personDto.getId(), personDto.getPw());
     if (result == 1){
-        response.sendRedirect("./home.jsp");
+    	session.setAttribute("id", personDto.getId());	//세션
+		response.sendRedirect("./home.jsp");
     } else if (result == 0){
         PrintWriter script = response.getWriter();
         out.println("<script>");

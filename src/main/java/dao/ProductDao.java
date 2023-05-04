@@ -39,6 +39,7 @@ public class ProductDao {
 				productDto.setPname(rs.getString("pname"));
 				productDto.setPrice(rs.getInt("price"));
 				productDto.setStock(rs.getInt("stock"));
+				productDto.setSprice(rs.getString("SPRICE"));
 				productList.add(productDto);
 			}
 		} catch (SQLException e) {

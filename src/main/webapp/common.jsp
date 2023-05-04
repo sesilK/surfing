@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,15 @@
 	crossorigin="anonymous">
 </head>
 <body>
+<% 		String id = null;
+		if(session.getAttribute("id") != null) {
+	
+		id = (String)session.getAttribute("id");
+		
+		
+	}
+	%>
+
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="home.jsp">Green Wave</a>
@@ -30,7 +40,13 @@
 						
 					<li class="nav-item"><a class="nav-link" href="reserve.jsp">reserve</a></li>
 					<li class="nav-item"><a class="nav-link" href="shop.jsp">shop</a></li>
+					<% if (id == null){ %>
 					<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
+					<% } else {%>
+					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">
+					<%=id%>님</a></li>
+					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">sign-out</a></li>
+					<% }%>
 				</ul>
 			</div>
 			
