@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">                                                                                                                       
+<meta charset="UTF-8">                                                                                                                       
 <title>Insert title here</title>
 </head>
 <body>
@@ -23,9 +23,9 @@
 			
 			<label for="stage">강습선택:</label>
 			<select id="stage" name="stage" required>
-				<option>1</option> <!-- BEGINNER -->
-				<option>2</option> <!-- LEARNNE -->
-				<option>3</option> <!-- APPRENTIC -->
+				<option value="1">BEGINNER</option>	<!-- BEGINNER -->
+				<option value="2">LEARNNE</option>	<!-- LEARNNE -->
+				<option value="3">APPRENTIC</option>	<!-- APPRENTIC -->
 			</select><br> 
 			
 			<label for="persons">강습인원:</label> <select id="persons"

@@ -10,6 +10,10 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-light">
@@ -24,16 +28,16 @@
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-				
+
 					<!-- <li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="index.jsp">Home</a></li> -->
-						
+
 					<li class="nav-item"><a class="nav-link" href="reserve.jsp">reserve</a></li>
 					<li class="nav-item"><a class="nav-link" href="shop.jsp">shop</a></li>
 					<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
 				</ul>
 			</div>
-			
+
 		</div>
 	</nav>
 </body>

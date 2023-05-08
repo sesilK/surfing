@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
 		int stage = Integer.parseInt(request.getParameter("stage"));
 		
 		ReserveDao reserveDao = new ReserveDao();
-		int result = reserveDao.insertReserve(date, persons, stage); 
+		int result = reserveDao.insertReserve(date, persons, stage);
 		
 		if(result == 1){
 	%>
