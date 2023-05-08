@@ -60,7 +60,27 @@ no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
 reserve_date DATE NOT NULL,
 persons NUMBER(2) NOT NULL,
-stage NUMBER(1) NOT NULL,
+stage NUMBER(1) NOT NULL, --레벨
 state VARCHAR2(12) DEFAULT '예약완료',
 FOREIGN KEY (id) REFERENCES person_info(id),
 FOREIGN KEY (stage) REFERENCES lesson(stage));
+
+select * from person_info;
+select * from reserve;
+select * from reserve WHERE id = 'admin' order by reserve_date ,stage;
+select * from lesson;
+
+INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
+                    values ('admin', 'admin0', '0','관리자', '1234561234567', '충남 천안시 동남구 대흥로 215 7층, 8층', 'admin@admin.com');
+
+INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
+                    values ('1111', '1111', '1','ㄱㄱㄱ', '1234561234567', '충남 천안시 동남구 대흥로 215 7층, 8층', 'admin@admin.com');
+
+
+ALTER TABLE reserve MODIFY RESERVE_DATE varchar2(30);
+
+insert into reserve
+values( (select NVL(MAX(no),0)+1 FROM reserve), 'admin', '2023', 5, 1, '예약완료');
+
+
+
