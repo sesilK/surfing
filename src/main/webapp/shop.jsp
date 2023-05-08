@@ -61,40 +61,48 @@ img {
 #cart_count {
 	width: 10px;
 	color: red;
-	font-size: small;
+	font-size: large;
 	position: relative;
-	bottom: 12px;
-	left: 30px;
+	bottom: 15px;
+	left: 14px;
 }
 </style>
 </head>
 <body>
 	<%@ include file="common.jsp"%>
-
 	<h1>서핑 용품</h1>
-	<div class="cart_icon">
-		<span id="cart_count">0</span>
-	</div>
-
+	
 	<%
 	ProductDao productDao = new ProductDao();
+	int totalQty = productDao.totalQty(id);
 	List<ProductDto> productList = productDao.selectProductList();
 	%>
+		<a href="./cart.jsp?id=<%=id%>" style="text-decoration: none;">
+			<div class="cart_icon">
+				<span id="cart_count"><%=totalQty%></span>
+			</div>
+		</a>
+	
+	
+	
 	<div class="container">
 		<%
 		for (ProductDto item : productList) {
 		%>
 
 		<div class="product_box" id="<%=item.getCode()%>">
-			<a class="" href="./productDetail.jsp?code=<%=item.getCode()%>">
+			<a href="./productDetail.jsp?code=<%=item.getCode()%>">
 				<img src="images/product_<%=item.getCode()%>.png">
 				<div class="pname"><%=item.getPname()%></div>
 				<div class="price"><%=item.getSprice()%></div>
 			</a>
-			<button type="button" class="btn cartBtn btn-primary"
-				class="addBtn" id="add_<%=item.getCode()%>">카트담기</button>
-			<button type="button" class="btn buyBtn btn-warning"
-				class="buyNowBtn" id="buyNow_<%=item.getCode()%>">바로구매</button>
+			
+			<a href="./addToCart.jsp?id=<%=id%>&code=<%=item.getCode()%>">
+				<button type="button" class="btn cartBtn btn-primary addBtn"
+			 	id="add_<%=item.getCode()%>">카트담기
+			 	</button></a><button type="button" class="btn buyBtn btn-warning buyNowBtn"
+			 id="buyNow_<%=item.getCode()%>">바로구매</button>
+			 
 		</div>
 		<%
 		}
@@ -108,8 +116,8 @@ img {
 		let addBtnArr = document.querySelectorAll(".addBtn");
 		for(let btn of addBtnArr) {
 			btn.addEventListener("click", function() {
-				const code = $(this).parent().attr('id'); // 버튼의 부모를 찾아서 id값이 뭐냐
-				location.href = "addToCart.jsp?code=" + code;
+/* 				const code = $(this).parent().attr('id');
+				location.href = "./addToCart.jsp?code=" + code; */
 			});
 		}
 		
@@ -121,7 +129,7 @@ img {
 			});
 		}
 	}
-</script>
+	</script>
 
 </body>
 </html>
