@@ -39,10 +39,14 @@
 	.btn:first-of-type {
 		margin-left: 10px;
 	}
-	.cart-icon {
-		width: 50px;
-		height: 50px;
-		background-image: url("images/free-icon-add-cart.png");
+	.cart_icon {
+		width: 40px;
+		height: 40px;
+		position: fixed;
+		right: 30px;
+		bottom: 40px;
+		background-image: url('images/free-icon-add-cart.png');
+		background-size: contain;
 	}
 </style>
 </head>
@@ -50,7 +54,7 @@
 	<%@ include file="common.jsp"%>
 	
 	<h1>서핑 용품</h1>
-	<div class="cart-icon"></div>
+	<div class="cart_icon"></div>
 
 	<%
 		ProductDao productDao = new ProductDao();
