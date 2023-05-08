@@ -12,7 +12,7 @@ import oracle.DBConnectionManager;
 
 public class ProductDao {
 
-	//select (List)
+	//select (List)		상품목록
 	public List<ProductDto> selectProductList(){
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -50,14 +50,13 @@ public class ProductDao {
 		return productList;
 	}
 	
-	//select
+	//select	상품 상세정보
 	public ProductDto selectProductByCode(int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		ProductDto productDto = null;
-		
-		//select 한개 단일
+
 		try {
 			conn = DBConnectionManager.getConnection();
 
@@ -69,7 +68,7 @@ public class ProductDao {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, code);
 
-			rs = psmt.executeQuery(); //쿼리를 실행!!
+			rs = psmt.executeQuery();
 
 			if(rs.next()) {
 				productDto = new ProductDto();
@@ -82,10 +81,7 @@ public class ProductDao {
 				
 			}
 
-			// DB에 쿼리문 실행
-			// 쿼리 결과를 반환 -> 활용
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBConnectionManager.close(rs, psmt, conn);			
@@ -157,34 +153,47 @@ public class ProductDao {
 //		}
 //	
 //	
-//	//insert
-//	public int insertPersonInfo(String name) {
-//		Connection conn = null;
-//		PreparedStatement psmt = null;
-//		ResultSet rs = null;
-//		int result = 0;
-//		
-//		try {
-//			conn = DBConnectionManager.getconnection();
-//		
-//			String sql= "INSERT INTO t_person_info"
-//					+ " VALUES( (SELECT NVL(MAX(id),0)+1 FROM t_person_info), ?)";
-//
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setString(1,name);
-//
-//			result = psmt.executeUpdate();
-//			
-//			System.out.println("처리결과: " + result);
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			DBConnectionManager.close(rs, psmt, conn);
-//		}
-//		
-//		return result;
-//	}
+	//insert		장바구니 추가
+	public int addToCart(String id, int code) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+		
+			String sql= "INSERT INTO s_product"
+					+ " VALUES(?,?,"
+					+ "			(SELECT pname FROM s_product WHERE code = ?)"
+					+ "			(SELECT NVL(pty,0)+1 FROM s_product WHERE id = ? AND code = ?)"
+					+ "			(SELECT price FROM s_product WHERE code = ?)"
+					+ "			(SELECT NVL(pty,0)+1 FROM s_product WHERE id = ? AND code = ?)"
+					+ "			*(SELECT price FROM s_product WHERE code = ?))";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,id);
+			psmt.setInt(2,code);
+			psmt.setInt(3,code);
+			psmt.setString(4,id);
+			psmt.setInt(5,code);
+			psmt.setInt(6,code);
+			psmt.setString(7,id);
+			psmt.setInt(8,code);
+			psmt.setInt(9,code);
+
+			result = psmt.executeUpdate();
+			
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
 //	
 //	//delete
 //	public int deletePersonInfo(int id) {

@@ -6,6 +6,7 @@ START WITH 100  -- 100부터 시작
 
 -- 상품명 컬럼 데이터타입 변경
 ALTER TABLE s_product MODIFY PNAME VARCHAR(200);
+ALTER TABLE cart MODIFY pname varchar2(200);
 
 -- 상품 데이터 추가
 INSERT INTO s_product VALUES (101,'파이어와이어 더 잼 서프보드',1590000,10);
