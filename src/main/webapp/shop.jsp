@@ -39,13 +39,19 @@
 	.btn:first-of-type {
 		margin-left: 10px;
 	}
+	.cart-icon {
+		width: 50px;
+		height: 50px;
+		background-image: url("images/free-icon-add-cart.png");
+	}
 </style>
 </head>
 <body>
 	<%@ include file="common.jsp"%>
 	
 	<h1>서핑 용품</h1>
-	
+	<div class="cart-icon"></div>
+
 	<%
 		ProductDao productDao = new ProductDao();
 		List<ProductDto> productList = productDao.selectProductList();
@@ -68,6 +74,8 @@
 		}
 	%>
 		</div>
+		
+
 
 </body>
 </html>
