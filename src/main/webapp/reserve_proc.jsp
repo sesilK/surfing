@@ -14,12 +14,14 @@
 	<%
 		request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 		
+		String id = (String)session.getAttribute("id");
 		String date = request.getParameter("date");
 		int persons = Integer.parseInt(request.getParameter("persons"));
 		int stage = Integer.parseInt(request.getParameter("stage"));
 		
+		
 		ReserveDao reserveDao = new ReserveDao();
-		int result = reserveDao.insertReserve(date, persons, stage);
+		int result = reserveDao.insertReserve(id, date, persons, stage);
 		
 		if(result == 1){
 	%>
