@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="dao.ProductDao"%>
 <%@ page import="dto.ProductDto"%>
-<% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,60 +21,45 @@
 	.container {
 		width: 90%;
 		margin: 0 auto;
-	}
-	.product_box {
-		width: 18.5%;
-		display: inline-block;
-		margin: 3%;
 		/* border: 1px solid red; */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 	img {
-		width: 100%;
+		width: 500px;
 	}
 	.pname, .price {
-		font-size: 11px;
+		font-size: 16px;
 		text-align: center;
 	}
-	.btn:first-of-type {
-		margin-left: 10px;
+	.btnBox {
+		display: flex;
+		justify-content: center;
 	}
-	.cart-icon {
-		width: 50px;
-		height: 50px;
-		background-image: url("images/free-icon-add-cart.png");
+	.btn {
+		margin: 0px 3px;
 	}
 </style>
 </head>
 <body>
 	<%@ include file="common.jsp"%>
-	
-	<h1>서핑 용품</h1>
-	<div class="cart-icon"></div>
-
 	<%
+		int code = Integer.parseInt(request.getParameter("code"));
 		ProductDao productDao = new ProductDao();
-		List<ProductDto> productList = productDao.selectProductList();
+		ProductDto productDto = productDao.selectProductByCode(code);
 	%>
+		<h1>상품 상세정보</h1>
 		<div class="container">
-	<%
-		for(ProductDto item : productList) {
-	%>
-			
-			<div class="product_box">
-				<a class="" href="./productDetail.jsp?code=<%=item.getCode()%>">
-					<img src="images/product_<%=item.getCode()%>.png">
-					<div class="pname"><%=item.getPname()%></div>
-					<div class="price">\<%=item.getSprice()%></div>
-				</a>
+			<div class="btnBox">
+				<img src="images/product_<%=productDto.getCode()%>.png">
+			</div>
+			<div class="pname"><%=productDto.getPname()%></div>
+			<div class="price">\<%=productDto.getSprice()%></div>
+			<div class="btnBox">
 				<button type="button" class="btn cartBtn btn-primary">카트담기</button>
 				<button type="button" class="btn buyBtn btn-warning">바로구매</button>
 			</div>
-	<%
-		}
-	%>
 		</div>
-		
-
-
 </body>
 </html>
