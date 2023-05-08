@@ -18,10 +18,11 @@
 	ReserveDao reserveDao = new ReserveDao();
 	reserveDao.reserveCancel(no);
 	%>
+	
+
 	<script>
 		location.href = "./reserve_check.jsp";
 	</script>
-
 
 </body>
 </html>

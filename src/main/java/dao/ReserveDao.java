@@ -18,31 +18,39 @@ public class ReserveDao {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		List<ReserveDto> reserveList = null;
+//		List<LessonDto> lessonList = null;
 
 		// Select 리스트 (아이디 일치하는 데이터만)
 		try {
 			conn = DBConnectionManager.getConnection();
 
 			// 쿼리문! // 선생님 여기서 불러와.. 서브쿼리인지 스칼렛인지 뭔지 해줘
-			String sql = "select * from reserve WHERE id = ? order by reserve_date ,stage";
+			String sql = "select no, r.reserve_date, r.persons, r.stage, r.state, l.teacher"
+					+ " from lesson l, reserve r "
+					+ "WHERE id = ? "
+					+ " AND l.stage = r.stage "
+					+ "order by r.reserve_date, r.stage";
 
 			psmt = conn.prepareStatement(sql);
+			System.out.println(id);
 			psmt.setString(1, id);
-
+			System.out.println(sql);
 			rs = psmt.executeQuery(); // 쿼리를 실행!!
 
 			reserveList = new ArrayList<ReserveDto>();
 
+
 			while (rs.next()) {
 				ReserveDto reserveDto = new ReserveDto();
-
+				
 				reserveDto.setNo(rs.getInt("no"));
-				reserveDto.setId(rs.getString("id"));
 				reserveDto.setDate(rs.getString("reserve_date"));
 				reserveDto.setPersons(rs.getInt("persons"));
 				reserveDto.setStage(rs.getInt("stage"));
 				reserveDto.setState(rs.getString("state"));
-
+				reserveDto.setTeacher(rs.getString("teacher"));
+			
+			
 				reserveList.add(reserveDto);
 			}
 		} catch (SQLException e) {
@@ -85,7 +93,7 @@ public class ReserveDao {
 	}
 
 	// insert
-	public int insertReserve(String date, int persons, int stage) {
+	public int insertReserve(String id , String date, int persons, int stage) {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -96,13 +104,15 @@ public class ReserveDao {
 			conn = DBConnectionManager.getConnection();
 
 			// 쿼리문!
-			String sql = "insert into reserve" + " values( (select NVL(MAX(no),0)+1 FROM reserve), " + " 'admin', "
+			String sql = "insert into reserve" + " values( (select NVL(MAX(no),0)+1 FROM reserve), " + " ?, "
 					+ " ?, ?, ?, '예약완료')";
 
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, date);
-			psmt.setInt(2, persons);
-			psmt.setInt(3, stage);
+			psmt.setString(1, id);
+			psmt.setString(2, date);
+			psmt.setInt(3, persons);
+			psmt.setInt(4, stage);
+			//psmt.setString(4, teacher);
 
 			result = psmt.executeUpdate();
 
