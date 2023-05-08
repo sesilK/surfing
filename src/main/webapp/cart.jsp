@@ -57,7 +57,7 @@
 				for (CartDto item : cartList) {
 				%>
 				<tr class="" id="<%=item.getCode()%>">
-					<td></td>
+					<td><input type="checkbox"></td>
 					<td><%=item.getPname()%></td>
 					<td><%=item.getStrPrice()%></td>
 					<td><button>+</button></td>
@@ -70,7 +70,7 @@
 				}
 			} else { %>
 				<tr>
-					<td colspan="8">장바구니에 담긴 상품이 없습니다.</td>
+					<td colspan="4">장바구니에 담긴 상품이 없습니다.</td>
 				</tr>
 			<% } %>
 

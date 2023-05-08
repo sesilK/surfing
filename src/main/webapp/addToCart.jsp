@@ -21,7 +21,7 @@
 	CartDto cartDto = productDao.alreadyInCart(id, code);
 	
 
-
+	
 	if(cartDto == null){
 		productDao.addToCart(id,code);
 		out.print("<script>alert('장바구니에 담았습니다.');</script>");
