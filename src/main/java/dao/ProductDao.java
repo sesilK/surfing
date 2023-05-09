@@ -317,7 +317,7 @@ public class ProductDao {
 		return result;
 	}
 	
-	//delete
+	//delete	장바구니에서 삭제
 	public int removeFromCart(String id, int code) {
 
 		Connection conn = null;
