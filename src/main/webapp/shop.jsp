@@ -83,8 +83,6 @@ img {
 			</div>
 		</a>
 	
-	
-	
 	<div class="container">
 		<%
 		for (ProductDto item : productList) {
@@ -99,8 +97,9 @@ img {
 			
 			<a href="./addToCart.jsp?id=<%=id%>&code=<%=item.getCode()%>">
 				<button type="button" class="btn cartBtn btn-primary addBtn"
-			 	id="add_<%=item.getCode()%>">카트담기
-			 	</button></a><button type="button" class="btn buyBtn btn-warning buyNowBtn"
+			 	id="add_<%=item.getCode()%>">카트담기</button></a>
+			 
+			 <button type="button" class="btn buyBtn btn-warning buyNowBtn"
 			 id="buyNow_<%=item.getCode()%>">바로구매</button>
 			 
 		</div>
@@ -110,14 +109,15 @@ img {
 	</div>
 
 	<script>
-	window.onload = function () {
+
+/* 	window.onload = function () {
 		
 		//카트담기 버튼 기능
 		let addBtnArr = document.querySelectorAll(".addBtn");
 		for(let btn of addBtnArr) {
 			btn.addEventListener("click", function() {
-/* 				const code = $(this).parent().attr('id');
-				location.href = "./addToCart.jsp?code=" + code; */
+ 				const code = $(this).parent().attr('id');
+				location.href = "./addToCart.jsp?code=" + code;
 			});
 		}
 		
@@ -128,7 +128,7 @@ img {
 				
 			});
 		}
-	}
+	} */
 	</script>
 
 </body>

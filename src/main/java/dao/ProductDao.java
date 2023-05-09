@@ -133,7 +133,7 @@ public class ProductDao {
 		return cartList;
 	}
 	
-	//update
+	//update	수량증가
 	public int increaseQty(String id, int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -164,39 +164,40 @@ public class ProductDao {
 		
 		return result;
 	}
-//	
-//	//update
-//		public int updatePersonInfo(PersonDto personDto) {
-//			Connection conn = null;
-//			PreparedStatement psmt = null;
-//			ResultSet rs = null;
-//			int result = 0;
-//			
-//			try {
-//				conn = DBConnectionManager.getconnection();
-//			
-//				String sql= "UPDATE t_person_info"
-//						+ " SET name = ? "
-//						+ " WHERE id = ? ";
-//
-//				psmt = conn.prepareStatement(sql);
-//				psmt.setString(1,personDto.getName());
-//				psmt.setInt(2,personDto.getId());
-//
-//				result = psmt.executeUpdate();
-//				
-//				System.out.println("처리결과: " + result);
-//
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			} finally {
-//				DBConnectionManager.close(rs, psmt, conn);
-//			}
-//			
-//			return result;
-//		}
-//	
-//	
+	
+	
+	//update	수량감소
+		public int decreaseQty(CartDto cartDto) {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+			
+				String sql= "UPDATE cart "
+						+ " SET qty = qty - 1, "
+						+ " total = (qty-1) * (SELECT price FROM s_product WHERE code = ?) "
+						+ " WHERE id = ? AND code = ? AND qty > 2 ";
+
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1,cartDto.getCode());
+				psmt.setString(2,cartDto.getId());
+				psmt.setInt(3,cartDto.getCode());
+				
+				result = psmt.executeUpdate();
+				
+				System.out.println("처리결과: " + result);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);
+			}
+			
+			return result;
+		}
 	
 	//select	장바구니 검색
 	public CartDto alreadyInCart(String id,int code) {
@@ -315,36 +316,37 @@ public class ProductDao {
 		
 		return result;
 	}
-//	
-//	//delete
-//	public int deletePersonInfo(int id) {
-//
-//		Connection conn = null;
-//		PreparedStatement psmt = null;
-//		ResultSet rs = null;
-//		int result = 0;
-//
-//		try {
-//			conn = DBConnectionManager.getconnection();
-//
-//			// 쿼리문!
-//			String sql = "DELETE FROM t_person_info"
-//					+" WHERE id = ?";
-//
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setInt(1, id);
-//
-//			result = psmt.executeUpdate();
-//
-//			System.out.println("처리결과:" + result);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			DBConnectionManager.close(rs, psmt, conn);
-//		}
-//
-//		return result;
-//	}
+	
+	//delete
+	public int removeFromCart(String id, int code) {
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+			String sql = "DELETE FROM cart"
+					+" WHERE id = ? AND code = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setInt(2, code);
+
+			result = psmt.executeUpdate();
+
+			System.out.println("처리결과:" + result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
 
 }
