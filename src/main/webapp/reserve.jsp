@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 * {
 	margin: 0;
@@ -19,67 +20,90 @@
 	width: 90%;
 	margin: 0 auto;
 }
-li{
-   list-style:none;
+
+li {
+	list-style: none;
 }
 
+.formbox {
+	background-color: rgb(240, 240, 240);
+	width: 100%;
+	height: 100px;
+	padding: 35px;
+	display: inline-block;
+}
+
+.formbox>button {
+	margin: 100px;
+}
 </style>
 
 </head>
 <body>
 	<%@ include file="common.jsp"%>
+	
+	<% id = null;
+	if(session.getAttribute("id") != null) {
+		
+	id = (String)session.getAttribute("id"); }%>
 
 	<div class="container">
-		<div class= >
+		<div class="formbox">
 			<form name='reserveForm' action="reserve_proc.jsp" method="post">
 				<fieldset>
 
-					<label for="date">날짜:</label> <input type="date" id="date"
-						name="date" required><br>
+					<label for="date">날짜🗓</label> <input type="date" id="date"
+						class="date" name="date" required>
 
 					<!-- <label for="time">시간:</label>
-			<input type="time" id="time" name="time" required><br> -->
+		        	<input type="time" id="time" name="time" required><br> -->
 
-					<label for="stage">강습선택:</label> <select id="stage" name="stage"
-						required>
+					<label for="stage">강습선택🏄🏾‍♂️</label> <select id="stage"
+						name="stage" required>
 						<option value="1">BEGINNER</option>
-						<!-- BEGINNER -->
 						<option value="2">LEARNNE</option>
-						<!-- LEARNNE -->
 						<option value="3">APPRENTIC</option>
-						<!-- APPRENTIC -->
-					</select><br> <label for="persons">강습인원:</label> <select id="persons"
-						name="persons" required>
+					</select> 
+					
+					<label for="persons">강습인원👨🏾‍🦲</label> 
+					<select id="persons" name="persons" required>
 						<option value="1">1명</option>
 						<option value="2">2명</option>
 						<option value="3">3명</option>
 						<option value="4">4명</option>
 						<option value="5">5명</option>
+						<option value="6">6명</option>
+						<option value="7">7명</option>
+						<option value="8">8명</option>
+						<option value="9">9명</option>
+						<option value="10">10명</option>
+					</select>
 
-					</select><br>
-
-					<button id="insertBtn" type="button" class="btn btn-primary">예약하기</button>
-					<a href="./reserve_check.jsp"><button id="insertck_Btn" type="button" class="btn btn-primary">예약확인</button></a>
+					<button id="insertBtn" type="button" class="btn btn-success">예약하기</button>
+					<button id="insertck_Btn" type="button" class="btn btn-success">예약확인</button>
+					
+					<!-- <a href="./reserve_check.jsp"></a> -->
 				</fieldset>
 			</form>
 		</div>
 
-
-		<div class="info_rule">
-			<b class="tit">👉 강습/렌탈 환불규정안내</b>
+		<div class="rule">
+			<b>👉 강습/렌탈 환불규정안내</b>
 			<ul>
+				<li>✔10인 이상 강습 예약 시 샵으로 연락 부탁드립니다.</li>
 				<li>✔강습/렌탈 당일 취소는 환불이 불가합니다.</li>
 				<li>✔강습/렌탈 이틀 전 취소하시면 전액 환불 가능합니다.</li>
 				<li>✔강습/렌탈 하루 전 취소하시면 50% 위약금을 부담하셔야 합니다.</li>
 				<li>✔기상에 따라 강습을 연기해야 할 경우에는 연기·환불이 가능합니다.</li>
-				<li>✔기상악화 : 태풍주의보, 태풍경보, 풍랑경보, 기타 대표코치 판단에 의한 강습불가 인 경우
-					(우천시 취소 불가)</li>
+				<li>✔기상악화 : 태풍주의보, 태풍경보, 풍랑경보, 기타 대표코치 판단에 의한 강습불가 인 경우 (우천시 취소
+					불가)</li>
 			</ul>
 		</div>
+	</div>
 
-	
+
 	<script>
-	
+			/* 예약하기 버튼 */	
 			document.getElementById('insertBtn').addEventListener('click', ()=>{
 			let form = document.reserveForm;
 			
@@ -95,9 +119,37 @@ li{
 				}				
 			}
 
-		});
-		
+		});	
+			
+			//예약확인 버튼
 
-		</script>
+			document.getElementById('insertck_Btn').addEventListener('click', ()=>{
+			
+			 if(id = ""){
+				 alert('로그인해야 예약확인 가능합니다');
+				location.href = './member.jsp';
+			} else if (id != "") {
+				location.href = './reserve_check.jsp';
+			} 
+
+		});
+			
+			
+			
+			// 현재 날짜를 구합니다.
+			const today = new Date().toISOString().split('T')[0];
+
+			// date input 요소의 min 속성을 현재 날짜로 설정합니다.
+			document.getElementById("date").min = today;
+			
+			//한달 이후 부터 예약불가
+			const maxDate = new Date();
+			maxDate.setDate(maxDate.getDate() + 30);
+			document.getElementById("date").max = maxDate.toISOString().split('T')[0];
+			
+			
+        </script>
+
+
 </body>
 </html>

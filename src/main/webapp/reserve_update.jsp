@@ -19,7 +19,6 @@
 	reserveDao.reserveCancel(no);
 	%>
 	
-
 	<script>
 		location.href = "./reserve_check.jsp";
 	</script>

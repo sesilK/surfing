@@ -67,9 +67,6 @@
 	</table>
 
 
-
-
-
 </body>
 <script>
 	window.onload = function () {

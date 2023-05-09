@@ -33,7 +33,8 @@
 		} else {
 	%>
 	<script>
-			alert('예약 실패');
+			alert('로그인이 필요합니다.');
+			location.href = './member.jsp';
 	</script>
 	<%
 		}
