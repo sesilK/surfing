@@ -1,7 +1,7 @@
 -- 상품코드 시퀀스 생성
 CREATE SEQUENCE s_product_seq
 INCREMENT BY 1  -- 1씩 증가
-START WITH 100  -- 100부터 시작
+START WITH 101  -- 101부터 시작
 ;
 
 -- 상품명 컬럼 데이터타입 변경
