@@ -1,13 +1,10 @@
--- 외래키 데이터타입 변경
-ALTER TABLE cart MODIFY pname varchar2(200);
-
 select * from s_product;
 select * from cart;
 truncate table cart;
 SELECT * FROM cart WHERE id = 'asdf' AND code = 110;
+
 -- 장바구니 목록
 SELECT SUM(QTY) FROM cart WHERE id = 'asdf' ;
-
 
 --장바구니 추가(처음 1개)
 INSERT INTO cart
