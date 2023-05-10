@@ -28,7 +28,7 @@ SET qty = qty - 1, total = (qty-1) * (SELECT price FROM s_product WHERE code = 1
 WHERE id = 'asdf' AND code = 101 AND qty > 1;
 
 --장바구니에서 삭제
-DELETE FROM cart WHERE id = 'asdf' AND code = 101 AND qty = 1;
+DELETE FROM cart WHERE id = 'asdf' AND code = 107;
 
 
 SELECT code, pname,
