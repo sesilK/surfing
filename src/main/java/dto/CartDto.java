@@ -7,18 +7,25 @@ public class CartDto {
 	int qty;
 	int price;
 	int total;
+	int checked;
 	String strPrice;
 	String strTotal;
 	
+	//생성자
 	public CartDto() {
-
 	}
-	
 	public CartDto(String id, int code) {
 		this.id = id;
 		this.code = code;
 	}
 	
+	
+	public int getChecked() {
+		return checked;
+	}
+	public void setChecked(int checked) {
+		this.checked = checked;
+	}
 	public String getStrPrice() {
 		return strPrice;
 	}
