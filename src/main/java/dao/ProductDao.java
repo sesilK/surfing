@@ -241,8 +241,8 @@ public class ProductDao {
 	}
 	
 	
-	//select	장바구니 수량 체크
-		public int totalQty(String id) {
+	//select	장바구니 수량 체크 / 총금액 체크
+		public CartDto sumQtyTotal(String id) {
 			Connection conn = null;
 			PreparedStatement psmt = null;
 			ResultSet rs = null;
@@ -251,7 +251,8 @@ public class ProductDao {
 			try {
 				conn = DBConnectionManager.getConnection();
 
-				String sql= "SELECT SUM(QTY)"
+				String sql= "SELECT SUM(QTY) qty, "
+						  + " TO_CHAR(SUM(TOTAL), '999,999,999') total"
 						  + " FROM cart"
 						  + " WHERE id = ?";
 
@@ -263,7 +264,8 @@ public class ProductDao {
 				if(rs.next()) {
 					cartDto = new CartDto();
 
-					cartDto.setTotal(rs.getInt("SUM(QTY)"));
+					cartDto.setQty(rs.getInt("qty"));
+					cartDto.setStrTotal(rs.getString("total"));
 				}
 
 			} catch (SQLException e) {
@@ -272,7 +274,7 @@ public class ProductDao {
 				DBConnectionManager.close(rs, psmt, conn);			
 			}
 			
-			return cartDto.getTotal();
+			return cartDto;
 		}
 	
 	
