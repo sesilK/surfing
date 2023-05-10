@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="dao.ProductDao"%>
 <%@ page import="dto.ProductDto"%>
+<%@ page import="dto.CartDto"%>
 <%
 request.setCharacterEncoding("UTF-8");
 %>
@@ -74,12 +75,13 @@ img {
 	
 	<%
 	ProductDao productDao = new ProductDao();
-	int totalQty = productDao.totalQty(id);
+	CartDto cartDto = productDao.sumQtyTotal(id);
+	int sumQty = cartDto.getQty();
 	List<ProductDto> productList = productDao.selectProductList();
 	%>
 		<a href="./cart.jsp?id=<%=id%>" style="text-decoration: none;">
 			<div class="cart_icon">
-				<span id="cart_count"><%=totalQty%></span>
+				<span id="cart_count"><%=sumQty%></span>
 			</div>
 		</a>
 	
