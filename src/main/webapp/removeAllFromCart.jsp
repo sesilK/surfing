@@ -12,17 +12,15 @@
 	request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 	
 	String id = request.getParameter("id");
-	int code = Integer.parseInt(request.getParameter("code"));
 	
 	ProductDao productDao = new ProductDao(); // DB 처리하기위한 자바 DAO 클래스 선언
-	CartDto cartDto = productDao.alreadyInCart(id, code); 	//카트에 이미 들어있는 객체
 	
-	int result = productDao.removeFromCart(cartDto.getId(), cartDto.getCode());
+	int result = productDao.removeAllFromCart(id);
 	
-	if (result == 1) {
-		obj.put("result", "true"); // json 객체의 result 키에 true 넣기
+	if (result == 0) {
+		obj.put("result", "false"); // json 객체의 result 키에 true 넣기
 	} else {
-		obj.put("result", "false"); // json 객체의 result 키에 false 넣기
+		obj.put("result", "true"); // json 객체의 result 키에 false 넣기
 	}
 	response.getWriter().write(obj.toString()); // 최종으로 만들어둔 json 객체를 완성해서 뿌림
 %>
