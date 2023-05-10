@@ -61,7 +61,10 @@
 					<li class="nav-item"><a class="nav-link" href=""><%=id%>님</a></li>
 					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">sign-out</a></li>
 					
-					<% }%>
+					<% 	if(id.equals("admin")){%>
+							<li class="nav-item"><a class="nav-link" href="">관리자모드</a></li>
+					<%	}
+					}%>
 				</ul>
 			</div>
 
