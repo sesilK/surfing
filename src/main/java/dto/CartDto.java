@@ -10,6 +10,15 @@ public class CartDto {
 	String strPrice;
 	String strTotal;
 	
+	public CartDto() {
+
+	}
+	
+	public CartDto(String id, int code) {
+		this.id = id;
+		this.code = code;
+	}
+	
 	public String getStrPrice() {
 		return strPrice;
 	}
