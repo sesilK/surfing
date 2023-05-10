@@ -29,10 +29,14 @@
 		button:hover {
 			background-color: lightgray;
 		}
+		#solid {
+			border-top: 1px solid black;
+		}
 	</style>
 </head>
 <body>
 	<%@ include file="common.jsp"%>
+	<%String idParam = request.getParameter("id"); %>
 	<h1 style="margin-left:100px">장바구니</h1>
 	<table>
 		<thead>
@@ -45,7 +49,7 @@
 				<th>수량</th>
 				<th></th>	<!-- 수량증가 -->
 				<th>주문금액</th>
-				<th></th>	<!-- 삭제버튼 -->
+				<th><button class="removeFromCart">전체삭제</button></th>	<!-- 삭제버튼 -->
 			</tr>
 		</thead>
 		<tbody>
@@ -60,7 +64,7 @@
 					for (CartDto item : cartList) {
 					%>
 					<tr class="" id="<%=item.getCode()%>">
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox" checked></td>
 						<td><img style="width:50px" src="images/product_<%=item.getCode()%>.png"></td>
 						<td><%=item.getPname()%></td>
 						<td><%=item.getStrPrice()%></td>
@@ -85,6 +89,22 @@
 					</tr>
 			<% } %>
 		</tbody>
+		<tfoot>
+			<hr>
+			<tr id="solid">
+				<td colspan="5"></td>
+				<%
+				CartDto cartDto = productDao.sumQtyTotal(id);
+				int sumQty = cartDto.getQty();
+				String sumTotal = cartDto.getStrTotal();
+				%>
+				<td><%=sumQty%></td>
+				<td></td>
+				<td><%=sumTotal%></td>
+				<td></td>
+			</tr>
+		</tfoot>
+
 	</table>
 
 	<script>
@@ -95,35 +115,33 @@
 		}
 		
 		function deleteBtn() {
+			const id = '<%=idParam%>';
 			const code = $(this).parent().parent().attr('id');
+			/* alert(id+" "+code); */
 			
-			alert(' ' + code);
-			
-			/* $.ajax({
+			$.ajax({
 				async : true, // 비동기 true
 				type : 'get', // GET 타입
 				data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
-					"input_id" : input_id,
-					"input_pw" : input_pw,
-					"input_name" : input_name,
-					"input_nickname" : input_nickname
+					"id" : id,
+					"code" : code
 				},
-				url : "./actions/register_action.jsp", // 타겟 url 주소
+				url : "./removeFromCart.jsp", // 타겟 url 주소
 				dataType : "json", // json 형태로 받아오겠다
 				contentType : "application/json; charset=UTF-8",
-				success : function(data) {
-					//console.log(data.result);
-					if (data.result === 'true') { // 회원가입 DB insert 성공
-						alert("가입완료!");
-						location.href = "./login.jsp";
+				success : function(data) {            
+					console.log(data.result);
+					if (data.result === 'true') { //DB delete 성공
+						alert("삭제완료");
+						location.href = "cart.jsp?id="+id;
 					} else {
-						alert("회원가입중 오류가 발생했습니다."); // DB insert중 오류발생함
+						alert("삭제 중 오류가 발생했습니다."); // delete중 오류발생
 					}
 				},
 				error : function() {
 					alert("오류가 발생했습니다. 다시 시도해주세요.");
 				}
-			}) */
+			})
 		}
 
 	</script>
