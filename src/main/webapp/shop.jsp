@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="dao.ProductDao"%>
 <%@ page import="dto.ProductDto"%>
 <%@ page import="dto.CartDto"%>
-<%
-request.setCharacterEncoding("UTF-8");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,6 +65,30 @@ img {
 	left: 14px;
 }
 </style>
+  <script>
+    // 현재 스크롤 위치를 저장하는 함수
+    function saveScrollPosition() {
+      sessionStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+    // 저장한 스크롤 위치로 이동하는 함수
+    function restoreScrollPosition() {
+      var scrollPosition = sessionStorage.getItem('scrollPosition');
+      if (scrollPosition !== null) {
+        window.scrollTo(0, scrollPosition);
+        sessionStorage.removeItem('scrollPosition');
+      }
+    }
+
+    // 페이지가 로드될 때 저장된 위치로 이동
+    window.onload = function() {
+        var scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+          window.scrollTo(0, scrollPosition);
+          sessionStorage.removeItem('scrollPosition');
+        }
+    }
+  </script>
 </head>
 <body>
 	<%@ include file="common.jsp"%>
@@ -97,9 +118,8 @@ img {
 				<div class="price"><%=item.getSprice()%></div>
 			</a>
 			
-			<a href="./addToCart.jsp?id=<%=id%>&code=<%=item.getCode()%>">
-				<button type="button" class="btn cartBtn btn-primary addBtn"
-			 	id="add_<%=item.getCode()%>">카트담기</button></a>
+				<button type="button" class="btn cartBtn btn-primary addBtn">카트담기</button>
+
 			 
 			 <button type="button" class="btn buyBtn btn-warning buyNowBtn"
 			 id="buyNow_<%=item.getCode()%>">바로구매</button>
@@ -109,29 +129,46 @@ img {
 		}
 		%>
 	</div>
-
 	<script>
-
-/* 	window.onload = function () {
-		
-		//카트담기 버튼 기능
+		//카트담기 버튼
 		let addBtnArr = document.querySelectorAll(".addBtn");
-		for(let btn of addBtnArr) {
-			btn.addEventListener("click", function() {
- 				const code = $(this).parent().attr('id');
-				location.href = "./addToCart.jsp?code=" + code;
-			});
+			for (let btn of addBtnArr) {
+		  	btn.addEventListener("click", saveScrollPosition);
+		  	btn.addEventListener("click", addCartBtn);
 		}
-		
-		//바로구매 버튼	기능
-		let buyNowBtnArr = document.querySelectorAll(".buyNowBtn");
-		for(let btn of buyNowBtnArr) {
-			btn.addEventListener("click", function() {
-				
-			});
+		//카트담기버튼 함수
+		function addCartBtn() {
+			const id = '<%=id%>';
+			const code = $(this).parent().attr('id');
+			
+			
+			$.ajax({
+				async : true, // 비동기 true
+				type : 'get', // GET 타입
+				data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
+					"id" : id,
+					"code" : code
+				},
+				url : "./addToCart.jsp", // 타겟 url 주소
+				dataType : "json", // json 형태로 받아오겠다
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					if (data.result === 'true') { //DB insert/update 성공
+						location.href = "./shop.jsp";
+					} else if (data.result === 'idNull') {
+						alert("로그인을 해주세요."); // 로그인 안함
+						location.href = "./member.jsp";
+					} 
+				},
+				error : function() {
+					alert("오류 발생");
+				}
+			})
 		}
-	} */
-	</script>
+	
+/* 		window.onload = function() {
 
+		} */
+	</script>
 </body>
 </html>
