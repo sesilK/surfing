@@ -167,7 +167,7 @@ public class ProductDao {
 	
 	
 	//update	수량감소
-		public int decreaseQty(CartDto cartDto) {
+		public int decreaseQty(String id, int code) {
 			Connection conn = null;
 			PreparedStatement psmt = null;
 			ResultSet rs = null;
@@ -179,12 +179,12 @@ public class ProductDao {
 				String sql= "UPDATE cart "
 						+ " SET qty = qty - 1, "
 						+ " total = (qty-1) * (SELECT price FROM s_product WHERE code = ?) "
-						+ " WHERE id = ? AND code = ? AND qty > 2 ";
+						+ " WHERE id = ? AND code = ? AND qty > 0";
 
 				psmt = conn.prepareStatement(sql);
-				psmt.setInt(1,cartDto.getCode());
-				psmt.setString(2,cartDto.getId());
-				psmt.setInt(3,cartDto.getCode());
+				psmt.setInt(1,code);
+				psmt.setString(2,id);
+				psmt.setInt(3,code);
 				
 				result = psmt.executeUpdate();
 				
@@ -199,7 +199,7 @@ public class ProductDao {
 			return result;
 		}
 	
-	//select	장바구니 검색
+	//select	장바구니 보여주기
 	public CartDto alreadyInCart(String id,int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -278,7 +278,7 @@ public class ProductDao {
 		}
 	
 	
-	//insert		장바구니 추가
+	//insert		장바구니에 추가(처음 1개째)
 	public int addToCart(String id,int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -350,5 +350,35 @@ public class ProductDao {
 
 		return result;
 	}
+	
+	//delete	장바구니 전체삭제
+	public int removeAllFromCart(String id) {
 
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+			String sql = "DELETE FROM cart"
+					+" WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+
+			result = psmt.executeUpdate();
+
+			System.out.println("처리결과:" + result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
 }
