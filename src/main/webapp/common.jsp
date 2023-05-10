@@ -23,13 +23,14 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<% 		String id = null;
+	<% 	
+		String id = null;
+
 		if(session.getAttribute("id") != null) {
-	
+			
 		id = (String)session.getAttribute("id");
 		
-		
-	}
+		}
 	%>
 
 	<nav class="navbar navbar-expand-lg bg-light">
@@ -50,12 +51,16 @@
 
 					<li class="nav-item"><a class="nav-link" href="reserve.jsp">reserve</a></li>
 					<li class="nav-item"><a class="nav-link" href="shop.jsp">shop</a></li>
+					
 					<% if (id == null){ %>
-					<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
+					
+						<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
+					
 					<% } else {%>
-					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">
-					<%=id%>님</a></li>
+					
+					<li class="nav-item"><a class="nav-link" href=""><%=id%>님</a></li>
 					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">sign-out</a></li>
+					
 					<% }%>
 				</ul>
 			</div>
