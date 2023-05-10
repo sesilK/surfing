@@ -12,9 +12,25 @@
 <body>
 	<%@ include file = "common.jsp" %>
 	
+	<% //쿠키세션으로 로그인성공시 아이디 저장되는
+	String checked = "";
+	String inputid = "";
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null && cookies.length > 0){
+		for(int i = 0; i<cookies.length; i++){
+			if(cookies[i].getName().equals("idsave")){
+				checked = "checked";
+				inputid = cookies[i].getValue();
+			}
+		}
+	}
+%>
+	
+	
 	<form name="loginForm" action="member_proc.jsp" method="post">
-	    <input type="text" id="inputID" name="id" placeholder="아이디"><br>
+	    <input type="text" id="inputID" name="id" placeholder="아이디" value="<%= inputid %>"><br>
         <input type="password" id="inputPW" name="pw" placeholder="비밀번호"><br>
+        아이디 저장<input type="checkbox" name="idsave" value="saving" <%= checked %>><br>
       	<button type="button" id="loginBtn">로그인</button>
     	<a href="./signup.jsp"><button type="button">회원가입</button></a>
     </form>
