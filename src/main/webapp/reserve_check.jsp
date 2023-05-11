@@ -13,6 +13,13 @@
 	crossorigin="anonymous"></script>
 
 </head>
+<style>
+.cancel-btn{
+ border: 3px solid #519d9e;
+    color: darkgray;
+}
+</style>
+
 <body>
 	<%@ include file="common.jsp"%>
 	
