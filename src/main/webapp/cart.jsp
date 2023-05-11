@@ -46,7 +46,20 @@
 			if(cartList.size() != 0) {%>
 		<thead>
 			<tr>
-				<th><input class="checkbox" type="checkbox" checked></th>
+				<%
+				CartDto cartDto = productDao.sumQtyTotal(id);
+				int sumQty1 = cartDto.getQty();
+				cartDto = productDao.sumQty(id);
+				int sumQty2 = cartDto.getQty();
+				String sumTotal = cartDto.getStrTotal();
+				%>
+				<th>
+				<% if(sumQty1 == sumQty2) {%> 	<!-- 전체선택 되어있으면 checked 속성 들어감 -->
+					<input id="allCheck" type="checkbox" onclick="toggleAll()" checked>
+				<%} else { %>
+					<input id="allCheck" type="checkbox" onclick="toggleAll()">
+				<%} %>
+				</th>
 				<th></th>	<!-- 이미지 -->
 				<th style="text-align: center;">상품명</th>
 				<th>상품금액</th>
@@ -83,9 +96,9 @@
 								<%=item.getStrPrice()%></a></td>
 						
 						<td><button class="decreaseQtyBtn">-</button></td>
-						<td><%=item.getQty()%></td>
+						<td id="qty_<%=item.getCode()%>"><%=item.getQty()%></td>
 						<td><button class="increaseQtyBtn">+</button></td>
-						<td><%=item.getStrTotal()%></td>
+						<td id="total_<%=item.getCode()%>"><%=item.getStrTotal()%></td>
 						<td><button class="removeFromCart">삭제</button></td>
 					</tr>
 					<%
@@ -115,9 +128,9 @@
 				int sumQty = cartDto.getQty();
 				String sumTotal = cartDto.getStrTotal();
 				%>
-				<td><%=sumQty%></td>
+				<td id="sumQty"><%=sumQty%></td>
 				<td></td>
-				<td><%=sumTotal%></td>
+				<td id="sumTotal"><%=sumTotal%></td>
 				<td><button class="">주문하기</button></td>
 			</tr>
 		</tfoot>
@@ -127,11 +140,11 @@
 
 	<script>
 		//체크박스
-			let checkBoxArr = document.querySelectorAll(".checkbox");
-			for (let box of checkBoxArr) {
-				box.addEventListener("click", CheckBoxClick);
-			}
-		//체크박스 함수
+		let checkBoxArr = document.querySelectorAll(".checkbox");
+		for (let box of checkBoxArr) {
+			box.addEventListener("click", CheckBoxClick);
+		}
+		//체크박스 함수 (결제금액에 포함하기/안하기)
 			function CheckBoxClick() {
 			const id = '<%=idParam%>';
 			const code = $(this).parent().parent().attr('id');
@@ -148,9 +161,13 @@
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {            
 					if (data.result === 'unchecked') { //DB update 성공
-						location.href = "cart.jsp?id="+id;
+						//location.href = "cart.jsp?id="+id;
+						$('#sumQty').text(data.sumQty);
+						$('#sumTotal').text(data.sumTotal);
 					} else if (data.result === 'checked') {
-						location.href = "cart.jsp?id="+id;
+						//location.href = "cart.jsp?id="+id;
+						$('#sumQty').text(data.sumQty);
+						$('#sumTotal').text(data.sumTotal);
 					} else if (data.result === 'false') {
 						alert("실패");
 					}
@@ -160,8 +177,13 @@
 				}
 			})
 		}
-			
 
+		//전체체크 버튼 함수
+		function toggleAll() {
+
+			
+		}
+		
 		//수량감소버튼
 		let decreaseBtnArr = document.querySelectorAll(".decreaseQtyBtn");
 			for (let btn of decreaseBtnArr) {
@@ -261,29 +283,30 @@
 			const id = '<%=idParam%>';
 			const code = $(this).parent().parent().attr('id');
 			/* alert(id+" "+code); */
-			
-			$.ajax({
-				async : true, // 비동기 true
-				type : 'get', // GET 타입
-				data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
-					"id" : id,
-					"code" : code
-				},
-				url : "./removeFromCart.jsp", // 타겟 url 주소
-				dataType : "json", // json 형태로 받아오겠다
-				contentType : "application/json; charset=UTF-8",
-				success : function(data) {            
-					console.log(data.result);
-					if (data.result === 'true') { //DB delete 성공
-						location.href = "cart.jsp?id="+id;
-					} else {
-						alert("삭제 중 오류가 발생했습니다."); // delete중 오류발생
+			if(confirm("카트에서 삭제하시겠습니까?")){
+				$.ajax({
+					async : true, // 비동기 true
+					type : 'get', // GET 타입
+					data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
+						"id" : id,
+						"code" : code
+					},
+					url : "./removeFromCart.jsp", // 타겟 url 주소
+					dataType : "json", // json 형태로 받아오겠다
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {            
+						console.log(data.result);
+						if (data.result === 'true') { //DB delete 성공
+							location.href = "cart.jsp?id="+id;
+						} else {
+							alert("삭제 중 오류가 발생했습니다."); // delete중 오류발생
+						}
+					},
+					error : function() {
+						alert("오류가 발생했습니다. 다시 시도해주세요.");
 					}
-				},
-				error : function() {
-					alert("오류가 발생했습니다. 다시 시도해주세요.");
-				}
-			})
+				})
+			}
 		}
 		
 

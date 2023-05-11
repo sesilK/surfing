@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,7 +16,8 @@
 	int code = Integer.parseInt(request.getParameter("code"));
 	
 	ProductDao productDao = new ProductDao(); // DB 처리하기위한 자바 DAO 클래스 선언
-	CartDto cartDto = productDao.alreadyInCart(id, code); 	//카트에 이미 들어있는 객체
+	CartDto cartDto = productDao.alreadyInCart(id, code); 	//카트에 이미 들어있는 객체	
+	
 	int result = 0;
 	
 	if (cartDto != null) {
@@ -23,10 +25,15 @@
 	} else if (cartDto == null){
 		result = productDao.addToCart(id, code);	//성공하면 1, 아니면 0
 	}
-	
-		
+
 	if (result == 1) {
+		
+		cartDto = productDao.sumQty(id);
+		int sumQty = cartDto.getQty();
+		List<ProductDto> productList = productDao.selectProductList();
+		
 		obj.put("result", "true"); // json 객체의 result 키에 true 넣기
+		obj.put("sumQty", sumQty); // json 객체의 sumQty 키에 sumQty 넣기
 	} else {
 		obj.put("result", "idNull"); // json 객체의 result 키에 false 넣기
 	} 

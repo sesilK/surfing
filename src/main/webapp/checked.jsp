@@ -25,12 +25,21 @@
 	} else if (ischecked == 1) {	//체크 되어있으면
 		result = productDao.unchecked(id, code)+20; //체크상태 0으로 만드는 메서드 (성공하면 21)
 	}
-	
-		
+
 	if (result == 11) {	//체크 했음
+		cartDto = productDao.sumQtyTotal(id);
+		int sumQty = cartDto.getQty();
+		String sumTotal = cartDto.getStrTotal();
 		obj.put("result", "checked"); // json 객체의 result 키에 true 넣기
+		obj.put("sumQty", sumQty);
+		obj.put("sumTotal", sumTotal);		
 	} else if (result == 21) { //체크 풀었음
+		cartDto = productDao.sumQtyTotal(id);
+		int sumQty = cartDto.getQty();
+		String sumTotal = cartDto.getStrTotal();
 		obj.put("result", "unchecked"); // json 객체의 result 키에 false 넣기
+		obj.put("sumQty", sumQty);
+		obj.put("sumTotal", sumTotal);
 	} else { //실행 실패
 		obj.put("result", "false"); // json 객체의 result 키에 false 넣기
 	} 

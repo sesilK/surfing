@@ -114,7 +114,7 @@
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
 					if (data.result === 'true') { //DB insert/update 성공
-						location.href = "./productDetail.jsp?code=<%=code%>"
+						$('#cart_count').text(data.sumQty);
 					} else if (data.result === 'idNull') {
 						alert("로그인을 해주세요."); // 로그인 안함
 						location.href = "./member.jsp";

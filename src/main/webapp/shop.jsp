@@ -64,39 +64,26 @@ img {
 	bottom: 15px;
 	left: 14px;
 }
+#addProductBtn {
+	width: 60px;
+	height: 30px;
+	font-size: small;
+	margin-left: 50px;
+}
 </style>
-  <script>
-    // 현재 스크롤 위치를 저장하는 함수
-    function saveScrollPosition() {
-      sessionStorage.setItem('scrollPosition', window.scrollY);
-    }
 
-    // 저장한 스크롤 위치로 이동하는 함수
-    function restoreScrollPosition() {
-      var scrollPosition = sessionStorage.getItem('scrollPosition');
-      if (scrollPosition !== null) {
-        window.scrollTo(0, scrollPosition);
-        sessionStorage.removeItem('scrollPosition');
-      }
-    }
-
-    // 페이지가 로드될 때 저장된 위치로 이동
-    window.onload = function() {
-        var scrollPosition = sessionStorage.getItem('scrollPosition');
-        if (scrollPosition !== null) {
-          window.scrollTo(0, scrollPosition);
-          sessionStorage.removeItem('scrollPosition');
-        }
-    }
-  </script>
 </head>
 <body>
 	<%@ include file="common.jsp"%>
-	<h1>서핑 용품</h1>
+	<h1>서핑 용품
+	<% if(id != null && id.equals("admin")){ %>
+	<a href="./addProduct.jsp"><button id="addProductBtn">상품추가</button></a>
+	<%} %>
+	</h1>
 	
 	<%
 	ProductDao productDao = new ProductDao();
-	CartDto cartDto = productDao.sumQtyTotal(id);
+	CartDto cartDto = productDao.sumQty(id);
 	int sumQty = cartDto.getQty();
 	List<ProductDto> productList = productDao.selectProductList();
 	%>
@@ -133,14 +120,12 @@ img {
 		//카트담기 버튼
 		let addBtnArr = document.querySelectorAll(".addBtn");
 			for (let btn of addBtnArr) {
-		  	btn.addEventListener("click", saveScrollPosition);
 		  	btn.addEventListener("click", addCartBtn);
 		}
 		//카트담기버튼 함수
 		function addCartBtn() {
 			const id = '<%=id%>';
 			const code = $(this).parent().attr('id');
-			
 			
 			$.ajax({
 				async : true, // 비동기 true
@@ -154,7 +139,7 @@ img {
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
 					if (data.result === 'true') { //DB insert/update 성공
-						location.href = "./shop.jsp";
+						$('#cart_count').text(data.sumQty);
 					} else if (data.result === 'idNull') {
 						alert("로그인을 해주세요."); // 로그인 안함
 						location.href = "./member.jsp";
@@ -165,10 +150,6 @@ img {
 				}
 			})
 		}
-	
-/* 		window.onload = function() {
-
-		} */
 	</script>
 </body>
 </html>
