@@ -27,6 +27,7 @@
 	%>
 		<script>
 			alert('가입되었습니다');
+			alert('이메일 인증해주세요');
 			location.href = './member.jsp';
 		</script>
 	<%

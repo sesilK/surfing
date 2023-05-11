@@ -47,7 +47,7 @@
 					<% if (id == null){ %>
 					<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
 					<% } else {%>
-					<li class="nav-item"><a class="nav-link" href="">
+					<li class="nav-item"><a class="nav-link" href="infoupdate.jsp">
 					<%=id%>님</a></li>
 					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">sign-out</a></li>
 					<% }%>

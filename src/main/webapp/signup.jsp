@@ -18,6 +18,7 @@
     input {
         display: inline-block;
     }
+    
 </style>
 </head>	
 <body>
@@ -27,15 +28,14 @@
 			<Fieldset>
 	        <input type="text" id="id" name="id" placeholder="아이디 입력">
 	        <input type="button" name="checkid" value="중복확인" onclick="checkDuplicateId()">
-	        <input type="hidden" name="hiddencheckid" value="0">
 	        <input type="password" name="pw" placeholder="비밀번호 입력">
 	        <input type="password" name="pw2" placeholder="비밀번호 확인">
+	        <div id="pw2-error" style="color: red"></div>
 	        <input type="text" name="name" placeholder="이름">
 	        <input type="text" name="jumin" placeholder="주민번호">
 	        <input type="text" name="address" placeholder="주소">
 	        <input type="email" name="email" placeholder="이메일">
-	        <span id="idResult"></span>
-	    	<input type="submit" value="가입">
+	    	<input type="button" id="result" value="가입">
 	    	</Fieldset>
 		</form>
 
@@ -46,26 +46,48 @@
 		    var id = document.getElementById("id").value;
 		    location.href = "./signup_idCheck.jsp?id=" + id;
 		}
+		function isValidEmail(email) {
+	        // 이메일 형식 검사
+	        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	        return emailRegex.test(email);
+	    }
 
-
-		/*document.getElementById('insertBtn').addEventListener('click', ()=>{
-			
-			let form = document.signupForm;
-			if(confirm('가입하시겠습니까?')){
-				form.submit();
-			}
-		})			
-			/* let inputName = document.getElementById('inputName');
-			if(inputName.value == ""){
-				alert('이름은 필수입니다');
-				inputName.focus();
-			} else {
-				if(confirm('추가하시겠습니까?')){
-					form.submit();
-				}				
-			} 
-		})*/
-		
+		document.getElementById('result').addEventListener('click', ()=>{
+		    let form = document.signupForm;
+		    let requiredFields = ['id', 'pw', 'pw2', 'name', 'jumin', 'address', 'email'];
+		    let isComplete = true;
+		    for (let field of requiredFields) {
+		        let value = form[field].value.trim();
+		        if (value === '') { // 필드값이 빈 문자열인지 확인
+		            alert('빈칸이 있습니다.');
+		            form[field].focus();
+		            isComplete = false;
+		            break;
+		        } else if (field === 'jumin' && isNaN(value)) { // 주민번호 필드이며, 입력값이 숫자가 아닐 경우
+		            alert('주민번호는 숫자만 입력해주세요.');
+		            form[field].focus();
+		            isComplete = false;
+		            break;
+		        }else if (field === 'email' && !isValidEmail(value)) { // 이메일 필드이며, 입력값이 이메일 형식이 아닐 경우
+	                alert('이메일 형식이 올바르지 않습니다.');
+	                form[field].focus();
+	                isComplete = false;
+	                break;
+	            }
+		    }
+		    if (isComplete) {
+		        if (form.pw.value !== form.pw2.value) {
+		            document.getElementById('pw2-error').textContent = "비밀번호가 일치하지 않습니다.";
+		            form.pw2.focus();
+		            isComplete = false;
+		        } else {
+		            document.getElementById('pw2-error').textContent = "";
+		        }
+		        if (isComplete && confirm('가입하시겠습니까?')) {
+		            form.submit();
+		        }
+		    }
+		});
 	</script>
 
 
