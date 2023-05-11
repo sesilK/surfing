@@ -33,33 +33,32 @@ li {
 	display: inline-block;
 }
 
-.formbox>button {
-	margin: 100px;
+#insertBtn{
+	margin-left:0px;
 }
+
+
 </style>
 
 </head>
 <body>
 	<%@ include file="common.jsp"%>
 	
-	<% id = null;
-	if(session.getAttribute("id") != null) {
-		
-	id = (String)session.getAttribute("id"); }%>
-
 	<div class="container">
 		<div class="formbox">
 			<form name='reserveForm' action="reserve_proc.jsp" method="post">
 				<fieldset>
 
-					<label for="date">날짜🗓</label> <input type="date" id="date"
-						class="date" name="date" required>
+					<label for="date">날짜🗓</label>
+					 <input type="date" id="date" class="date" name="date" required>
 
-					<!-- <label for="time">시간:</label>
-		        	<input type="time" id="time" name="time" required><br> -->
+					<label for="time">시간⌚</label>
+		        	 10시<input type="radio" name="time" value="10시" checked>
+		        	 1시<input type="radio" name="time" value="1시">
+                     3시<input type="radio" name="time" value="3시">
 
-					<label for="stage">강습선택🏄🏾‍♂️</label> <select id="stage"
-						name="stage" required>
+					<label for="stage">강습선택🏄🏾‍♂️</label> 
+					<select id="stage" name="stage" required>
 						<option value="1">BEGINNER</option>
 						<option value="2">LEARNNE</option>
 						<option value="3">APPRENTIC</option>
@@ -82,7 +81,6 @@ li {
 					<button id="insertBtn" type="button" class="btn btn-success">예약하기</button>
 					<button id="insertck_Btn" type="button" class="btn btn-success">예약확인</button>
 					
-					<!-- <a href="./reserve_check.jsp"></a> -->
 				</fieldset>
 			</form>
 		</div>
@@ -121,19 +119,20 @@ li {
 
 		});	
 			
-			//예약확인 버튼
+			// 예약확인 버튼
 
-			document.getElementById('insertck_Btn').addEventListener('click', ()=>{
-			
-			 if(id = ""){
-				 alert('로그인해야 예약확인 가능합니다');
-				location.href = './member.jsp';
-			} else if (id != "") {
-				location.href = './reserve_check.jsp';
-			} 
+			document.getElementById('insertck_Btn').addEventListener('click', () => {
+			  
+			<%-- alert('<%=id%>'); --%>
+ 			if ('<%=id%>' == 'null') {
+				    alert('로그인을 해야 예약확인 가능합니다');
+				    location.href = './member.jsp';
+			  } else {
+			    	location.href = './reserve_check.jsp';
+			  }
+				
+			});
 
-		});
-			
 			
 			
 			// 현재 날짜를 구합니다.
