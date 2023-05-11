@@ -52,6 +52,7 @@
 					<li class="nav-item"><a class="nav-link" href="reserve.jsp">reserve</a></li>
 					<li class="nav-item"><a class="nav-link" href="shop.jsp">shop</a></li>
 					
+					<li class="nav-item"><a class="nav-link" href="bbs.jsp">community</a></li>
 					<% if (id == null){ %>
 					
 						<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
