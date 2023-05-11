@@ -6,24 +6,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+<!-- bootstrap -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
 	crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.4.js"
+	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+	crossorigin="anonymous"></script>
 </head>
 <body>
-<% 		String id = null;
+	<% 	
+		String id = null;
+
 		if(session.getAttribute("id") != null) {
-	
+			
 		id = (String)session.getAttribute("id");
 		
-		
-	}
+		}
 	%>
 
 	<nav class="navbar navbar-expand-lg bg-light">
@@ -44,21 +51,24 @@
 
 					<li class="nav-item"><a class="nav-link" href="reserve.jsp">reserve</a></li>
 					<li class="nav-item"><a class="nav-link" href="shop.jsp">shop</a></li>
+					
 					<% if (id == null){ %>
-					<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
+					
+						<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
+					
 					<% } else {%>
-					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">
-					<%=id%>님</a></li>
+					
+					<li class="nav-item"><a class="nav-link" href=""><%=id%>님</a></li>
 					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp">sign-out</a></li>
-					<% }%>
+					
+					<% 	if(id.equals("admin")){%>
+							<li class="nav-item"><a class="nav-link" href="">관리자모드</a></li>
+					<%	}
+					}%>
 				</ul>
 			</div>
 
 		</div>
 	</nav>
-		<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
 </body>
 </html>
