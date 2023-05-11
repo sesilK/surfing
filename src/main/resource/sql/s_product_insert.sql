@@ -1,11 +1,7 @@
 -- 상품코드 시퀀스 생성
 CREATE SEQUENCE s_product_seq
 INCREMENT BY 1  -- 1씩 증가
-START WITH 100  -- 100부터 시작
-;
-
--- 상품명 컬럼 데이터타입 변경
-ALTER TABLE s_product MODIFY PNAME VARCHAR(200);
+START WITH 101; -- 101부터 시작
 
 -- 상품 데이터 추가
 INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'파이어와이어 더 잼 서프보드',1590000,10);
@@ -23,9 +19,15 @@ INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 40L 라커 백팩',119000,
 SELECT * FROM s_product;
 
 
--- 관리자 데이터 추가
-INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
-values ('admin', 'admin0', '0', '관리자', '1234561234567', '충남 천안시 동남구 대흥로 215 7층, 8층', 'admin@admin.com');
 
--- person_info 테이블 조회
-SELECT * FROM person_info;
+
+
+-- 현재 시퀀스 값 확인 (불러도 증가하지 않음)
+SELECT s_product_seq.CURRVAL FROM dual;
+
+-- 한 번 불릴 때마다 1씩 증가
+SELECT s_product_seq.NEXTVAL FROM dual;
+
+-- SEQUENCE 초기화하기  ...시퀀스를 1부터 다시 시작하기
+ALTER SEQUENCE s_product_seq INCREMENT BY -10;  --얼만큼 되돌릴지 마이너스로 지정해주고 NEXTVAL 실행하기
+ALTER SEQUENCE s_product_seq INCREMENT BY 1;    --증가값을 다시 1로 해놓기

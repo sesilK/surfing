@@ -1,4 +1,4 @@
--- È¸¿øÁ¤º¸ Å×ÀÌºí
+-- È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE person_info(
 id VARCHAR(21) PRIMARY KEY,
 pw VARCHAR(21) NOT NULL,
@@ -8,14 +8,14 @@ jumin NUMBER(13) NOT NULL,
 Address VARCHAR(200) NOT NULL,
 email VARCHAR(100) NOT NULL);
 
--- »óÇ° Å×ÀÌºí
+-- ï¿½ï¿½Ç° ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE s_product(
 code NUMBER(3) PRIMARY KEY,
 pname VARCHAR2(30) NOT NULL,
 price NUMBER(7) NOT NULL,
 stock NUMBER(4) NOT NULL);
 
--- Àå¹Ù±¸´Ï Å×ÀÌºí
+-- ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE cart(
 id VARCHAR(21),
 code NUMBER(3),
@@ -27,7 +27,7 @@ PRIMARY KEY (id, code),
 FOREIGN KEY (id) REFERENCES person_info(id),
 FOREIGN KEY (code) REFERENCES s_product(code));
 
--- °áÁ¦Á¤º¸ Å×ÀÌºí
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE payment(
 order_no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
@@ -38,39 +38,39 @@ price NUMBER(7) NOT NULL,
 total NUMBER(8) NOT NULL,
 FOREIGN KEY (id,code) REFERENCES cart(id,code));
 
--- ÁÖ¹® Å×ÀÌºí
+-- ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE s_order(
 order_no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
 total NUMBER(8) NOT NULL,
 order_date DATE DEFAULT SYSDATE,
-order_state VARCHAR2(12) DEFAULT 'ÁÖ¹®¿Ï·á',
+order_state VARCHAR2(12) DEFAULT 'ï¿½Ö¹ï¿½ï¿½Ï·ï¿½',
 FOREIGN KEY (order_no) REFERENCES payment(order_no));
 
--- °­ÁÂ Å×ÀÌºí
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE lesson(
 stage NUMBER(1) PRIMARY KEY,
 lname VARCHAR2(30) NOT NULL,
 tuition NUMBER(6) NOT NULL,
 teacher VARCHAR2(30) NOT NULL);
 
--- ¿¹¾à Å×ÀÌºí
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE reserve(
 no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
 reserve_date DATE NOT NULL,
 persons NUMBER(2) NOT NULL,
-stage NUMBER(1) NOT NULL, --·¹º§
-state VARCHAR2(12) DEFAULT '¿¹¾à¿Ï·á',
+stage NUMBER(1) NOT NULL, --ï¿½ï¿½ï¿½ï¿½
+state VARCHAR2(12) DEFAULT 'ï¿½ï¿½ï¿½ï¿½Ï·ï¿½',
 FOREIGN KEY (id) REFERENCES person_info(id),
 FOREIGN KEY (stage) REFERENCES lesson(stage));
 
--- °Ô½ÃÆÇ no ÄÃ·³ ½ÃÄö½º »ý¼º
+-- ï¿½Ô½ï¿½ï¿½ï¿½ no ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 CREATE SEQUENCE bbs_seq
 INCREMENT BY 1
 START WITH 1;
 
--- °Ô½ÃÆÇ Å×ÀÌºí
+-- ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE BBS
 (
     no NUMBER(3) PRIMARY KEY,
@@ -78,7 +78,7 @@ CREATE TABLE BBS
     title VARCHAR2(50),
     bbs_date VARCHAR2(30), -- 
     bbs_content  VARCHAR2(2048),
-    FOREIGN KEY (id) REFERENCES person_info(id) --¿Ü·¡Å°
+    FOREIGN KEY (id) REFERENCES person_info(id) --ï¿½Ü·ï¿½Å°
 );
 
 DROP TABLE BBS;
@@ -89,16 +89,34 @@ select * from reserve WHERE id = 'admin' order by reserve_date ,stage;
 select * from lesson;
 
 INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
-                    values ('admin', 'admin0', '0','°ü¸®ÀÚ', '1234561234567', 'Ãæ³² Ãµ¾È½Ã µ¿³²±¸ ´ëÈï·Î 215 7Ãþ, 8Ãþ', 'admin@admin.com');
+                    values ('admin', 'admin0', '0','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '1234561234567', 'ï¿½æ³² Ãµï¿½È½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 215 7ï¿½ï¿½, 8ï¿½ï¿½', 'admin@admin.com');
 
 INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
-                    values ('1111', '1111', '1','¤¡¤¡¤¡', '1234561234567', 'Ãæ³² Ãµ¾È½Ã µ¿³²±¸ ´ëÈï·Î 215 7Ãþ, 8Ãþ', 'admin@admin.com');
+                    values ('1111', '1111', '1','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '1234561234567', 'ï¿½æ³² Ãµï¿½È½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 215 7ï¿½ï¿½, 8ï¿½ï¿½', 'admin@admin.com');
 
 
 ALTER TABLE reserve MODIFY RESERVE_DATE varchar2(30);
 
-insert into reserve
-values( (select NVL(MAX(no),0)+1 FROM reserve), 'admin', '2023', 5, 1, '¿¹¾à¿Ï·á');
+-- ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ALTER TABLE s_product MODIFY PNAME VARCHAR(200);
+ALTER TABLE cart MODIFY pname varchar2(200);
 
+-- ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ã·ï¿½ ï¿½ß°ï¿½
+ALTER TABLE cart ADD checked NUMBER(1) DEFAULT 1;
 
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
+values ('admin', 'admin0', '0', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '1234561234567', 'ï¿½æ³² Ãµï¿½È½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 215 7ï¿½ï¿½, 8ï¿½ï¿½', 'admin@admin.com');
 
+-- ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½È¸
+SELECT * FROM person_info;  -- È¸ï¿½ï¿½
+SELECT * FROM s_product;    -- ï¿½ï¿½Ç°
+SELECT * FROM cart;         -- Ä«Æ®
+SELECT * FROM payment;      -- ï¿½ï¿½ï¿½ï¿½
+SELECT * FROM s_order;      -- ï¿½Ö¹ï¿½
+SELECT * FROM lesson;       -- ï¿½ï¿½ï¿½ï¿½
+SELECT * FROM reserve;      -- ï¿½ï¿½ï¿½ï¿½
+
+UPDATE cart
+SET checked = 0
+WHERE id = 'asdf' AND code = 106;
