@@ -66,7 +66,7 @@
 		int code = Integer.parseInt(request.getParameter("code"));
 		ProductDao productDao = new ProductDao();
 		ProductDto productDto = productDao.selectProductByCode(code);
-		CartDto cartDto = productDao.sumQtyTotal(id);
+		CartDto cartDto = productDao.sumQty(id);
 		int sumQty = cartDto.getQty();
 	%>
 		<h1>상품 상세정보</h1>

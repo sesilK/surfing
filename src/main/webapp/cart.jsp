@@ -46,7 +46,7 @@
 			if(cartList.size() != 0) {%>
 		<thead>
 			<tr>
-				<th>선택</th>
+				<th><input class="checkbox" type="checkbox" checked></th>
 				<th></th>	<!-- 이미지 -->
 				<th style="text-align: center;">상품명</th>
 				<th>상품금액</th>
@@ -67,7 +67,13 @@
 					for (CartDto item : cartList) {
 					%>
 					<tr class="" id="<%=item.getCode()%>">
-						<td><input class="checkbox" type="checkbox"></td>
+						<td>
+						<%if(item.getChecked()==1){ %>
+						<input class="checkbox" type="checkbox" checked>
+						<%} else { %>
+						<input class="checkbox" type="checkbox">
+						<%}%>
+						</td>
 						
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
 								<img style="width:50px" src="images/product_<%=item.getCode()%>.png"></a></td>
@@ -121,19 +127,8 @@
 
 	<script>
 		//체크박스
-		let checkBoxArr = document.querySelectorAll(".checkbox");
+			let checkBoxArr = document.querySelectorAll(".checkbox");
 			for (let box of checkBoxArr) {
-				const code = parseInt($(this).parent().parent().attr('id'));
-				
-				<% CartDto cartDto = productDao.alreadyInCart(idParam,%>code<%); %>
-				
-				if (<%=cartDto.getChecked()%> == 1) {
-				  checkbox.checked = true;
-				} else (<%=cartDto.getChecked()%> == 0) {
-				  checkbox.checked = false;
-				}
-				
-				
 				box.addEventListener("click", CheckBoxClick);
 			}
 		//체크박스 함수
@@ -152,12 +147,10 @@
 				dataType : "json", // json 형태로 받아오겠다
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {            
-					console.log(data.result);
-					if (data.result === 'unChecked') { //DB update 성공
-						alert("체크풀기 성공");
+					if (data.result === 'unchecked') { //DB update 성공
 						location.href = "cart.jsp?id="+id;
 					} else if (data.result === 'checked') {
-						alert("체크하기 성공");
+						location.href = "cart.jsp?id="+id;
 					} else if (data.result === 'false') {
 						alert("실패");
 					}

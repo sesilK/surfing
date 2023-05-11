@@ -201,7 +201,7 @@ public class ProductDao {
 		}
 	
 	//update	체크 풀기
-		public int unChecked(String id, int code) {
+		public int unchecked(String id, int code) {
 			Connection conn = null;
 			PreparedStatement psmt = null;
 			ResultSet rs = null;
@@ -292,7 +292,42 @@ public class ProductDao {
 				cartDto.setPrice(rs.getInt("price"));
 				cartDto.setQty(rs.getInt("qty"));
 				cartDto.setTotal(rs.getInt("total"));
+				cartDto.setChecked(rs.getInt("checked"));
 				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);			
+		}
+		
+		return cartDto;
+	}
+	
+	//select	장바구니 아이콘 수량
+	public CartDto sumQty(String id) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		CartDto cartDto = null;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql= "SELECT SUM(QTY) qty "
+					  + " FROM cart"
+					  + " WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+
+			rs = psmt.executeQuery();
+
+			if(rs.next()) {
+				cartDto = new CartDto();
+
+				cartDto.setQty(rs.getInt("qty"));
 			}
 
 		} catch (SQLException e) {
@@ -316,7 +351,7 @@ public class ProductDao {
 				conn = DBConnectionManager.getConnection();
 
 				String sql= "SELECT SUM(QTY) qty, "
-						  + " TO_CHAR(SUM(TOTAL), '999,999,999') total"
+						  + " NVL(TO_CHAR(SUM(TOTAL), '999,999,999'),0) total"
 						  + " FROM cart"
 						  + " WHERE id = ? AND checked = 1";
 
@@ -357,7 +392,7 @@ public class ProductDao {
 			           + "  NVL((SELECT qty FROM cart WHERE id = ? AND code = ?), 1), "
 			           + "  (SELECT price FROM s_product WHERE code = ?), "
 			           + "  NVL((SELECT qty FROM cart WHERE id = ? AND code = ?), 1) * "
-			           + "  (SELECT price FROM s_product WHERE code = ?))";
+			           + "  (SELECT price FROM s_product WHERE code = ?), 1)";
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1,id);
