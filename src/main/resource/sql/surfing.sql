@@ -65,8 +65,26 @@ state VARCHAR2(12) DEFAULT '예약완료',
 FOREIGN KEY (id) REFERENCES person_info(id),
 FOREIGN KEY (stage) REFERENCES lesson(stage));
 
+-- 게시판 no 컬럼 시퀀스 생성
+CREATE SEQUENCE bbs_seq
+INCREMENT BY 1
+START WITH 1;
+
+-- 게시판 테이블
+CREATE TABLE BBS
+(
+    no NUMBER(3) PRIMARY KEY,
+    id VARCHAR2(21) , 
+    title VARCHAR2(50),
+    bbs_date VARCHAR2(30), -- 
+    bbs_content  VARCHAR2(2048),
+    FOREIGN KEY (id) REFERENCES person_info(id) --외래키
+);
+
+DROP TABLE BBS;
+
 select * from person_info;
-select * from reserve;
+select * from bbs;
 select * from reserve WHERE id = 'admin' order by reserve_date ,stage;
 select * from lesson;
 
