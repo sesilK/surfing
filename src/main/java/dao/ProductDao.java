@@ -273,7 +273,8 @@ public class ProductDao {
 		try {
 			conn = DBConnectionManager.getConnection();
 
-			String sql= "SELECT * "
+			String sql= "SELECT id,code,pname,price,qty,total,checked,"
+					  + "  TO_CHAR(total, '999,999,999') strtotal "
 					  + " FROM cart"
 					  + " WHERE id = ? AND code = ?";
 
@@ -293,6 +294,7 @@ public class ProductDao {
 				cartDto.setQty(rs.getInt("qty"));
 				cartDto.setTotal(rs.getInt("total"));
 				cartDto.setChecked(rs.getInt("checked"));
+				cartDto.setStrTotal(rs.getString("strtotal"));
 				
 			}
 
