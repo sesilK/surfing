@@ -17,18 +17,36 @@
 </head>
 <body>
 <%
+
+	String id = request.getParameter("id");
+	String pw = request.getParameter("pw");
+	String idsave = request.getParameter("idsave");
+
+
     PersonDao personDao = new PersonDao();
     int result = personDao.login(personDto.getId(), personDto.getPw());
     if (result == 1){
+    		if(idsave != null){
+    			Cookie idsavecookie = new Cookie("idsave", id);
+    			idsavecookie.setMaxAge(60*60*24);
+    			response.addCookie(idsavecookie);
+    		}else{
+    			Cookie idsavecookie = new Cookie("idsave", id);
+    			idsavecookie.setMaxAge(0);
+    			response.addCookie(idsavecookie);
+    		}
     	session.setAttribute("id", personDto.getId());	//세션
 		response.sendRedirect("./home.jsp");
+
     } else if (result == 0){
         PrintWriter script = response.getWriter();
         out.println("<script>");
         out.println("alert('비밀번호가 틀립니다.')");
         out.println("history.back()");
         out.println("</script>");
+        
     } else if (result == -1){
+
         PrintWriter script = response.getWriter();
         out.println("<script>");
         out.println("alert('존재하지 않는 아이디입니다.')");

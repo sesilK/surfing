@@ -5,8 +5,7 @@ public class PersonDto {
 	String pw;
 	int rating;
 	String name;
-	int jumin;
-	String address;
+	String Address;
 	String email;
 	
 	public String getId() {
@@ -33,17 +32,11 @@ public class PersonDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getJumin() {
-		return jumin;
-	}
-	public void setJumin(int jumin) {
-		this.jumin = jumin;
-	}
 	public String getAddress() {
-		return address;
+		return Address;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddress(String Address) {
+		this.Address = Address;
 	}
 	public String getEmail() {
 		return email;
@@ -54,8 +47,8 @@ public class PersonDto {
 	
 	@Override
 	public String toString() {
-		return "PersonDto [id=" + id + ", pw=" + pw + ", rating=" + rating + ", name=" + name + ", jumin=" + jumin
-				+ ", address=" + address + ", email=" + email + "]";
+		return "PersonDto [id=" + id + ", pw=" + pw + ", rating=" + rating + ", name=" + name
+				+ ", address=" + Address + ", email=" + email + "]";
 	}	
 	
 }

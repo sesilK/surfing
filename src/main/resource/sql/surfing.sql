@@ -107,6 +107,9 @@ ALTER TABLE cart ADD checked NUMBER(1) DEFAULT 1;
 -- ������ ������ �߰�
 INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
 values ('admin', 'admin0', '0', '������', '1234561234567', '�泲 õ�Ƚ� ������ ����� 215 7��, 8��', 'admin@admin.com');
+ALTER TABLE person_info DROP COLUMN jumin;
+
+DELETE from person_info;
 
 -- ���̺� ��ȸ
 SELECT * FROM person_info;  -- ȸ��
