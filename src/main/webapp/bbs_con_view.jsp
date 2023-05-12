@@ -33,6 +33,7 @@
 		int no =Integer.parseInt(request.getParameter("no"));
 		BbsDao dao = new BbsDao();
 		BbsDto bbsDto = dao.selectBbsByNo(no);
+		//String id = (String) session.getAttribute("id");
 	
 	%>
 	<div class ="container">
