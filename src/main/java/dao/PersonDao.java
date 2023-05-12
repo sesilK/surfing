@@ -127,8 +127,7 @@ public class PersonDao {
 	}
 	
 	//insert
-	public int insertPerson(String id, String pw, int rating, String name, int jumin, 
-								String address, String email) {
+	public int insertPerson(PersonDto persondto) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -138,16 +137,16 @@ public class PersonDao {
 			conn = DBConnectionManager.getConnection();
 		
 			String sql= "INSERT INTO person_info"
-					+ " VALUES(?,?,?,?,?,?,?)";
+					+ " VALUES(?,?,?,?,?,?,?,false )";
 
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1,id);
-			psmt.setString(2,pw);
-			psmt.setInt(3,rating);
-			psmt.setString(4,name);
-			psmt.setInt(5,jumin);
-			psmt.setString(6,address);
-			psmt.setString(7,email);
+			psmt.setString(1,persondto.id);
+			psmt.setString(2,persondto.pw);
+			psmt.setInt(3,persondto.rating);
+			psmt.setString(4,persondto.name);
+			psmt.setString(5,persondto.Address);
+			psmt.setString(6,persondto.email);
+			psmt.setString(7,persondto.emailHash);
 
 			result = psmt.executeUpdate();
 			
@@ -234,7 +233,100 @@ public class PersonDao {
 		return personDto;
 	}
 
+	// 이메일인증확인
+	public boolean getUserEmailChecked(String id) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+		
+			String sql= "SELECT emailChecked FROM person_info"
+					+ " WHERE id = ?";
 
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,id);
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getBoolean(1);				
+			}
+			
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
+
+	// 이메일인증저장
+	public boolean setUserEmailChecked(String id) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+		
+			String sql= "UPDATE person_info "
+					+	"SET emailChecked = true "
+					+	"WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,id);
+			psmt.executeUpdate();
+			result = true;
+					
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
+
+	// 이메일인증...누구니?
+	public String getUserEmail(String id) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		PersonDto personDto = null;
+		
+		//select 한개 단일
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql = "select email from person_info"
+						+" WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			
+			rs = psmt.executeQuery();
+
+
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);			
+		}
+		
+		return null;
+	}
 
 
 }

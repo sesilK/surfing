@@ -1,12 +1,13 @@
 package dto;
 
 public class PersonDto {
-	String id;
-	String pw;
-	int rating;
-	String name;
-	String Address;
-	String email;
+	public String id;
+	public String pw;
+	public int rating;
+	public String name;
+	public String Address;
+	public String email;
+	public String emailHash;
 	
 	public String getId() {
 		return id;

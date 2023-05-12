@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="login.css">
 </head>
 <body>
 	<%@ include file = "common.jsp" %>
@@ -28,11 +29,23 @@
 	
 	
 	<form name="loginForm" action="member_proc.jsp" method="post">
-	    <input type="text" id="inputID" name="id" placeholder="아이디" value="<%= inputid %>"><br>
-        <input type="password" id="inputPW" name="pw" placeholder="비밀번호"><br>
-        아이디 저장<input type="checkbox" name="idsave" value="saving" <%= checked %>><br>
-      	<button type="button" id="loginBtn">로그인</button>
-    	<a href="./signup.jsp"><button type="button">회원가입</button></a>
+	    <div id="loginBox">
+	    	<div class="loginInput">
+	    		<input type="text" id="inputID" name="id" placeholder="아이디" value="<%= inputid %>"><br>
+        		<input type="password" id="inputPW" name="pw" placeholder="비밀번호"><br>
+        	</div>
+      		<div class="Loginbutton">
+      			<button type="button" id="loginBtn">로그인</button>
+        	</div>
+        	<div class="Loginegidomdom">
+        		<span>
+        		아이디 저장<input type="checkbox" name="idsave" value="saving" <%= checked %>><br>
+    			</span>
+    			<span>
+    			<a href="./signup.jsp"><button type="button">회원가입</button></a>
+				</span>
+			</div>
+		</div>
     </form>
    
 	<script>

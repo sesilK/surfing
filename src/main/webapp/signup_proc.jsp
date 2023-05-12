@@ -2,14 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="dao.PersonDao"%>
 <%@ page import="dto.PersonDto"%>
+<%@ page import="util.SHA256" %>
+<%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.*"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 	<%
 		request.setCharacterEncoding("UTF-8");	//한글 정상 인식을 위해
 		
@@ -21,7 +16,7 @@
 		String email = request.getParameter("email");
 		
 		PersonDao personDao = new PersonDao();
-		int result = personDao.insertPerson(id,pw,1,name,jumin,address,email);
+		int result = personDao.insertPerson(id,pw,1,name,address,email,SHA256.getSHA256(email));
 
 		if(result == 1){
 	%>
@@ -43,5 +38,3 @@
 	<script>
 		//location.href = './index.jsp'; 
 	</script>
-</body>
-</html>

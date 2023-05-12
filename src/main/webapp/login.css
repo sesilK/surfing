@@ -1,0 +1,35 @@
+@charset "EUC-KR";
+div{
+	margin-left : auto;
+	margin-right: auto;
+}
+#loginBox{
+	width : 300px;
+	margin-top : 50px;
+	padding : 10px;
+	border: 1px solid black;
+}
+.loginInput{
+	width : 250px;
+}
+.loginInput input{
+	width : 250px;
+	height: 40px;
+	margin-bottom: 10px;
+	padding-left: 10px
+}
+.Loginbutton{
+	width : 200px;
+}
+.Loginbutton button{
+	width : 150px;
+	margin-left : auto;
+	margin-right: auto;
+}
+
+.Loginegidomdom{
+	width : 200px;
+}
+input{
+	margin: 10px
+}
