@@ -87,7 +87,7 @@
 				<a href="./shop.jsp">
 				<button type="button" class="btn cartBtn btn-secondary">상품목록</button></a>
 				<button type="button" class="btn cartBtn btn-primary addBtn">카트담기</button></a>
-				<button type="button" class="btn buyBtn btn-warning">바로구매</button>
+				<button type="button" class="btn buyBtn btn-warning wantBtn">바로구매</button>
 			</div>
 		</div>
 		<script>
