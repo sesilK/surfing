@@ -161,7 +161,42 @@ public class PersonDao {
 		
 		return result;
 	}
+	
+	public int PersonUpDate(String id, String pw, String address, String email) {
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
 
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql= "UPDATE person_info "
+					+	"SET pw =? ,"
+					+	"address =? ,"
+					+	"email =? "
+					+	"WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,pw);
+			psmt.setString(2,address);
+			psmt.setString(3,email);
+			psmt.setString(4,id);
+
+			result = psmt.executeUpdate();
+
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
+	
 	public PersonDto personModify (String id) {
 		
 		Connection conn = null;

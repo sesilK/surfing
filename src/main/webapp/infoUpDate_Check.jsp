@@ -17,13 +17,20 @@
 		int result = persondao.login(request.getParameter("id"), request.getParameter("beforePw")); 		
 
 		if(result == 1){
-	%>
-		<script>
-			alert('수정되었습니다');
-			location.href = './member.jsp';
-		</script>
+			int update = persondao.PersonUpDate(id, afterpw, address, email);
+				if(update == 1){
+		%>
+				<script>
+					alert('수정되었습니다');
+					location.href = './home.jsp';
+				</script>
 	<%
-		} else {
+			}	else {%>
+				<script>
+					alert('수정실패');
+				</script>
+			<%}
+	} else {
 	%>
 			<script>
 				alert('비밀번호가 다릅니다 옳바른 비밀번호를 입력해주세요');
