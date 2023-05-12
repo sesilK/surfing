@@ -262,6 +262,67 @@ public class ProductDao {
 			return result;
 		}
 		
+		//update	전체 체크 풀기
+		public int uncheckedAll(String id) {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+			
+				String sql= "UPDATE cart "
+						+ " SET checked = 0 "
+						+ " WHERE id = ?";
+
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1,id);
+				
+				result = psmt.executeUpdate();
+				
+				System.out.println("처리결과: " + result);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);
+			}
+			
+			return result;
+		}
+		
+		//update	전체 체크 하기
+		public int checkedAll(String id) {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+			
+				String sql= "UPDATE cart "
+						+ " SET checked = 1 "
+						+ " WHERE id = ?";
+
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1,id);
+
+				
+				result = psmt.executeUpdate();
+				
+				System.out.println("처리결과: " + result);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);
+			}
+			
+			return result;
+		}
+		
 		
 	//select	장바구니에 이미 있는지 확인하고 반환
 	public CartDto alreadyInCart(String id,int code) {
@@ -483,7 +544,7 @@ public class ProductDao {
 		return result;
 	}
 	
-	//insert	상품추가(관리자모드)
+	//insert	신규상품추가(관리자)
 		public int addProduct(String pname,int price,int stock) {
 			Connection conn = null;
 			PreparedStatement psmt = null;
@@ -493,7 +554,7 @@ public class ProductDao {
 			try {
 				conn = DBConnectionManager.getConnection();
 			
-				String sql = "INSERT INTO s_product VALUES(, ?, ?, ?)";
+				String sql = "INSERT INTO s_product VALUES(s_product_seq.NEXTVAL, ?, ?, ?)";
 
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1,pname);
@@ -511,5 +572,75 @@ public class ProductDao {
 			}
 			
 			return result;
+		}
+	
+		//select	신규상품 번호
+		public int codeSeq() {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			int newCode = 10;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+
+				String sql= "SELECT s_product_seq.NEXTVAL+1 seq FROM dual";
+
+				psmt = conn.prepareStatement(sql);
+
+				rs = psmt.executeQuery();
+
+				if(rs.next()) {
+					newCode = rs.getInt("seq");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);			
+			}
+
+			return newCode;
+		}
+		
+		
+		//select (List)	 주문할 상품 리스트 정보
+		public List<CartDto> orderList(String id){
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			List<CartDto> cartList = null;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+			
+				String sql= "SELECT pname, "
+						+ " TO_CHAR(price, '999,999,999') price, qty, "
+						+ " TO_CHAR(total, '999,999,999') total"
+						+ " FROM cart WHERE id = ? AND checked = 1";
+
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1,id);
+
+				rs = psmt.executeQuery();
+				
+				cartList = new ArrayList<CartDto>();
+
+				while(rs.next()) {
+					CartDto cartDto = new CartDto();
+					
+					cartDto.setPname(rs.getString("pname"));
+					cartDto.setStrPrice(rs.getString("price"));
+					cartDto.setQty(rs.getInt("qty"));
+					cartDto.setStrTotal(rs.getString("total"));
+					
+					cartList.add(cartDto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);
+			}
+			return cartList;
 		}
 }
