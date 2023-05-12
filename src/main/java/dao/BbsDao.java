@@ -9,8 +9,6 @@ import java.util.List;
 
 import dao.BbsDao;
 import dto.BbsDto;
-import dto.ProductDto;
-import dto.ReserveDto;
 import oracle.DBConnectionManager;
 
 public class BbsDao {
@@ -125,6 +123,59 @@ public class BbsDao {
 		return bbsDto;
 	}
 
+	// 업데이트
+	public int updateBbs_con(String title, String bbs_content, int content_no, String writer_id) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql = "UPDATE bbs" + " SET title = ?, bbs_content = ?" + " WHERE no = ?" + " AND id = ?";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, title);
+			psmt.setString(2, bbs_content);
+			psmt.setInt(3, content_no);
+			psmt.setString(4, writer_id);
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
+
+	// delete
+	public int deleteBbs_con() {
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+			String sql = "DELETE";
+
+			psmt = conn.prepareStatement(sql);
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
+
 }
-
-

@@ -10,66 +10,112 @@
 <title>Insert title here</title>
 </head>
 <style>
-  .board {
-    border-collapse: collapse; 
-    width: 100%;
-  }
-  .board th {
-    background-color: #EDE6C5; 
-    border: 1px solid #ddd; 
-    padding: 10px; 
-    text-align: center; 
-  }
-  .board td {
-    border: 1px solid #ddd; 
-    padding: 10px; 
-     text-align: center;  
-  }
+.board {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.board th {
+	background-color: #EDE6C5;
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+.board td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
 </style>
 <body>
 	<%@ include file="common.jsp"%>
-	<% 
-		String bbsId = request.getParameter("id"); //작성자 아이디
-		int no =Integer.parseInt(request.getParameter("no"));
-		BbsDao dao = new BbsDao();
-		BbsDto bbsDto = dao.selectBbsByNo(no);
-		//String id = (String) session.getAttribute("id");
-	
+	<%
+	String bbsId = request.getParameter("id"); //작성자 아이디
+	int no = Integer.parseInt(request.getParameter("no"));
+	BbsDao dao = new BbsDao();
+	BbsDto bbsDto = dao.selectBbsByNo(no);
 	%>
-	<div class ="container">
-		<div class= "bbs_view">
-			<h1><%=bbsDto.getId()%>님 문의사항</h1>
-			
+	<div class="container">
+		<div class="bbs_view">
+			<h1><%=bbsDto.getId()%>님 문의사항
+			</h1>
+
 			<table class="board">
 				<tr>
 					<th>제목</th>
 				</tr>
 				<tr>
-					<td><%=bbsDto.getTitle()%></td>
+					<td id="title"><%=bbsDto.getTitle()%></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 				</tr>
 				<tr>
-					<td><%=bbsDto.getBbs_content()%></td>
+					<td id="content"><%=bbsDto.getBbs_content()%></td>
 				</tr>
 			</table>
-		
+
 		</div>
 		<%
-		if (id != null){ //로그인 안하면 비교대상이 없기때문에
-		if( id.equals(bbsId) ) {%>
+		if (id != null) { //로그인 안하면 비교대상이 없기때문에
+			if (id.equals(bbsId)) {
+		%>
 		<button id="deleteBtn">삭제하기</button>
-		<button id="updateBtn">수정하기</button>
-		<% }} %>
-		
-	<!-- 	<div class= "bbs_comment">
+		<button id="updateBtn" onclick="editPost()">수정하기</button>
+		<%
+		}
+		}
+		%>
+
+		<!-- 	<div class= "bbs_comment">
 		댓글<input type = text>
 		<button>댓글올리기</button>
 		</div> -->
-		
+
 	</div>
-	
+
 
 </body>
 </html>
+<script>
+	function editPost() {
+		let title = document.getElementById("title");
+		let content = document.getElementById("content");
+
+		let titleInput = document.createElement("input");
+		titleInput.type = "text";
+		titleInput.style.width = "100%";
+		titleInput.placeholder = "제목 입력";
+		titleInput.value = title.innerText;
+
+		let contentInput = document.createElement("input");
+		contentInput.type = "text";
+		contentInput.style.width = "100%";
+		contentInput.placeholder = "내용 입력";
+		contentInput.value = content.innerText;
+
+		title.replaceWith(titleInput);
+		content.replaceWith(contentInput);
+
+		titleInput.id = "titleInput";
+		contentInput.id = "contentInput";
+
+		let updateBtn = document.getElementById("updateBtn");
+		updateBtn.innerText = "수정완료";
+		updateBtn.onclick = function() {
+			let update_title = document.getElementById("titleInput").value;
+			let update_content = document.getElementById("contentInput").value;
+			let writer_id = "<%=bbsDto.getId()%>";
+			let content_no ="<%=no%>";
+			
+
+			
+			location.href = "bbs_update_proc.jsp?id=" + writer_id
+					+ "&no=" + content_no
+					+ "&title=" + update_title
+					+ "&content=" + update_content;
+			
+		}
+	}
+</script>
