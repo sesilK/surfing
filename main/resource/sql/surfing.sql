@@ -84,3 +84,21 @@ values( (select NVL(MAX(no),0)+1 FROM reserve), 'admin', '2023', 5, 1, '¿¹¾à¿Ï·á
 
 
 
+<<<<<<< Updated upstream:src/main/resource/sql/surfing.sql
+=======
+-- ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½È¸
+SELECT * FROM person_info;  -- È¸ï¿½ï¿½
+SELECT * FROM s_product;    -- ï¿½ï¿½Ç°
+SELECT * FROM cart;         -- Ä«Æ®
+SELECT * FROM payment;      -- ï¿½ï¿½ï¿½ï¿½
+SELECT * FROM s_order;      -- ï¿½Ö¹ï¿½
+SELECT * FROM lesson;       -- ï¿½ï¿½ï¿½ï¿½
+SELECT * FROM reserve;      -- ï¿½ï¿½ï¿½ï¿½
+SELECT * FROM bbs;
+
+truncate table bbs;
+
+UPDATE cart
+SET checked = 0
+WHERE id = 'asdf' AND code = 106;
+>>>>>>> Stashed changes:main/resource/sql/surfing.sql
