@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import dto.PersonDto;
 import oracle.DBConnectionManager;
 
@@ -37,7 +39,6 @@ public class PersonDao {
 				personDto.setPw(rs.getString("pw"));
 				personDto.setRating(rs.getInt("rating"));
 				personDto.setName(rs.getString("name"));
-				personDto.setJumin(rs.getInt("jumin"));
 				personDto.setAddress(rs.getString("address"));
 				personDto.setEmail(rs.getString("email"));				
 
@@ -78,7 +79,6 @@ public class PersonDao {
 				personDto.setPw(rs.getString("pw"));
 				personDto.setRating(rs.getInt("rating"));
 				personDto.setName(rs.getString("name"));
-				personDto.setJumin(rs.getInt("jumin"));
 				personDto.setAddress(rs.getString("address"));
 				personDto.setEmail(rs.getString("email"));
 			}
@@ -126,69 +126,6 @@ public class PersonDao {
 		return -2;	//데이터베이스 오류
 	}
 	
-//	//update
-//	public int updatePersonInfo(int id, String name) {
-//		Connection conn = null;
-//		PreparedStatement psmt = null;
-//		ResultSet rs = null;
-//		int result = 0;
-//		
-//		try {
-//			conn = DBConnectionManager.getConnection();
-//		
-//			String sql= "UPDATE t_person_info"
-//					+ " SET name = ? "
-//					+ " WHERE id = ? ";
-//
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setString(1,name);
-//			psmt.setInt(2,id);
-//
-//			result = psmt.executeUpdate();
-//			
-//			System.out.println("처리결과: " + result);
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			DBConnectionManager.close(rs, psmt, conn);
-//		}
-//		
-//		return result;
-//	}
-	
-//	//update
-//		public int updatePersonInfo(PersonDto personDto) {
-//			Connection conn = null;
-//			PreparedStatement psmt = null;
-//			ResultSet rs = null;
-//			int result = 0;
-//			
-//			try {
-//				conn = DBConnectionManager.getconnection();
-//			
-//				String sql= "UPDATE t_person_info"
-//						+ " SET name = ? "
-//						+ " WHERE id = ? ";
-//
-//				psmt = conn.prepareStatement(sql);
-//				psmt.setString(1,personDto.getName());
-//				psmt.setInt(2,personDto.getId());
-//
-//				result = psmt.executeUpdate();
-//				
-//				System.out.println("처리결과: " + result);
-//
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			} finally {
-//				DBConnectionManager.close(rs, psmt, conn);
-//			}
-//			
-//			return result;
-//		}
-	
-	
 	//insert
 	public int insertPerson(String id, String pw, int rating, String name, int jumin, 
 								String address, String email) {
@@ -225,35 +162,79 @@ public class PersonDao {
 		return result;
 	}
 	
-//	//delete
-//	public int deletePersonInfo(int id) {
-//
-//		Connection conn = null;
-//		PreparedStatement psmt = null;
-//		ResultSet rs = null;
-//		int result = 0;
-//
-//		try {
-//			conn = DBConnectionManager.getConnection();
-//
-//			// 쿼리문!
-//			String sql = "DELETE FROM t_person_info"
-//					+" WHERE id = ?";
-//
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setInt(1, id);
-//
-//			result = psmt.executeUpdate();
-//
-//			System.out.println("처리결과:" + result);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			DBConnectionManager.close(rs, psmt, conn);
-//		}
-//
-//		return result;
-//	}
+	public int PersonUpDate(String id, String pw, String address, String email) {
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql= "UPDATE person_info "
+					+	"SET pw =? ,"
+					+	"address =? ,"
+					+	"email =? "
+					+	"WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,pw);
+			psmt.setString(2,address);
+			psmt.setString(3,email);
+			psmt.setString(4,id);
+
+			result = psmt.executeUpdate();
+
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
 	
+	public PersonDto personModify (String id) {
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		PersonDto personDto = null;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql = "select pw, name, jumin, address, email from person_info"
+						+" WHERE id = ?";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, id);
+			
+			rs = psmt.executeQuery();
+
+			
+			String pw = "", name = "", jumin = "", address = "", email = "";
+			if (rs.next()) {
+			    pw = rs.getString("pw");
+			    name = rs.getString("name");
+			    jumin = rs.getString("jumin");
+			    address = rs.getString("address");
+			    email = rs.getString("email");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);			
+		}
+		
+		return personDto;
+	}
+
+
+
+
 }
