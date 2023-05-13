@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="common.jsp"%>
 <h1>주문확인 페이지</h1>
 </body>
 </html>

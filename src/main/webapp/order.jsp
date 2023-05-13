@@ -76,12 +76,9 @@
 <button onclick="pay()">결제하기</button>
 <script>
 	function pay() {
-		
-		if(confirm('주문내역 페이지로 이동하시겠습니까? \n (취소시 메인페이지로 이동)')){
+		if(confirm('결제하시겠습니까?')){
 			  location.href = "./orderCheck.jsp";
-		} else {
-			  location.href = "./home.jsp";
-		}
+		} 
 	}
 </script>
 
