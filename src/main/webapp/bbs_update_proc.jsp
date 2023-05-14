@@ -22,8 +22,9 @@ int result = dao.updateBbs_con(update_title, update_content, content_no, writer_
 %>
 <body>
 	<script>
-	location.href = './bbs_con_view.jsp?id=<%=writer_id%>&no=<%=content_no%>
-		';
+	location.href = './bbs_con_view.jsp?id=<%=writer_id%>&no=<%=content_no%>';
 	</script>
+	
+	
 </body>
 </html>

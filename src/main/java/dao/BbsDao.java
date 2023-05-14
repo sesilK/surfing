@@ -97,7 +97,7 @@ public class BbsDao {
 		try {
 			conn = DBConnectionManager.getConnection();
 
-			String sql = "SELECT title, bbs_content ,id" + " FROM bbs" + " WHERE no = ?";
+			String sql = "SELECT no, id, title, TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date  FROM bbs" + " WHERE no = ?";
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, no);
@@ -108,9 +108,12 @@ public class BbsDao {
 			if (rs.next()) {
 				bbsDto = new BbsDto();
 
-				bbsDto.setTitle(rs.getString("title"));
-				bbsDto.setBbs_content(rs.getString("bbs_content"));
+				bbsDto.setNo(rs.getInt("no"));
 				bbsDto.setId(rs.getString("id"));
+				bbsDto.setTitle(rs.getString("title"));
+				bbsDto.setBbs_date(rs.getString("bbs_date"));
+				bbsDto.setBbs_content(rs.getString("bbs_content"));
+				
 
 			}
 
@@ -153,7 +156,7 @@ public class BbsDao {
 	}
 
 	// delete
-	public int deleteBbs_con() {
+	public int deleteBbs_con(int no) {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -164,9 +167,13 @@ public class BbsDao {
 			conn = DBConnectionManager.getConnection();
 
 			// 쿼리문!
-			String sql = "DELETE";
+			String sql = "DELETE FROM bbs"
+					+" WHERE no = ?";
+
 
 			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, no);
 			result = psmt.executeUpdate();
 
 		} catch (SQLException e) {

@@ -38,24 +38,28 @@
 	%>
 	<div class="container">
 		<div class="bbs_view">
-			<h1><%=bbsDto.getId()%>님 문의사항
-			</h1>
+			<form name="DeleteForm" method="post">
+				<h1><%=bbsDto.getId()%>님 문의사항
+				</h1>
 
-			<table class="board">
-				<tr>
-					<th>제목</th>
-				</tr>
-				<tr>
-					<td id="title"><%=bbsDto.getTitle()%></td>
-				</tr>
-				<tr>
-					<th>내용</th>
-				</tr>
-				<tr>
-					<td id="content"><%=bbsDto.getBbs_content()%></td>
-				</tr>
-			</table>
-
+				<table class="board">
+					<input id="form_no" name="form_no" type="hidden"
+						value="<%=bbsDto.getNo()%>"></input>
+					<tr>
+						<th rowspan="2">no <%=bbsDto.getNo()%></th>
+						<th>제목</th>
+					</tr>
+					<tr>
+						<td id="title"><%=bbsDto.getTitle()%></td>
+					</tr>
+					<tr>
+						<th colspan="2">내용</th>
+					</tr>
+					<tr>
+						<td id="content" colspan="2"><%=bbsDto.getBbs_content()%></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 		<%
 		if (id != null) { //로그인 안하면 비교대상이 없기때문에
@@ -76,9 +80,19 @@
 	</div>
 
 
-</body>
-</html>
-<script>
+	<script>
+
+//삭제하기
+		document.getElementById('deleteBtn').addEventListener('click', ()=>{
+			let form =document.DeleteForm;
+			if(confirm('삭제 하시겠습니까?')){
+				form.action = 'bbs_delete_proc.jsp';
+				form.submit();
+			}
+		});
+
+
+//수정하기
 	function editPost() {
 		let title = document.getElementById("title");
 		let content = document.getElementById("content");
@@ -119,3 +133,6 @@
 		}
 	}
 </script>
+
+</body>
+</html>

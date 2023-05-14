@@ -7,6 +7,24 @@
 <meta charset="UTF-8">
 <title>게시물 기입하는 곳</title>
 </head>
+<style>
+.input_bbs th>input {
+	background-color: #EDE6C5;
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+	width : 800px;
+	height: 100px;
+}
+
+.input_bbs td>input {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+	width : 800px;
+	height: 600px;
+}
+</style>
 <body>
 
 	<%@ include file="common.jsp"%>
