@@ -25,7 +25,7 @@ public class ProductDao {
 		
 			String sql= "SELECT code, pname, price, "
 					  + " TO_CHAR(price,'9,999,999') SPRICE, "
-					  + " stock, filename FROM s_product";
+					  + " stock, filename FROM s_product ORDER BY code";
 
 			psmt = conn.prepareStatement(sql);
 

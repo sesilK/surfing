@@ -89,7 +89,7 @@
 						</td>
 						
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
-								<img style="width:50px" src="images/<%=item.getFilename()%>.png"></a></td>
+								<img style="width:50px" src="images/<%=item.getFilename()%>"></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
 								<%=item.getPname()%></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">

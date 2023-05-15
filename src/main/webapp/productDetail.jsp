@@ -79,7 +79,7 @@
 		
 		<div class="container">
 			<div class="btnBox">
-				<img src="images/product_<%=productDto.getCode()%>.png">
+				<img src="images/<%=productDto.getFilename()%>">
 			</div>
 			<div class="pname"><%=productDto.getPname()%></div>
 			<div class="price">\<%=productDto.getSprice()%></div>

@@ -39,6 +39,7 @@
 <table>
 	<thead>
 		<tr>
+			<th></th>
 			<th>상품명</th>
 			<th>상품금액</th>
 			<th>주문수량</th>
@@ -49,6 +50,7 @@
 	<%
 		for(CartDto item : cartList){ %>
 		<tr>
+			<td><img style="width:50px" src="images/<%=item.getFilename()%>"></td>
 			<td><%=item.getPname()%></td>
 			<td><%=item.getStrPrice()%></td>
 			<td><%=item.getQty()%></td>

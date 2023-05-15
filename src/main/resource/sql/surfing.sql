@@ -111,16 +111,16 @@ ALTER SEQUENCE s_product_seq INCREMENT BY -10;  --시퀀스 돌릴만큼 마이�
 ALTER SEQUENCE s_product_seq INCREMENT BY 1;    --다시 1씩 증가하도록 변경하기
 
 -- 상품 테이블 데이터 생성
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'파이어와이어 더 잼 서프보드',1590000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 트윈 피쉬보드 PU',680000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 마차도 선데이 싱글 롱보드 센터핀',134000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 콤프 에센셜 리쉬',49000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'믹패닝 데크 패드',69000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 스프링 슈트 2미리',189000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 플래쉬밤 체스트집 슈트 5/3미리',599000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 리프 부츠 1.5미리',79000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 안티시리즈 판초',169000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 40L 라커 백팩',119000,10, 'product_'||s_product_seq.NEXTVAL);
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'파이어와이어 더 잼 서프보드',1590000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 트윈 피쉬보드 PU',680000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 마차도 선데이 싱글 롱보드 센터핀',134000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 콤프 에센셜 리쉬',49000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'믹패닝 데크 패드',69000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 스프링 슈트 2미리',189000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 플래쉬밤 체스트집 슈트 5/3미리',599000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 리프 부츠 1.5미리',79000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 안티시리즈 판초',169000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 40L 라커 백팩',119000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
 
 -- 테이블 확인용
 SELECT * FROM person_info;    -- 회원
@@ -131,4 +131,4 @@ SELECT * FROM s_order;        -- 주문조회
 SELECT * FROM lesson;         -- 레슨
 SELECT * FROM reserve;        -- 예약
 
-commit;
+COMMIT;
