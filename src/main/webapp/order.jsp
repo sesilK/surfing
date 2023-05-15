@@ -79,9 +79,9 @@
 		<label for="payment">결제 방법:</label>
 		<select id="payment" name="payment">
 		  <option value="none">선택하세요</option>
-		  <option value="creditCard">신용카드</option>
-		  <option value="kakaopay">카카오페이</option>
-		  <option value="cash">무통장입금</option>
+		  <option value="신용카드">신용카드</option>
+		  <option value="카카오페이">카카오페이</option>
+		  <option value="무통장입금">무통장입금</option>
 		</select><br><br>
 		
 <%=cartDto.getStrTotal()%>원
@@ -90,7 +90,7 @@
 
 <script>
 	function pay() {
-		let payment = document.getElementById('payment');
+		let payment = document.getElementById('payment').value;
 		let info1 = document.getElementById('info1').value;
 		let info2 = document.getElementById('info2').value;
 		let info3 = document.getElementById('info3').value;
@@ -98,11 +98,11 @@
 		let info5 = document.getElementById('info5').value;
 		
 		if(info1!="" && info2!="" && info3!="" && info4!="" && info5!=""){
-			if(payment.value == 'none'){
+			if(payment == 'none'){
 				alert('결제 방식을 선택해주세요.');
 			} else {
 				if(confirm('결제하시겠습니까?')){
-					location.href = "./payment.jsp";
+					location.href = "./payment.jsp?payment="+payment;
 				}
 			}
 		} else {
