@@ -27,10 +27,13 @@
 		location.href = "./cart.jsp?id=<%=id%>";
 	</script>
  <%} else { %>
+
 <h1>주문 정보</h1>
-<p>주문자명:<%=personDto.getName()%></p>
-<p>받을주소:<%=personDto.getAddress()%></p>
-<!-- <p>전화번호:</p> -->
+<p>주문자명<input id="info1" value="<%=personDto.getName()%>"></p>
+<p>받을주소<input id="info2" value="<%=personDto.getAddress()%>" style="width: 600px;"></p>
+<p>연 락 처<input id="info3" style="width: 40px;">-
+		 <input id="info4" style="width: 50px;">-
+		 <input id="info5" style="width: 50px;"></p>
 <br><br>
 <h1>주문 상품 목록</h1>
 <table>
@@ -70,20 +73,41 @@
 </table><br><br>
 <%}%>
 
-<h1>결제 정보</h1><br><br>
-
+<h1>결제 정보</h1><br>
+		<label for="payment">결제 방법:</label>
+		<select id="payment" name="payment">
+		  <option value="none">선택하세요</option>
+		  <option value="creditCard">신용카드</option>
+		  <option value="kakaopay">카카오페이</option>
+		  <option value="cash">무통장입금</option>
+		</select><br><br>
+		
 <%=cartDto.getStrTotal()%>원
-<button onclick="pay()">결제하기</button>
+<button type="button" onclick="pay()">결제하기</button>
+
+
 <script>
 	function pay() {
-		if(confirm('결제하시겠습니까?')){
-			alert('결제가 완료되었습니다.');
-			if(confirm('주문내역 페이지로 이동하시겠습니까? \n (취소시 메인페이지로 이동)')){
-				  location.href = "./orderCheck.jsp";
+		let payment = document.getElementById('payment');
+		let info1 = document.getElementById('info1').value;
+		let info2 = document.getElementById('info2').value;
+		let info3 = document.getElementById('info3').value;
+		let info4 = document.getElementById('info4').value;
+		let info5 = document.getElementById('info5').value;
+		
+		if(info1!="" && info2!="" && info3!="" && info4!="" && info5!=""){
+			if(payment.value == 'none'){
+				alert('결제 방식을 선택해주세요.');
 			} else {
-				  location.href = "./home.jsp";
+				if(confirm('결제하시겠습니까?')){
+					location.href = "./payment.jsp";
+				}
 			}
+		} else {
+			alert('주문 정보를 모두 입력해주세요.');
 		}
+		
+
 	}
 </script>
 
