@@ -50,17 +50,19 @@ id VARCHAR(21) NOT NULL,
 total NUMBER(8) NOT NULL,
 order_date DATE DEFAULT SYSDATE,
 order_state VARCHAR2(12) DEFAULT '주문완료',
+payment VARCHAR2(30),
 FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 주문 상세 테이블 생성
 CREATE TABLE s_order_detail(
-order_no NUMBER(4) PRIMARY KEY,
-id VARCHAR(21) NOT NULL,
+order_no NUMBER(4),
 code NUMBER(3) NOT NULL,
-pname VARCHAR2(30) NOT NULL,
+pname VARCHAR2(200) NOT NULL,
 qty NUMBER(4) NOT NULL,
 price NUMBER(7) NOT NULL,
 total NUMBER(8) NOT NULL,
+filename VARCHAR2(200),
+PRIMARY KEY (order_no, code),
 FOREIGN KEY (order_no) REFERENCES s_order(order_no));
 
 -- 레슨 테이블 생성
@@ -122,13 +124,19 @@ INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 리프 부츠 1.5미
 INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 안티시리즈 판초',169000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
 INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 40L 라커 백팩',119000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
 
+-- 주문번호 시퀀스 생성
+CREATE SEQUENCE s_order_seq
+INCREMENT BY 10  -- 10씩 증가
+START WITH 1001; -- 1001부터 시작
+
 -- 테이블 확인용
 SELECT * FROM person_info;    -- 회원
 SELECT * FROM s_product;      -- 상품
 SELECT * FROM cart;           -- 장바구니
-SELECT * FROM s_order_detail; -- 주문상세내역
 SELECT * FROM s_order;        -- 주문조회
+SELECT * FROM s_order_detail; -- 주문상세내역
 SELECT * FROM lesson;         -- 레슨
 SELECT * FROM reserve;        -- 예약
+SELECT * FROM bbs;            -- 게시판
 
 COMMIT;
