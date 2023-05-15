@@ -9,6 +9,7 @@ import java.util.List;
 
 import dto.ProductDto;
 import dto.CartDto;
+import dto.OrderDto;
 import oracle.DBConnectionManager;
 
 public class ProductDao {
@@ -580,37 +581,7 @@ public class ProductDao {
 			}
 			
 			return result;
-		}
-	
-		//select	신규상품 번호
-		public int codeSeq() {
-			Connection conn = null;
-			PreparedStatement psmt = null;
-			ResultSet rs = null;
-			int newCode = 10;
-			
-			try {
-				conn = DBConnectionManager.getConnection();
-
-				String sql= "SELECT s_product_seq.NEXTVAL+1 seq FROM dual";
-
-				psmt = conn.prepareStatement(sql);
-
-				rs = psmt.executeQuery();
-
-				if(rs.next()) {
-					newCode = rs.getInt("seq");
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				DBConnectionManager.close(rs, psmt, conn);			
-			}
-
-			return newCode;
-		}
-		
+		}		
 		
 		//select (List)	 주문할 상품 리스트 정보
 		public List<CartDto> orderList(String id){
