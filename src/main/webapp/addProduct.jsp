@@ -16,13 +16,9 @@
 </style>
 <body>
 	<%@ include file="common.jsp"%>
-	<% ProductDao productDao = new ProductDao();
-	   int newCode = productDao.codeSeq(); %>
+	<% ProductDao productDao = new ProductDao(); %>
     <h1>상품 추가 페이지</h1>
     <form name="productAddForm" action="upload.jsp" method="post" enctype="multipart/form-data"> 
-            <label for="inputCode">상품코드&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="code" id="inputCode" readonly
-            	   value="<%=newCode%>" style="background-color:lightgray;"><br>
 
             <label for="inputPname">상품명&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="pname" id="inputPname"><br>
@@ -34,9 +30,7 @@
             <input type="text" name="stock" id="inputStock"><br>
 
             <label for="inputImage">이미지&nbsp;&nbsp;&nbsp;</label>
-            <input type="file" name="file" id="inputImage" accept="image/png"><br>
-            <span>&nbsp;&nbsp;&nbsp;※ png 파일만 업로드 가능합니다.</span><br>
-            <span>&nbsp;&nbsp;&nbsp;※ 파일명 : product_상품코드.png </span><br>         
+            <input type="file" name="file" id="inputImage" accept="image/*"><br>
                
             <button id="uploadBtn" type="button" style="margin: 30px 320px;" onclick="Upload()">Upload</button>
             <br>
