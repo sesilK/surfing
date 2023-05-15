@@ -100,7 +100,7 @@ img {
 
 		<div class="product_box" id="<%=item.getCode()%>">
 			<a href="./productDetail.jsp?code=<%=item.getCode()%>">
-				<img src="images/product_<%=item.getCode()%>.png">
+				<img src="images/<%=item.getFilename()%>.png">
 				<div class="pname"><%=item.getPname()%></div>
 				<div class="price"><%=item.getSprice()%></div>
 			</a>
