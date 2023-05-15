@@ -56,6 +56,15 @@
 				}
 			}			
 		});
+		
+		//엔터키 입력시 로그인 버튼 누른 효과
+		function loginBtnPress(event) {
+			  if (event.key === "Enter") {
+			    document.getElementById("loginBtn").click();
+			  }
+			}
+		document.addEventListener("keydown", loginBtnPress);
+		
 	</script>
 	
 </body>
