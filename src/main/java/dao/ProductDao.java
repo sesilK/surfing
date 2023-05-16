@@ -25,7 +25,7 @@ public class ProductDao {
 		
 			String sql= "SELECT code, pname, price, "
 					  + " TO_CHAR(price,'9,999,999') SPRICE, "
-					  + " stock FROM s_product";
+					  + " stock, filename FROM s_product";
 
 			psmt = conn.prepareStatement(sql);
 
@@ -41,6 +41,8 @@ public class ProductDao {
 				productDto.setPrice(rs.getInt("price"));
 				productDto.setStock(rs.getInt("stock"));
 				productDto.setSprice(rs.getString("SPRICE"));
+				productDto.setFilename(rs.getString("filename"));
+				
 				productList.add(productDto);
 			}
 		} catch (SQLException e) {
@@ -63,7 +65,7 @@ public class ProductDao {
 
 			String sql= "SELECT code, pname, price, "
 					  + " TO_CHAR(price,'9,999,999') SPRICE, "
-					  + " stock FROM s_product"
+					  + " stock, filename FROM s_product"
 					  + " WHERE code = ?";
 
 			psmt = conn.prepareStatement(sql);
@@ -79,6 +81,7 @@ public class ProductDao {
 				productDto.setPrice(rs.getInt("price"));
 				productDto.setStock(rs.getInt("stock"));
 				productDto.setSprice(rs.getString("SPRICE"));
+				productDto.setFilename(rs.getString("filename"));
 				
 			}
 
@@ -104,7 +107,7 @@ public class ProductDao {
 		
 			String sql= "SELECT code, pname, "
 					+ " TO_CHAR(price, '999,999,999') price, qty, "
-					+ " TO_CHAR(total, '999,999,999') total, checked "
+					+ " TO_CHAR(total, '999,999,999') total, checked, filename "
 					+ " FROM cart WHERE id = ?";
 
 			psmt = conn.prepareStatement(sql);
@@ -123,6 +126,7 @@ public class ProductDao {
 				cartDto.setQty(rs.getInt("qty"));
 				cartDto.setStrTotal(rs.getString("total"));
 				cartDto.setChecked(rs.getInt("checked"));
+				cartDto.setFilename(rs.getString("filename"));
 				
 				cartList.add(cartDto);
 			}
@@ -262,6 +266,67 @@ public class ProductDao {
 			return result;
 		}
 		
+		//update	전체 체크 풀기
+		public int uncheckedAll(String id) {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+			
+				String sql= "UPDATE cart "
+						+ " SET checked = 0 "
+						+ " WHERE id = ?";
+
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1,id);
+				
+				result = psmt.executeUpdate();
+				
+				System.out.println("처리결과: " + result);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);
+			}
+			
+			return result;
+		}
+		
+		//update	전체 체크 하기
+		public int checkedAll(String id) {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+			
+				String sql= "UPDATE cart "
+						+ " SET checked = 1 "
+						+ " WHERE id = ?";
+
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1,id);
+
+				
+				result = psmt.executeUpdate();
+				
+				System.out.println("처리결과: " + result);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);
+			}
+			
+			return result;
+		}
+		
 		
 	//select	장바구니에 이미 있는지 확인하고 반환
 	public CartDto alreadyInCart(String id,int code) {
@@ -274,7 +339,7 @@ public class ProductDao {
 			conn = DBConnectionManager.getConnection();
 
 			String sql= "SELECT id,code,pname,price,qty,total,checked,"
-					  + "  TO_CHAR(total, '999,999,999') strtotal "
+					  + "  TO_CHAR(total, '999,999,999') strtotal, filename "
 					  + " FROM cart"
 					  + " WHERE id = ? AND code = ?";
 
@@ -295,6 +360,7 @@ public class ProductDao {
 				cartDto.setTotal(rs.getInt("total"));
 				cartDto.setChecked(rs.getInt("checked"));
 				cartDto.setStrTotal(rs.getString("strtotal"));
+				cartDto.setFilename(rs.getString("filename"));
 				
 			}
 
@@ -390,11 +456,12 @@ public class ProductDao {
 			conn = DBConnectionManager.getConnection();
 		
 			String sql = "INSERT INTO cart VALUES(?, ?, "
-			           + "  (SELECT pname FROM s_product WHERE code = ?), "
-			           + "  NVL((SELECT qty FROM cart WHERE id = ? AND code = ?), 1), "
-			           + "  (SELECT price FROM s_product WHERE code = ?), "
-			           + "  NVL((SELECT qty FROM cart WHERE id = ? AND code = ?), 1) * "
-			           + "  (SELECT price FROM s_product WHERE code = ?), 1)";
+					+ " (SELECT pname FROM s_product WHERE code = ?), "
+					+ " NVL((SELECT qty FROM cart WHERE id = ? AND code = ?), 1), "
+					+ " (SELECT price FROM s_product WHERE code = ?), "
+					+ " NVL((SELECT qty FROM cart WHERE id = ? AND code = ?), 1) * "
+					+ " (SELECT price FROM s_product WHERE code = ?), "
+					+ " 1, (SELECT filename FROM s_product WHERE code = ?))";
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1,id);
@@ -406,6 +473,7 @@ public class ProductDao {
 			psmt.setString(7,id);
 			psmt.setInt(8,code);
 			psmt.setInt(9,code);
+			psmt.setInt(10,code);
 
 			result = psmt.executeUpdate();
 			
@@ -483,8 +551,8 @@ public class ProductDao {
 		return result;
 	}
 	
-	//insert	상품추가(관리자모드)
-		public int addProduct(String pname,int price,int stock) {
+	//insert	신규상품추가(관리자)
+		public int addProduct(String pname,int price,int stock,String filename) {
 			Connection conn = null;
 			PreparedStatement psmt = null;
 			ResultSet rs = null;
@@ -493,12 +561,13 @@ public class ProductDao {
 			try {
 				conn = DBConnectionManager.getConnection();
 			
-				String sql = "INSERT INTO s_product VALUES(, ?, ?, ?)";
+				String sql = "INSERT INTO s_product VALUES(s_product_seq.NEXTVAL, ?, ?, ?, ?)";
 
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1,pname);
 				psmt.setInt(2,price);
 				psmt.setInt(3,stock);
+				psmt.setString(4,filename);
 
 				result = psmt.executeUpdate();
 				
@@ -511,5 +580,76 @@ public class ProductDao {
 			}
 			
 			return result;
+		}
+	
+		//select	신규상품 번호
+		public int codeSeq() {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			int newCode = 10;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+
+				String sql= "SELECT s_product_seq.NEXTVAL+1 seq FROM dual";
+
+				psmt = conn.prepareStatement(sql);
+
+				rs = psmt.executeQuery();
+
+				if(rs.next()) {
+					newCode = rs.getInt("seq");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);			
+			}
+
+			return newCode;
+		}
+		
+		
+		//select (List)	 주문할 상품 리스트 정보
+		public List<CartDto> orderList(String id){
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+			List<CartDto> cartList = null;
+			
+			try {
+				conn = DBConnectionManager.getConnection();
+			
+				String sql= "SELECT pname, "
+						+ " TO_CHAR(price, '999,999,999') price, qty, "
+						+ " TO_CHAR(total, '999,999,999') total, filename "
+						+ " FROM cart WHERE id = ? AND checked = 1";
+
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1,id);
+
+				rs = psmt.executeQuery();
+				
+				cartList = new ArrayList<CartDto>();
+
+				while(rs.next()) {
+					CartDto cartDto = new CartDto();
+					
+					cartDto.setPname(rs.getString("pname"));
+					cartDto.setStrPrice(rs.getString("price"));
+					cartDto.setQty(rs.getInt("qty"));
+					cartDto.setStrTotal(rs.getString("total"));
+					cartDto.setFilename(rs.getString("filename"));
+					
+					cartList.add(cartDto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBConnectionManager.close(rs, psmt, conn);
+			}
+			return cartList;
 		}
 }

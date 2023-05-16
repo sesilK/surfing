@@ -55,9 +55,9 @@
 				%>
 				<th>
 				<% if(sumQty1 == sumQty2) {%> 	<!-- 전체선택 되어있으면 checked 속성 들어감 -->
-					<input id="allCheck" type="checkbox" onclick="toggleAll()" checked>
+					<input id="allCheck" type="checkbox" onclick="toggleAll()" checked value="allCheck">
 				<%} else { %>
-					<input id="allCheck" type="checkbox" onclick="toggleAll()">
+					<input id="allCheck" type="checkbox" onclick="toggleAll()" value="allUncheck">
 				<%} %>
 				</th>
 				<th></th>	<!-- 이미지 -->
@@ -89,15 +89,15 @@
 						</td>
 						
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
-								<img style="width:50px" src="images/product_<%=item.getCode()%>.png"></a></td>
+								<img style="width:50px" src="images/<%=item.getFilename()%>.png"></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
 								<%=item.getPname()%></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
 								<%=item.getStrPrice()%></a></td>
 						
-						<td><button class="decreaseQtyBtn">-</button></td>
+						<td><button class="decreaseQtyBtn">  -   </button></td>
 						<td id="qty_<%=item.getCode()%>"><%=item.getQty()%></td>
-						<td><button class="increaseQtyBtn">+</button></td>
+						<td><button class="increaseQtyBtn">   +   </button></td>
 						<td id="total_<%=item.getCode()%>"><%=item.getStrTotal()%></td>
 						<td><button class="removeFromCart">삭제</button></td>
 					</tr>
@@ -131,7 +131,7 @@
 				<td id="sumQty"><%=sumQty%></td>
 				<td></td>
 				<td id="sumTotal"><%=sumTotal%></td>
-				<td><button class="">주문하기</button></td>
+				<td><a href="./order.jsp"><button class="">주문하기</button></a></td>
 			</tr>
 		</tfoot>
 		<% }} %>
@@ -145,7 +145,7 @@
 			box.addEventListener("click", CheckBoxClick);
 		}
 		//체크박스 함수 (결제금액에 포함하기/안하기)
-			function CheckBoxClick() {
+		function CheckBoxClick() {
 			const id = '<%=idParam%>';
 			const code = $(this).parent().parent().attr('id');
 			
@@ -161,13 +161,15 @@
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {            
 					if (data.result === 'unchecked') { //DB update 성공
-						//location.href = "cart.jsp?id="+id;
+						
 						$('#sumQty').text(data.sumQty);
 						$('#sumTotal').text(data.sumTotal);
+						location.href = "cart.jsp?id="+id;
 					} else if (data.result === 'checked') {
-						//location.href = "cart.jsp?id="+id;
+						
 						$('#sumQty').text(data.sumQty);
 						$('#sumTotal').text(data.sumTotal);
+						location.href = "cart.jsp?id="+id;
 					} else if (data.result === 'false') {
 						alert("실패");
 					}
@@ -180,7 +182,30 @@
 
 		//전체체크 버튼 함수
 		function toggleAll() {
-
+			const id = '<%=idParam%>';
+			const isChecked = document.getElementById("allCheck").value;
+			
+			$.ajax({
+				async : true, // 비동기 true
+				type : 'get', // GET 타입
+				data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
+					"id" : id,
+					"isChecked" : isChecked
+				},
+				url : "./checkedAll.jsp", // 타겟 url 주소
+				dataType : "json", // json 형태로 받아오겠다
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {            
+					if (data.result === 'true') { //DB update 성공
+						location.href = "cart.jsp?id="+id;
+					} else if (data.result === 'false') {
+						alert("실패");
+					}
+				},
+				error : function() {
+					alert("오류가 발생했습니다. 다시 시도해주세요.");
+				}
+			})
 			
 		}
 		
@@ -342,6 +367,7 @@
 			}
 		}
 
+	    </script>
 		
 	</script>
 

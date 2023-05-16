@@ -8,6 +8,7 @@ public class CartDto {
 	int price;
 	int total;
 	int checked;
+	String filename;
 	String strPrice;
 	String strTotal;
 	
@@ -20,6 +21,12 @@ public class CartDto {
 	}
 	
 	
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 	public int getChecked() {
 		return checked;
 	}

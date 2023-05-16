@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="dao.ProductDao"%>
+<%@ page import="dto.ProductDto"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,21 +15,91 @@
     }
 </style>
 <body>
+	<%@ include file="common.jsp"%>
+	<% ProductDao productDao = new ProductDao();
+	   int newCode = productDao.codeSeq(); %>
     <h1>상품 추가 페이지</h1>
-    <form action="/" method="post">
+    
+            <label for="inputCode">상품코드&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="code" id="inputCode" readonly
+            	   value="<%=newCode%>" style="background-color:lightgray;"><br>
 
-            <label for="inputCode">상품코드</label>
-            <input type="text" name="code" id="inputCode" value="112" readonly><br>
             <label for="inputPname">상품명&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="pname" id="inputPname"><br>
-            <label for="inputPrice">판매가&nbsp;&nbsp;&nbsp;</label>
+            
+            <label for="inputPrice">판매가</label>
             <input type="text" name="price" id="inputPrice"><br>
-            <label for="inputStock">재고수량</label>
+            
+            <label for="inputStock">입고수량</label>
             <input type="text" name="stock" id="inputStock"><br>
+        <form action="upload.jsp" method="post" enctype="multipart/form-data"> 
             <label for="inputImage">이미지&nbsp;&nbsp;&nbsp;</label>
-            <input type="file" name="image" id="inputImage"><br>
-            <button type="submit">Upload</button>
+            <input type="file" name="file" id="inputImage" accept="image/png"><br>
+            <span>&nbsp;&nbsp;&nbsp;※ png 파일만 업로드 가능합니다.</span><br>
+            <span>&nbsp;&nbsp;&nbsp;※ 파일명 : product_상품코드.png </span><br>         
+               
+            <button id="uploadBtn" type="submit" style="margin: 30px 320px;" onclick="Upload()">Upload</button>
+            <br>
+            <img id="previewImg" width="400px">
+		</form>
 
-    </form>
+	<script>
+	
+	//선택한 이미지 미리보기
+	const fileInput = document.getElementById("inputImage");
+	const handleFiles = (e) => {
+	  const selectedFile = [...fileInput.files];
+	  const fileReader = new FileReader();
+
+	  fileReader.readAsDataURL(selectedFile[0]);
+
+	  fileReader.onload = function () {
+	    document.getElementById("previewImg").src = fileReader.result;
+	  };
+	};
+	fileInput.addEventListener("change", handleFiles);
+	
+	
+	//업로드 버튼 함수
+	function Upload() {
+				
+		let pname = document.querySelector("#inputPname").value;
+		let price = document.querySelector("#inputPrice").value;
+		let stock = document.querySelector("#inputStock").value;
+		
+		if(pname == "" || price == "" || stock == ""){
+			alert('상품명,판매가,재고수량을 모두 입력해주세요.');
+		} else {
+			if(confirm('상품을 등록하시겠습니까?')){
+				
+				$.ajax({
+					async : true, // 비동기 true
+					type : 'get', // GET 타입
+					data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
+						"pname" : pname,
+						"price" : price,
+						"stock" : stock
+					},
+					url : "./addProduct_proc.jsp", // 타겟 url 주소
+					dataType : "json", // json 형태로 받아오겠다
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {            
+						if (data.result === 'true') { //DB update 성공
+							alert("추가 성공");
+							location.href = "shop.jsp";
+						} else if (data.result === 'false') {
+							alert("실패");
+						}
+					},
+					error : function() {
+						alert("오류가 발생했습니다.");
+					}
+				})
+			}
+		}
+	}
+	</script>
+
+
 </body>
 </html>

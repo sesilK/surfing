@@ -1,46 +1,29 @@
+<%@page import="org.json.simple.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ page import="java.util.*"%>
 <%@ page import="dao.BbsDao"%>
 <%@ page import="dto.BbsDto"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>글쓴거 넣눈거.</title>
-</head>
+<%
+response.setContentType("application/json"); // HTML 형식이 아닌 JSON 형식으로 쓰겠다
+JSONObject obj = new JSONObject(); // JSON 객체를 담기위해 선언
+request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 
-<body>
-	<%
-		request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
-		
-		String id = (String)session.getAttribute("id");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		
-		BbsDao dao = new BbsDao();
-		int result = dao.insertBbsInfo(id, title, content);
-		
-		
-		if(result ==1){
-			//삭제성공
-	%>
-	<script>
-			alert('게시물 작성 완료');
-			location.href = './bbs.jsp';
-		</script>
-	<%
-		} else {
-	%>
-	<script>
-				alert('게시물 작성 실패');
-				location.href = './home.jsp';
-			</script>
-	<%
-		}
-	%>
+String id = (String) session.getAttribute("id");
+String title = request.getParameter("inputTitle");
+String content = request.getParameter("inputText");
 
-</body>
-</html>
-</body>
-</html>
+BbsDao dao = new BbsDao();
+
+int result = dao.insertBbsInfo(id, title, content);
+obj.put("test", result); // json 객체의 result 키에 true 넣기
+
+if (result == 1) {
+	obj.put("result", "true"); // json 객체의 result 키에 true 넣기
+} else {
+	obj.put("result", "false"); // json 객체의 result 키에 false 넣기
+}
+
+response.getWriter().write(obj.toString()); // 최종으로 만들어둔 json 객체를 완성해서 뿌림
+%>

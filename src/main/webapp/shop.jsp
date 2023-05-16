@@ -100,16 +100,14 @@ img {
 
 		<div class="product_box" id="<%=item.getCode()%>">
 			<a href="./productDetail.jsp?code=<%=item.getCode()%>">
-				<img src="images/product_<%=item.getCode()%>.png">
+				<img src="images/<%=item.getFilename()%>.png">
 				<div class="pname"><%=item.getPname()%></div>
 				<div class="price"><%=item.getSprice()%></div>
 			</a>
-			
 				<button type="button" class="btn cartBtn btn-primary addBtn">카트담기</button>
-
+				<button type="button" class="btn buyBtn btn-warning wantBtn">바로구매</button>
 			 
-			 <button type="button" class="btn buyBtn btn-warning buyNowBtn"
-			 id="buyNow_<%=item.getCode()%>">바로구매</button>
+
 			 
 		</div>
 		<%
