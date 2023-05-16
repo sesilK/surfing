@@ -9,6 +9,7 @@ import java.util.List;
 
 import dto.ProductDto;
 import dto.CartDto;
+import dto.OrderDto;
 import oracle.DBConnectionManager;
 
 public class ProductDao {
@@ -25,7 +26,7 @@ public class ProductDao {
 		
 			String sql= "SELECT code, pname, price, "
 					  + " TO_CHAR(price,'9,999,999') SPRICE, "
-					  + " stock, filename FROM s_product";
+					  + " stock, filename FROM s_product ORDER BY code";
 
 			psmt = conn.prepareStatement(sql);
 
@@ -580,37 +581,7 @@ public class ProductDao {
 			}
 			
 			return result;
-		}
-	
-		//select	신규상품 번호
-		public int codeSeq() {
-			Connection conn = null;
-			PreparedStatement psmt = null;
-			ResultSet rs = null;
-			int newCode = 10;
-			
-			try {
-				conn = DBConnectionManager.getConnection();
-
-				String sql= "SELECT s_product_seq.NEXTVAL+1 seq FROM dual";
-
-				psmt = conn.prepareStatement(sql);
-
-				rs = psmt.executeQuery();
-
-				if(rs.next()) {
-					newCode = rs.getInt("seq");
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				DBConnectionManager.close(rs, psmt, conn);			
-			}
-
-			return newCode;
-		}
-		
+		}		
 		
 		//select (List)	 주문할 상품 리스트 정보
 		public List<CartDto> orderList(String id){
@@ -652,4 +623,44 @@ public class ProductDao {
 			}
 			return cartList;
 		}
+		
+		//select 바로구매할 상품 정보
+				public List<CartDto> somethingToBuy(int code){
+					Connection conn = null;
+					PreparedStatement psmt = null;
+					ResultSet rs = null;
+					List<CartDto> somethingToBuy = null;
+					
+					try {
+						conn = DBConnectionManager.getConnection();
+					
+						String sql= "SELECT pname, "
+								+ " TO_CHAR(price, '999,999,999') price, filename "
+								+ " FROM s_product WHERE code = ?";
+
+						psmt = conn.prepareStatement(sql);
+						psmt.setInt(1,code);
+
+						rs = psmt.executeQuery();
+						
+						somethingToBuy = new ArrayList<CartDto>();
+
+						while(rs.next()) {
+							CartDto cartDto = new CartDto();
+							
+							cartDto.setPname(rs.getString("pname"));
+							cartDto.setStrPrice(rs.getString("price"));
+							cartDto.setQty(1);
+							cartDto.setStrTotal(rs.getString("price"));
+							cartDto.setFilename(rs.getString("filename"));
+							
+							somethingToBuy.add(cartDto);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						DBConnectionManager.close(rs, psmt, conn);
+					}
+					return somethingToBuy;
+				}
 }

@@ -89,7 +89,7 @@
 						</td>
 						
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
-								<img style="width:50px" src="images/<%=item.getFilename()%>.png"></a></td>
+								<img style="width:50px" src="images/<%=item.getFilename()%>"></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
 								<%=item.getPname()%></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
@@ -131,7 +131,7 @@
 				<td id="sumQty"><%=sumQty%></td>
 				<td></td>
 				<td id="sumTotal"><%=sumTotal%></td>
-				<td><a href="./order.jsp"><button class="">주문하기</button></a></td>
+				<td><a href="./order.jsp?code=0"><button class="">주문하기</button></a></td>
 			</tr>
 		</tfoot>
 		<% }} %>

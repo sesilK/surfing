@@ -1,6 +1,3 @@
-<<<<<<< HEAD
--- 회占쏙옙占쏙옙占쏙옙 占쏙옙占싱븝옙
-=======
 -- 테이블 전체 삭제 후 재생성
 DROP TABLE s_product;       -- 상품
 DROP TABLE cart;            -- 장바구니
@@ -14,7 +11,6 @@ delete from person_info;    -- 회원 데이터
 DROP TABLE person_info;     -- 회원
 
 -- 회원 테이블 생성
->>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
 CREATE TABLE person_info(
 id VARCHAR(21) PRIMARY KEY,
 pw VARCHAR(21) NOT NULL,
@@ -23,15 +19,9 @@ name VARCHAR(21) NOT NULL,
 Address VARCHAR(200) NOT NULL,
 email VARCHAR(100) NOT NULL,
 emailHash VARCHAR(100) NOT NULL,
-<<<<<<< HEAD
-emailCheck BOOLEAN NOT NULL);
-
--- 占쏙옙품 占쏙옙占싱븝옙
-=======
 emailCheck VARCHAR(100) NOT NULL);
 
 -- 상품 테이블 생성
->>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
 CREATE TABLE s_product(
 code NUMBER(3) PRIMARY KEY,
 pname VARCHAR2(200) NOT NULL,
@@ -39,11 +29,7 @@ price NUMBER(7) NOT NULL,
 stock NUMBER(4) NOT NULL,
 filename VARCHAR2(200));
 
-<<<<<<< HEAD
--- 占쏙옙袂占쏙옙占� 占쏙옙占싱븝옙
-=======
 -- 장바구니 테이블 생성
->>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
 CREATE TABLE cart(
 id VARCHAR(21),
 code NUMBER(3),
@@ -51,7 +37,7 @@ pname VARCHAR2(200) NOT NULL,
 qty NUMBER(4) NOT NULL,
 price NUMBER(7) NOT NULL,
 total NUMBER(8) NOT NULL,
-checked NUMBER(1) DEFAULT 1,
+checked NUMBER(1) DEFAULT 1 NOT NULL,
 filename VARCHAR2(200),
 PRIMARY KEY (id, code),
 FOREIGN KEY (id) REFERENCES person_info(id),
@@ -66,21 +52,29 @@ CREATE TABLE s_order(
 order_no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
 total NUMBER(8) NOT NULL,
-order_date DATE DEFAULT SYSDATE,
-order_state VARCHAR2(12) DEFAULT '주문완료',
+order_date DATE DEFAULT SYSDATE NOT NULL,
+order_state VARCHAR2(12) DEFAULT '주문완료' NOT NULL,
+payment VARCHAR2(30) NOT NULL,
 FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 주문 상세 테이블 생성
 CREATE TABLE s_order_detail(
+<<<<<<< HEAD
 >>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
 order_no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
+=======
+order_no NUMBER(4) NOT NULL,
+>>>>>>> ft-230515-order
 code NUMBER(3) NOT NULL,
-pname VARCHAR2(30) NOT NULL,
+pname VARCHAR2(200) NOT NULL,
 qty NUMBER(4) NOT NULL,
 price NUMBER(7) NOT NULL,
 total NUMBER(8) NOT NULL,
-FOREIGN KEY (order_no) REFERENCES s_order(order_no));
+filename VARCHAR2(200),
+PRIMARY KEY (order_no, code),
+FOREIGN KEY (order_no) REFERENCES s_order(order_no),
+FOREIGN KEY (code) REFERENCES s_product(code));
 
 <<<<<<< HEAD
 -- 占쌍뱄옙 占쏙옙占싱븝옙
@@ -107,7 +101,7 @@ teacher VARCHAR2(30) NOT NULL);
 CREATE TABLE reserve(
 no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
-reserve_date varchar2(30),
+reserve_date varchar2(30) NOT NULL,
 persons NUMBER(2) NOT NULL,
 stage NUMBER(1) NOT NULL, --占쏙옙占쏙옙
 state VARCHAR2(12) DEFAULT '占쏙옙占쏙옙狗占�',
@@ -130,17 +124,17 @@ CREATE TABLE BBS
     FOREIGN KEY (id) REFERENCES person_info(id) --占쌤뤄옙키
 );
 stage NUMBER(1) NOT NULL,
-state VARCHAR2(12) DEFAULT '예약완료',
+state VARCHAR2(12) DEFAULT '예약완료' NOT NULL,
 FOREIGN KEY (id) REFERENCES person_info(id),
 FOREIGN KEY (stage) REFERENCES lesson(stage));
 
 -- 게시판 테이블 생성
-CREATE TABLE BBS(
+CREATE TABLE bbs(
 no NUMBER(3) PRIMARY KEY,
-id VARCHAR2(21) , 
-title VARCHAR2(50),
-bbs_date date default sysdate, 
-bbs_content  VARCHAR2(2048),
+id VARCHAR2(21) NOT NULL, 
+title VARCHAR2(50) NOT NULL,
+bbs_date date default sysdate NOT NULL, 
+bbs_content VARCHAR2(2048),
 FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 관리자 계정 생성
@@ -191,26 +185,33 @@ ALTER SEQUENCE s_product_seq INCREMENT BY -10;  --시퀀스 돌릴만큼 마이�
 ALTER SEQUENCE s_product_seq INCREMENT BY 1;    --다시 1씩 증가하도록 변경하기
 
 -- 상품 테이블 데이터 생성
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'파이어와이어 더 잼 서프보드',1590000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 트윈 피쉬보드 PU',680000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 마차도 선데이 싱글 롱보드 센터핀',134000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 콤프 에센셜 리쉬',49000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'믹패닝 데크 패드',69000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 스프링 슈트 2미리',189000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 플래쉬밤 체스트집 슈트 5/3미리',599000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 리프 부츠 1.5미리',79000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 안티시리즈 판초',169000,10, 'product_'||s_product_seq.NEXTVAL);
-INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 40L 라커 백팩',119000,10, 'product_'||s_product_seq.NEXTVAL);
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'파이어와이어 더 잼 서프보드',1590000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 트윈 피쉬보드 PU',680000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 마차도 선데이 싱글 롱보드 센터핀',134000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'FCS 콤프 에센셜 리쉬',49000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'믹패닝 데크 패드',69000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 스프링 슈트 2미리',189000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 플래쉬밤 체스트집 슈트 5/3미리',599000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 리프 부츠 1.5미리',79000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 안티시리즈 판초',169000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+INSERT INTO s_product VALUES (s_product_seq.NEXTVAL,'립컬 40L 라커 백팩',119000,10, 'product_'||s_product_seq.NEXTVAL||'.png');
+
+-- 주문번호 시퀀스 생성
+CREATE SEQUENCE s_order_seq
+INCREMENT BY 10  -- 10씩 증가
+START WITH 1001; -- 1001부터 시작
 
 -- 테이블 확인용
 SELECT * FROM person_info;    -- 회원
 SELECT * FROM s_product;      -- 상품
 SELECT * FROM cart;           -- 장바구니
-SELECT * FROM s_order_detail; -- 주문상세내역
 SELECT * FROM s_order;        -- 주문조회
+SELECT * FROM s_order_detail; -- 주문상세내역
 SELECT * FROM lesson;         -- 레슨
 SELECT * FROM reserve;        -- 예약
+SELECT * FROM bbs;            -- 게시판
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 commit;
 =======
@@ -240,3 +241,6 @@ ALTER TABLE person_info ADD emailCheck CHAR(5) CHECK(emailCheck IN('FALSE','TRUN
 >>>>>>> Stashed changes:main/resource/sql/surfing.sql
 >>>>>>> ft-230501-reserve
 >>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
+=======
+COMMIT;
+>>>>>>> ft-230515-order
