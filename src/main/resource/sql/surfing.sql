@@ -37,7 +37,7 @@ pname VARCHAR2(200) NOT NULL,
 qty NUMBER(4) NOT NULL,
 price NUMBER(7) NOT NULL,
 total NUMBER(8) NOT NULL,
-checked NUMBER(1) DEFAULT 1,
+checked NUMBER(1) DEFAULT 1 NOT NULL,
 filename VARCHAR2(200),
 PRIMARY KEY (id, code),
 FOREIGN KEY (id) REFERENCES person_info(id),
@@ -48,14 +48,14 @@ CREATE TABLE s_order(
 order_no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
 total NUMBER(8) NOT NULL,
-order_date DATE DEFAULT SYSDATE,
-order_state VARCHAR2(12) DEFAULT '주문완료',
-payment VARCHAR2(30),
+order_date DATE DEFAULT SYSDATE NOT NULL,
+order_state VARCHAR2(12) DEFAULT '주문완료' NOT NULL,
+payment VARCHAR2(30) NOT NULL,
 FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 주문 상세 테이블 생성
 CREATE TABLE s_order_detail(
-order_no NUMBER(4),
+order_no NUMBER(4) NOT NULL,
 code NUMBER(3) NOT NULL,
 pname VARCHAR2(200) NOT NULL,
 qty NUMBER(4) NOT NULL,
@@ -63,7 +63,8 @@ price NUMBER(7) NOT NULL,
 total NUMBER(8) NOT NULL,
 filename VARCHAR2(200),
 PRIMARY KEY (order_no, code),
-FOREIGN KEY (order_no) REFERENCES s_order(order_no));
+FOREIGN KEY (order_no) REFERENCES s_order(order_no),
+FOREIGN KEY (code) REFERENCES s_product(code));
 
 -- 레슨 테이블 생성
 CREATE TABLE lesson(
@@ -76,20 +77,20 @@ teacher VARCHAR2(30) NOT NULL);
 CREATE TABLE reserve(
 no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
-reserve_date varchar2(30),
+reserve_date varchar2(30) NOT NULL,
 persons NUMBER(2) NOT NULL,
 stage NUMBER(1) NOT NULL,
-state VARCHAR2(12) DEFAULT '예약완료',
+state VARCHAR2(12) DEFAULT '예약완료' NOT NULL,
 FOREIGN KEY (id) REFERENCES person_info(id),
 FOREIGN KEY (stage) REFERENCES lesson(stage));
 
 -- 게시판 테이블 생성
-CREATE TABLE BBS(
+CREATE TABLE bbs(
 no NUMBER(3) PRIMARY KEY,
-id VARCHAR2(21) , 
-title VARCHAR2(50),
-bbs_date date default sysdate, 
-bbs_content  VARCHAR2(2048),
+id VARCHAR2(21) NOT NULL, 
+title VARCHAR2(50) NOT NULL,
+bbs_date date default sysdate NOT NULL, 
+bbs_content VARCHAR2(2048),
 FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 관리자 계정 생성
