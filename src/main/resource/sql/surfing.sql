@@ -91,6 +91,8 @@ id VARCHAR2(21) NOT NULL,
 title VARCHAR2(50) NOT NULL,
 bbs_date date default sysdate NOT NULL, 
 bbs_content VARCHAR2(2048),
+answer_check NUMBER(1),
+answer_content VARCHAR2(2048),
 FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 관리자 계정 생성
