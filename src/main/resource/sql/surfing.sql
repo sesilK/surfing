@@ -131,4 +131,25 @@ SELECT * FROM s_order;        -- 주문조회
 SELECT * FROM lesson;         -- 레슨
 SELECT * FROM reserve;        -- 예약
 
+<<<<<<< HEAD
 commit;
+=======
+<<<<<<< Updated upstream:src/main/resource/sql/surfing.sql
+=======
+-- ���̺� ��ȸ
+SELECT * FROM person_info;  -- ȸ��
+SELECT * FROM s_product;    -- ��ǰ
+SELECT * FROM cart;         -- īƮ
+SELECT * FROM payment;      -- ����
+SELECT * FROM s_order;      -- �ֹ�
+SELECT * FROM lesson;       -- ����
+SELECT * FROM reserve;      -- ����
+SELECT * FROM bbs;
+
+truncate table bbs;
+
+UPDATE cart
+SET checked = 0
+WHERE id = 'asdf' AND code = 106;
+>>>>>>> Stashed changes:main/resource/sql/surfing.sql
+>>>>>>> ft-230501-reserve

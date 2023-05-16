@@ -11,14 +11,18 @@
 
 <style>
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
 }
-
 .container {
-	width: 90%;
-	margin: 0 auto;
+    height: 100%;
+    width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 li {

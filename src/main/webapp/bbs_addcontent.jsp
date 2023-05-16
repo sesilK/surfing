@@ -7,6 +7,24 @@
 <meta charset="UTF-8">
 <title>게시물 기입하는 곳</title>
 </head>
+<style>
+.input_bbs th>input {
+	background-color: #EDE6C5;
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+	width : 800px;
+	height: 100px;
+}
+
+.input_bbs td>input {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+	width : 800px;
+	height: 600px;
+}
+</style>
 <body>
 
 	<%@ include file="common.jsp"%>
@@ -15,7 +33,7 @@
 	request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 	%>
 
-<form name='contentform' action='bbs_addcon_proc.jsp' method="post">
+
 	<table>
 		<tr>
 			<th><input type="text" id="inputTitle" name="title" placeholder="글제목">
@@ -26,23 +44,51 @@
 		</tr>
 	</table>
 	<button id="TextinsertBtn">발행</button>
-</form>	
+
 
 
 <script>
-		document.getElementById('TextinsertBtn').addEventListener('click', ()=>{
-			let form = document.personAddForm;
+ 		document.getElementById('TextinsertBtn').addEventListener('click', ()=>{
 			
-			let inputName = document.getElementById('inputTitle');
-			if(inputName.value == ""){
+ 			let inputTitle = document.getElementById('inputTitle');
+			let inputTitleValue = document.getElementById('inputTitle').value;
+			let inputTextValue = document.getElementById('inputText').value;
+			
+			if(inputTitleValue == ""){
+				
 				alert('제목은 필수 입니다.');
 				inputTitle.focus();
+				
 			} else {
-				if(confirm('')){
-					form.submit();
-				}				
+				
+				if( confirm('글을 게시하시겠습니까?') ){
+					$.ajax({
+						async : true, // 비동기 true
+						type : 'get', // GET 타입
+						data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
+							"inputTitle" : inputTitleValue,
+							"inputText" : inputTextValue
+						},
+						url : "./bbs_addcon_proc.jsp", // 타겟 url 주소
+						dataType : "json", // json 형태로 받아오겠다
+						contentType : "application/json; charset=UTF-8",
+						success : function(data) {
+							if (data.result === 'true') { //DB insert/update 성공
+								alert("게시물 작성 완료")
+								location.href = "./bbs.jsp"	//게시판으로 이동
+							} else if (data.result === 'false') {
+								alert("작성 실패");
+							} 
+						},
+						error : function(data) {
+							alert(data.test);
+							alert("오류 발생");
+						}
+					})
+
+				}
 			}
-		});
+		}); 
 		
 	</script>
 </body>

@@ -10,7 +10,17 @@
 <title>문의 게시판</title>
 </head>
 <style>
-.bbs_table {
+
+.bbs_table th {
+	background-color: #EDE6C5;
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+.bbs_table td {
+	border: 1px solid #ddd;
+	padding: 10px;
 	text-align: center;
 }
 </style>
@@ -27,6 +37,11 @@
 		<div class="bbs_table">
 			<table>
 				<thead>
+					<%
+					BbsDao dao = new BbsDao();
+					List<BbsDto> bbsList = null;
+					bbsList = dao.selectBbsList();
+					%>
 					<tr>
 						<th>no</th>
 						<th>title</th>
@@ -37,16 +52,13 @@
 
 				<tbody>
 					<%
-					BbsDao dao = new BbsDao();
-					List<BbsDto> bbsList = null;
-					bbsList = dao.selectBbsInfoByNo();
-
 					for (BbsDto item : bbsList) {
 					%>
 					<tr class="bbs_list" id="<%=item.getNo()%>">
 						<td><%=item.getNo()%></td>
-						<td><%=item.getTitle()%></td>
-						<td><%=item.getId()%></td>
+						<td><a
+							href="./bbs_con_view.jsp?id=<%=item.getId()%>&no=<%=item.getNo()%>"><%=item.getTitle()%></a></td>
+						<td><%=item.getId()%>님</td>
 						<td><%=item.getBbs_date()%></td>
 					</tr>
 					<%
