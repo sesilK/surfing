@@ -10,7 +10,7 @@ public class SHA256 {
 		StringBuffer result = new StringBuffer();
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] salt = "안녕 이건 Salt".getBytes();
+			byte[] salt = "Hello! This is Salt".getBytes();
 			digest.reset();
 			digest.update(salt);
 			byte[] chars = digest.digest(input.getBytes("UTF-8"));

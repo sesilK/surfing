@@ -11,25 +11,39 @@
 		String id = request.getParameter("id");	
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name");
-		int jumin = Integer.parseInt(request.getParameter("jumin"));
 		String address = request.getParameter("address");
 		String email = request.getParameter("email");
 		
+		
+		
+		// id ,pw ,name ,address ,email ,SHA256.getSHA256(email)
+		
 		PersonDao personDao = new PersonDao();
-		int result = personDao.insertPerson(id,pw,1,name,address,email,SHA256.getSHA256(email));
+		int result = personDao.insertPerson(new PersonDto(id,pw,name,address,email,SHA256.getSHA256(email)));
+		
+		//PersonDto personDto = new PersonDto();
+		
+		//personDto.setId(id);
+		//personDto.setPw(pw);
+		//personDto.setName(name);
+		//personDto.setAddress(address);
+		//personDto.setEmail(email);
+		//personDto.setEmailHash(emailHash);
+		
 
 		if(result == 1){
 	%>
 		<script>
 			alert('가입되었습니다');
 			alert('이메일 인증해주세요');
-			location.href = './member.jsp';
+			location.href = 'emailSendAction.jsp';
 		</script>
 	<%
 		} else {
 	%>
 			<script>
-				alert('가입 실패...');
+			alert('가입 실패...');
+			location.href = './signup.jsp';
 				//location.href = '.';
 			</script>
 	<%

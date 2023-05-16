@@ -1,14 +1,16 @@
 package dto;
 
 public class PersonDto {
-	public String id;
-	public String pw;
-	public int rating;
-	public String name;
-	public String Address;
-	public String email;
-	public String emailHash;
+	private String id;
+	private String pw;
+	private int rating;
+	private String name;
+	private String address;
+	private String email;
+	private String emailHash;
+	private String emailChecked;
 	
+
 	public String getId() {
 		return id;
 	}
@@ -34,10 +36,10 @@ public class PersonDto {
 		this.name = name;
 	}
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 	public void setAddress(String Address) {
-		this.Address = Address;
+		this.address = Address;
 	}
 	public String getEmail() {
 		return email;
@@ -45,11 +47,36 @@ public class PersonDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getEmailHash() {
+		return emailHash;
+	}
+	public void setEmailHash(String emailHash) {
+		this.emailHash = emailHash;
+	}
+	public String isEmailChecked() {
+		return emailChecked;
+	}
+	public void setEmailChecked(String emailChecked) {
+		this.emailChecked = emailChecked;
+	}
 	
-	@Override
-	public String toString() {
-		return "PersonDto [id=" + id + ", pw=" + pw + ", rating=" + rating + ", name=" + name
-				+ ", address=" + Address + ", email=" + email + "]";
-	}	
+	public String getEmailChecked() {
+		return emailChecked;
+	}
+	
+	public PersonDto() {
+		
+	}
+	public PersonDto(String id, String pw, String name, String address, String email, String emailHash) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.address = address;
+		this.email = email;
+		this.emailHash = emailHash;
+	}
+	
+	
 	
 }

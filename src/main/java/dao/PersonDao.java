@@ -137,16 +137,15 @@ public class PersonDao {
 			conn = DBConnectionManager.getConnection();
 		
 			String sql= "INSERT INTO person_info"
-					+ " VALUES(?,?,?,?,?,?,?,false )";
+					+ " VALUES(?,?,1,?,?,?,?,'FALSE')";
 
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1,persondto.id);
-			psmt.setString(2,persondto.pw);
-			psmt.setInt(3,persondto.rating);
-			psmt.setString(4,persondto.name);
-			psmt.setString(5,persondto.Address);
-			psmt.setString(6,persondto.email);
-			psmt.setString(7,persondto.emailHash);
+			psmt.setString(1,persondto.getId());
+			psmt.setString(2,persondto.getPw());
+			psmt.setString(3,persondto.getName());
+			psmt.setString(4,persondto.getAddress());
+			psmt.setString(5,persondto.getEmail());
+			psmt.setString(6,persondto.getEmailHash());
 
 			result = psmt.executeUpdate();
 			
@@ -234,7 +233,7 @@ public class PersonDao {
 	}
 
 	// 이메일인증확인
-	public boolean getUserEmailChecked(String id) {
+	public static boolean getUserEmailChecked(String id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -296,7 +295,7 @@ public class PersonDao {
 	}
 
 	// 이메일인증...누구니?
-	public String getUserEmail(String id) {
+	public static String getUserEmail(String id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -316,7 +315,7 @@ public class PersonDao {
 
 
 			if(rs.next()) {
-				return rs.getString(1);
+				return rs.getString(0);
 			}
 
 		} catch (SQLException e) {

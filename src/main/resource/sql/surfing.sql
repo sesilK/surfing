@@ -4,9 +4,10 @@ id VARCHAR(21) PRIMARY KEY,
 pw VARCHAR(21) NOT NULL,
 rating NUMBER(1) NOT NULL,
 name VARCHAR(21) NOT NULL,
-jumin NUMBER(13) NOT NULL,
 Address VARCHAR(200) NOT NULL,
-email VARCHAR(100) NOT NULL);
+email VARCHAR(100) NOT NULL,
+emailHash VARCHAR(100) NOT NULL,
+emailCheck BOOLEAN NOT NULL);
 
 -- 占쏙옙품 占쏙옙占싱븝옙
 CREATE TABLE s_product(
@@ -117,3 +118,6 @@ SELECT * FROM reserve;      -- 占쏙옙占쏙옙
 UPDATE cart
 SET checked = 0
 WHERE id = 'asdf' AND code = 106;
+
+ALTER TABLE person_info ADD emailHash VARCHAR(100);
+ALTER TABLE person_info ADD emailCheck CHAR(5) CHECK(emailCheck IN('FALSE','TRUN'));
