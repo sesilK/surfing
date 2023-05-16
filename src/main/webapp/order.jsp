@@ -86,7 +86,7 @@
 	</tfoot>
 </table><br><br>
 <%}%>
-
+<form action="./payment.jsp" method="get">
 <h1>결제 정보</h1><br>
 		<label for="payment">결제 방법:</label>
 		<select id="payment" name="payment">
@@ -98,7 +98,8 @@
 		
 <%=cartDto.getStrTotal()%>원
 <button type="button" onclick="pay()">결제하기</button>
-
+<input type="hidden" name="code" value="<%=code%>">
+</form>
 
 
 <script>
@@ -109,10 +110,9 @@
 			alert('결제 방식을 선택해주세요.');
 		} else {
 			if(confirm('결제하시겠습니까?')){
-				location.href = "./payment.jsp?payment="+payment;
+				document.querySelector('form').submit();
 			}
 		}
-
 
 	}
 </script>

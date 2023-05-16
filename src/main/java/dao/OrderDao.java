@@ -253,4 +253,66 @@ public class OrderDao {
 		return orderDetailList;
 	}
 	
+	//insert		바로구매로 주문하기(결제건 생성)
+	public int nowOrder(String id, String payment,int code) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+		
+			String sql = "INSERT INTO s_order VALUES (s_order_seq.NEXTVAL, ?, "
+					+ " (SELECT price FROM s_product WHERE code = ?), "
+					+ " SYSDATE, '주문완료', ?)";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,id);
+			psmt.setInt(2,code);
+			psmt.setString(3,payment);
+
+			result = psmt.executeUpdate();
+			
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
+	
+	//insert		바로구매로 주문하기(상세내역 생성)
+	public int nowOrderDetail(String id, int order_no, int code) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+		
+			String sql = "INSERT INTO s_order_detail "
+					+ " SELECT ?, code, pname, 1, price, price, filename "
+					+ " FROM s_product WHERE code = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,order_no);
+			psmt.setInt(2,code);
+
+			result = psmt.executeUpdate();
+			
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
 }
