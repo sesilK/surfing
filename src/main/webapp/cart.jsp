@@ -131,7 +131,7 @@
 				<td id="sumQty"><%=sumQty%></td>
 				<td></td>
 				<td id="sumTotal"><%=sumTotal%></td>
-				<td><a href="./order.jsp"><button class="">주문하기</button></a></td>
+				<td><a href="./order.jsp?code=0"><button class="">주문하기</button></a></td>
 			</tr>
 		</tfoot>
 		<% }} %>

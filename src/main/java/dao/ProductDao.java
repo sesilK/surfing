@@ -623,4 +623,44 @@ public class ProductDao {
 			}
 			return cartList;
 		}
+		
+		//select 바로구매할 상품 정보
+				public List<CartDto> somethingToBuy(int code){
+					Connection conn = null;
+					PreparedStatement psmt = null;
+					ResultSet rs = null;
+					List<CartDto> somethingToBuy = null;
+					
+					try {
+						conn = DBConnectionManager.getConnection();
+					
+						String sql= "SELECT pname, "
+								+ " TO_CHAR(price, '999,999,999') price, filename "
+								+ " FROM s_product WHERE code = ?";
+
+						psmt = conn.prepareStatement(sql);
+						psmt.setInt(1,code);
+
+						rs = psmt.executeQuery();
+						
+						somethingToBuy = new ArrayList<CartDto>();
+
+						while(rs.next()) {
+							CartDto cartDto = new CartDto();
+							
+							cartDto.setPname(rs.getString("pname"));
+							cartDto.setStrPrice(rs.getString("price"));
+							cartDto.setQty(1);
+							cartDto.setStrTotal(rs.getString("price"));
+							cartDto.setFilename(rs.getString("filename"));
+							
+							somethingToBuy.add(cartDto);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						DBConnectionManager.close(rs, psmt, conn);
+					}
+					return somethingToBuy;
+				}
 }
