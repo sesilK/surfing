@@ -56,9 +56,10 @@ public class BbsDao {
 		try {
 			conn = DBConnectionManager.getConnection();
 
-			String sql = "select no, id, title, " + " TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date, " // hh추가 (24시간
-																											// 시간설정)
-					+ " bbs_content from bbs order by no";
+			String sql = "select no, id, title,"
+					+ " TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date, " // hh추가 (24시간																								// 시간설정)
+					+ " bbs_content from bbs "
+					+ "order by no";
 //
 			psmt = conn.prepareStatement(sql);
 
@@ -97,7 +98,10 @@ public class BbsDao {
 		try {
 			conn = DBConnectionManager.getConnection();
 
-			String sql = "SELECT no, id, title, TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date  FROM bbs" + " WHERE no = ?";
+			String sql = "SELECT no, id, title, "
+					+ " TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date, "
+					+ " bbs_content FROM bbs "
+					+ "WHERE no = ?";
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, no);
@@ -113,7 +117,6 @@ public class BbsDao {
 				bbsDto.setTitle(rs.getString("title"));
 				bbsDto.setBbs_date(rs.getString("bbs_date"));
 				bbsDto.setBbs_content(rs.getString("bbs_content"));
-				
 
 			}
 

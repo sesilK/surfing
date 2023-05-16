@@ -61,6 +61,8 @@
 				</table>
 			</form>
 		</div>
+
+	
 		<%
 		if (id != null) { //로그인 안하면 비교대상이 없기때문에
 			if (id.equals(bbsId)) {
