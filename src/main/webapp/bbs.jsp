@@ -37,21 +37,21 @@
 		<div class="bbs_table">
 			<table>
 				<thead>
-					<%
-					BbsDao dao = new BbsDao();
-					List<BbsDto> bbsList = null;
-					bbsList = dao.selectBbsList();
-					%>
 					<tr>
 						<th>no</th>
 						<th>title</th>
 						<th>name</th>
 						<th>date</th>
+						<th>answer</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<%
+					BbsDao dao = new BbsDao();
+					List<BbsDto> bbsList = null;
+					bbsList = dao.selectBbsList();
+					
 					for (BbsDto item : bbsList) {
 					%>
 					<tr class="bbs_list" id="<%=item.getNo()%>">
@@ -60,10 +60,14 @@
 							href="./bbs_con_view.jsp?id=<%=item.getId()%>&no=<%=item.getNo()%>"><%=item.getTitle()%></a></td>
 						<td><%=item.getId()%>님</td>
 						<td><%=item.getBbs_date()%></td>
-					</tr>
-					<%
-					}
-					%>
+						
+					    <% if(item.getAnswer_check()==1){ %>
+					    <td>답변완료</td>
+					    <%} else {%>
+					    <td>답변아직</td>
+					    <%} %>
+				</tr>
+				<%}%>
 				</tbody>
 			</table>
 		</div>
@@ -76,7 +80,6 @@
 	//로그인 해야 글쓰기 가능 
 		document.getElementById('bbs_insertBtn').addEventListener('click', () => {
   
-		<%-- alert('<%=id%>'); --%>
 		if ('<%=id%>' == 'null') {
 	  	  		alert('로그인을 해야 글쓰기 가능합니다');
 	  	 	 location.href = './member.jsp';

@@ -6,8 +6,22 @@ public class BbsDto {
 	String title;
 	String bbs_date;
 	String bbs_content;
+	int answer_check;
+	String answer_content;
 	
 	
+	public int getAnswer_check() {
+		return answer_check;
+	}
+	public void setAnswer_check(int answer_check) {
+		this.answer_check = answer_check;
+	}
+	public String getAnswer_content() {
+		return answer_content;
+	}
+	public void setAnswer_content(String answer_content) {
+		this.answer_content = answer_content;
+	}
 	public String getId() {
 		return id;
 	}
