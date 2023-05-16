@@ -43,10 +43,6 @@ PRIMARY KEY (id, code),
 FOREIGN KEY (id) REFERENCES person_info(id),
 FOREIGN KEY (code) REFERENCES s_product(code));
 
-<<<<<<< HEAD
--- 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占싱븝옙
-CREATE TABLE payment(
-=======
 -- 주문 테이블 생성
 CREATE TABLE s_order(
 order_no NUMBER(4) PRIMARY KEY,
@@ -59,13 +55,7 @@ FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 주문 상세 테이블 생성
 CREATE TABLE s_order_detail(
-<<<<<<< HEAD
->>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
-order_no NUMBER(4) PRIMARY KEY,
-id VARCHAR(21) NOT NULL,
-=======
 order_no NUMBER(4) NOT NULL,
->>>>>>> ft-230515-order
 code NUMBER(3) NOT NULL,
 pname VARCHAR2(200) NOT NULL,
 qty NUMBER(4) NOT NULL,
@@ -76,53 +66,19 @@ PRIMARY KEY (order_no, code),
 FOREIGN KEY (order_no) REFERENCES s_order(order_no),
 FOREIGN KEY (code) REFERENCES s_product(code));
 
-<<<<<<< HEAD
--- 占쌍뱄옙 占쏙옙占싱븝옙
-CREATE TABLE s_order(
-order_no NUMBER(4) PRIMARY KEY,
-id VARCHAR(21) NOT NULL,
-total NUMBER(8) NOT NULL,
-order_date DATE DEFAULT SYSDATE,
-order_state VARCHAR2(12) DEFAULT '占쌍뱄옙占싹뤄옙',
-FOREIGN KEY (order_no) REFERENCES payment(order_no));
-
--- 占쏙옙占쏙옙 占쏙옙占싱븝옙
-=======
 -- 레슨 테이블 생성
->>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
 CREATE TABLE lesson(
 stage NUMBER(1) PRIMARY KEY,
 lname VARCHAR2(30) NOT NULL,
 tuition NUMBER(6) NOT NULL,
 teacher VARCHAR2(30) NOT NULL);
 
--- 占쏙옙占쏙옙 占쏙옙占싱븝옙
 -- 예약 테이블 생성
 CREATE TABLE reserve(
 no NUMBER(4) PRIMARY KEY,
 id VARCHAR(21) NOT NULL,
 reserve_date varchar2(30) NOT NULL,
 persons NUMBER(2) NOT NULL,
-stage NUMBER(1) NOT NULL, --占쏙옙占쏙옙
-state VARCHAR2(12) DEFAULT '占쏙옙占쏙옙狗占�',
-FOREIGN KEY (id) REFERENCES person_info(id),
-FOREIGN KEY (stage) REFERENCES lesson(stage));
-
--- 占쌉쏙옙占쏙옙 no 占시뤄옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
-CREATE SEQUENCE bbs_seq
-INCREMENT BY 1
-START WITH 1;
-
--- 占쌉쏙옙占쏙옙 占쏙옙占싱븝옙
-CREATE TABLE BBS
-(
-    no NUMBER(3) PRIMARY KEY,
-    id VARCHAR2(21) , 
-    title VARCHAR2(50),
-    bbs_date VARCHAR2(30), -- 
-    bbs_content  VARCHAR2(2048),
-    FOREIGN KEY (id) REFERENCES person_info(id) --占쌤뤄옙키
-);
 stage NUMBER(1) NOT NULL,
 state VARCHAR2(12) DEFAULT '예약완료' NOT NULL,
 FOREIGN KEY (id) REFERENCES person_info(id),
@@ -151,33 +107,6 @@ CREATE SEQUENCE s_product_seq
 INCREMENT BY 1  -- 1씩 증가
 START WITH 101; -- 101부터 시작
 
-<<<<<<< HEAD
-
-ALTER TABLE reserve MODIFY RESERVE_DATE varchar2(30);
-
--- 占쏙옙품占쏙옙 占시뤄옙 占쏙옙占쏙옙占쏙옙타占쏙옙 占쏙옙占쏙옙
-ALTER TABLE s_product MODIFY PNAME VARCHAR(200);
-ALTER TABLE cart MODIFY pname varchar2(200);
-
--- 占쏙옙袂占쏙옙占� 占쏙옙占싱븝옙占쏙옙 체크 占시뤄옙 占쌩곤옙
-ALTER TABLE cart ADD checked NUMBER(1) DEFAULT 1;
-
--- 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쌩곤옙
-INSERT INTO person_info (id, pw, rating, name, jumin, Address,email)
-values ('admin', 'admin0', '0', '占쏙옙占쏙옙占쏙옙', '1234561234567', '占썸남 천占싫쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 215 7占쏙옙, 8占쏙옙', 'admin@admin.com');
-ALTER TABLE person_info DROP COLUMN jumin;
-
-DELETE from person_info;
-
--- 占쏙옙占싱븝옙 占쏙옙회
-SELECT * FROM person_info;  -- 회占쏙옙
-SELECT * FROM s_product;    -- 占쏙옙품
-SELECT * FROM cart;         -- 카트
-SELECT * FROM payment;      -- 占쏙옙占쏙옙
-SELECT * FROM s_order;      -- 占쌍뱄옙
-SELECT * FROM lesson;       -- 占쏙옙占쏙옙
-SELECT * FROM reserve;      -- 占쏙옙占쏙옙
-=======
 -- 상품코드 시퀀스 관리
 SELECT s_product_seq.CURRVAL FROM dual; -- 현재 시퀀스 (실행해도 증가 안함)
 SELECT s_product_seq.NEXTVAL FROM dual; -- 실행하면 시퀀스 넘어감
@@ -211,36 +140,4 @@ SELECT * FROM lesson;         -- 레슨
 SELECT * FROM reserve;        -- 예약
 SELECT * FROM bbs;            -- 게시판
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-commit;
-=======
-<<<<<<< Updated upstream:src/main/resource/sql/surfing.sql
-=======
--- ���̺� ��ȸ
-SELECT * FROM person_info;  -- ȸ��
-SELECT * FROM s_product;    -- ��ǰ
-SELECT * FROM cart;         -- īƮ
-SELECT * FROM payment;      -- ����
-SELECT * FROM s_order;      -- �ֹ�
-SELECT * FROM lesson;       -- ����
-SELECT * FROM reserve;      -- ����
-SELECT * FROM bbs;
-
-truncate table bbs;
->>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
-
-UPDATE cart
-SET checked = 0
-WHERE id = 'asdf' AND code = 106;
-<<<<<<< HEAD
-
-ALTER TABLE person_info ADD emailHash VARCHAR(100);
-ALTER TABLE person_info ADD emailCheck CHAR(5) CHECK(emailCheck IN('FALSE','TRUN'));
-=======
->>>>>>> Stashed changes:main/resource/sql/surfing.sql
->>>>>>> ft-230501-reserve
->>>>>>> 434940b56331a444327fa8474f569fbb9b7fa6bf
-=======
 COMMIT;
->>>>>>> ft-230515-order
