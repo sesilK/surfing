@@ -242,7 +242,7 @@ public class PersonDao {
 		try {
 			conn = DBConnectionManager.getConnection();
 		
-			String sql= "SELECT emailChecked FROM person_info"
+			String sql= "SELECT emailCheck FROM person_info"
 					+ " WHERE id = ?";
 
 			psmt = conn.prepareStatement(sql);
@@ -250,7 +250,8 @@ public class PersonDao {
 			
 			rs = psmt.executeQuery();
 			if(rs.next()) {
-				result = rs.getBoolean(1);				
+				String temp = rs.getString(1);
+				result = Boolean.parseBoolean(temp);
 			}
 			
 			System.out.println("처리결과: " + result);
@@ -315,7 +316,7 @@ public class PersonDao {
 
 
 			if(rs.next()) {
-				return rs.getString(0);
+				return rs.getString(1);
 			}
 
 		} catch (SQLException e) {
