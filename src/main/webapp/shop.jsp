@@ -64,22 +64,13 @@ img {
 	bottom: 15px;
 	left: 14px;
 }
-#addProductBtn {
-	width: 60px;
-	height: 30px;
-	font-size: small;
-	margin-left: 50px;
-}
+
 </style>
 
 </head>
 <body>
 	<%@ include file="common.jsp"%>
-	<h1>서핑 용품
-	<% if(id != null && id.equals("admin")){ %>
-	<a href="./addProduct.jsp"><button id="addProductBtn">상품추가</button></a>
-	<%} %>
-	</h1>
+	<h1>서핑 용품</h1>
 	
 	<%
 	ProductDao productDao = new ProductDao();
@@ -105,14 +96,20 @@ img {
 				<div class="price"><%=item.getSprice()%></div>
 			</a>
 				<button type="button" class="btn cartBtn btn-primary addBtn">카트담기</button>
-				<button type="button" class="btn buyBtn btn-warning wantBtn">바로구매</button>
-			 
-
-			 
+				<button type="button" class="btn buyBtn btn-warning buyNowBtn">바로구매</button>			 
 		</div>
 		<%
 		}
-		%>
+		if(id != null && id.equals("admin")){ %>
+		<div class="product_box" style="position:relative; bottom: 150px; margin-top:180px;">
+			<a href="./addProduct.jsp">
+			<img src="images/plus.png">
+			</a>	
+		</div>
+		<%
+		} %>
+		
+		
 	</div>
 	<script>
 		//카트담기 버튼
@@ -147,6 +144,24 @@ img {
 					alert("오류 발생");
 				}
 			})
+		}
+		//바로구매 버튼
+		let buyNowBtnArr = document.querySelectorAll(".buyNowBtn");
+			for (let btn of buyNowBtnArr) {
+		  	btn.addEventListener("click", buyNowBtn);
+		}
+		//바로구매버튼 함수
+		function buyNowBtn() {
+			const id = '<%=id%>';
+			const code = $(this).parent().attr('id');
+			
+			if (id == null || id =="") { // 로그인 안함
+				alert("로그인을 해주세요."); 
+				location.href = "./member.jsp";
+			} else {
+				location.href = "./order.jsp?code="+code;
+			}
+			
 		}
 	</script>
 </body>
