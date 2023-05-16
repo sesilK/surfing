@@ -1,12 +1,12 @@
 -- 테이블 전체 삭제 후 재생성
-DROP TABLE s_product;       -- 상품
 DROP TABLE cart;            -- 장바구니
 DROP TABLE s_order_detail;  -- 주문상세내역
 DROP TABLE s_order;         -- 주문조회
-DROP TABLE lesson;          -- 레슨
 DROP TABLE reserve;         -- 예약
+DROP TABLE lesson;          -- 레슨
 DROP TABLE bbs;             -- 게시판
 DROP TABLE payment;         -- 결제
+DROP TABLE s_product;       -- 상품
 delete from person_info;    -- 회원 데이터
 DROP TABLE person_info;     -- 회원
 
