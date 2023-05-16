@@ -328,5 +328,35 @@ public class PersonDao {
 		return null;
 	}
 
+public int Emailauthentication(String id) {
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql= "UPDATE person_info "
+					+	"SET emailcheck = ? "
+					+	"WHERE id = ?";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,"TRUN");
+			psmt.setString(2,id);
+
+			result = psmt.executeUpdate();
+
+			System.out.println("처리결과: " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
 
 }
