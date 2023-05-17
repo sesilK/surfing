@@ -8,14 +8,6 @@
 <jsp:useBean id="personDto" class="dto.PersonDto" scope="page" />
 <jsp:setProperty name="personDto" property="id" />
 <jsp:setProperty name="personDto" property="pw" />
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 <%
 
 	String id = request.getParameter("id");
@@ -25,7 +17,10 @@
 
     PersonDao personDao = new PersonDao();
     int result = personDao.login(personDto.getId(), personDto.getPw());
-    if (result == 1){
+	PersonDto personDto1 = personDao.selectPersonInfoById(personDto.getId()); 
+    String check = personDto1.getEmailCheck();
+    if (result == 1){		
+    	if(check.equals("TRUN ")){ 	
     		if(idsave != null){
     			Cookie idsavecookie = new Cookie("idsave", id);
     			idsavecookie.setMaxAge(60*60*24);
@@ -34,10 +29,17 @@
     			Cookie idsavecookie = new Cookie("idsave", id);
     			idsavecookie.setMaxAge(0);
     			response.addCookie(idsavecookie);
-    		}
+    		}    	
     	session.setAttribute("id", personDto.getId());	//세션
-		response.sendRedirect("./home.jsp");
-
+		response.sendRedirect("./home.jsp");    		
+    	}else{
+            PrintWriter script = response.getWriter();
+            out.println("<script>");
+            out.println("alert('이메일을 인증해주세욧.')");
+            out.println("history.back()");
+            out.println("</script>");
+            
+    	}
     } else if (result == 0){
         PrintWriter script = response.getWriter();
         out.println("<script>");
@@ -60,6 +62,3 @@
         out.println("</script>");
     }
 %>
-	
-</body>
-</html>
