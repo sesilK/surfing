@@ -15,8 +15,9 @@
 	request.setCharacterEncoding("UTF-8");
 	PersonDao userDAO = new PersonDao();
 	
-	String id = null;
+	String id = request.getParameter("id");
 	
+	/*
 	if(session.getAttribute("id") != null){
 		id = (String) session.getAttribute("id");
 	}	
@@ -29,6 +30,7 @@
 		script.close();
 		return;
 	}
+	*/
 	
 	
 	boolean emailChecked = PersonDao.getUserEmailChecked(id);
@@ -42,22 +44,23 @@
 		return;
 	}
 	
+	
 	String host = "http://localhost:8080/Surfing/";
 	String from = "csd931009@gmail.com";
 	String to = PersonDao.getUserEmail(id);
 	String subject = "서퍼들을 위한 이메일인증메일입니다";
-	String content = "다음 링크를 타서 이메일 인증을 진행해주세요" +
+	String content = "다음 링크를 타서 이메일 인증을 진행해주세요 " +
 		"<a href='" + host + "emailCheckAction.jsp?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하기</a>";
 	
 	Properties p = new Properties();
 	p.put("mail.smtp.user",from);
 	p.put("mail.smtp.host","smtp.gmail.com");
-	p.put("mail.smtp.port","587");
+	p.put("mail.smtp.port","465");
 	p.put("mail.smtp.starttls.enable","true");
 	p.put("mail.smtp.auth","true");
 	p.put("mail.smtp.debug","true");
 	p.put("mail.smtp.ssl.protocols","TLSv1.2");
-	p.put("mail.smtp.socketFactory.port","587");
+	p.put("mail.smtp.socketFactory.port","465");
 	p.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
 	p.put("mail.smtp.socketFactory.fallback","false");
 	

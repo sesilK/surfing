@@ -154,7 +154,7 @@ height :70px;
 	<!-- 홈버튼 회원가입여부 고정 -->
 	<div class ="container">
 	<div class ="topnav" style="position: absolute; z-index: 2">
-	 <a href="home.jsp" style= "position:absolute ;right:360px;" ><img src="images/whitelogo.png"
+	 <a href="./home.jsp" style= "position:absolute ;right:360px;" ><img src="images/whitelogo.png"
                         style="width: 100px; height: 100px  "></a>
 	
 			<%
@@ -184,9 +184,9 @@ height :70px;
 	<!-- 고정 nav -->
 	<div class="nav">
 		<ul id="menulist">
-			<li><a href="reserve.jsp">reserve</a></li>
-			<li><a href="shop.jsp">shop</a></li>
-			<li><a href="bbs.jsp">community</a></li>
+			<li><a href="./reserve.jsp">reserve</a></li>
+			<li><a href="./shop.jsp">shop</a></li>
+			<li><a href="./bbs.jsp">community</a></li>
 			<%
 			if (id == null) {
 			%>
