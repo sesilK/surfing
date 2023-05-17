@@ -16,21 +16,7 @@
 	PersonDao userDAO = new PersonDao();
 	
 	String id = request.getParameter("id");
-	
-	/*
-	if(session.getAttribute("id") != null){
-		id = (String) session.getAttribute("id");
-	}	
-	if(id == null){
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('로그인 해주세요');");
-		script.println("location.href = './member.jsp'");
-		script.println("</script>");
-		script.close();
-		return;
-	}
-	*/
+
 	
 	
 	boolean emailChecked = PersonDao.getUserEmailChecked(id);
@@ -49,7 +35,7 @@
 	String from = "csd931009@gmail.com";
 	String to = PersonDao.getUserEmail(id);
 	String subject = "서퍼들을 위한 이메일인증메일입니다";
-	String content = "다음 링크를 타서 이메일 인증을 진행해주세요 " +
+	String content = "다음 링크를 타서 이메일 인증을 진행해주세요 " + 
 		"<a href='" + host + "emailCheckAction.jsp?code=" + new SHA256().getSHA256(to) + "&id=" + id +"'>이메일 인증하기</a>";
 	
 	Properties p = new Properties();
