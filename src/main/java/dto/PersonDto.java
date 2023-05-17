@@ -8,7 +8,7 @@ public class PersonDto {
 	private String address;
 	private String email;
 	private String emailHash;
-	private String emailChecked;
+	private String emailCheck;
 	
 
 	public String getId() {
@@ -53,15 +53,15 @@ public class PersonDto {
 	public void setEmailHash(String emailHash) {
 		this.emailHash = emailHash;
 	}
-	public String isEmailChecked() {
-		return emailChecked;
+	public String isEmailCheck() {
+		return emailCheck;
 	}
-	public void setEmailChecked(String emailChecked) {
-		this.emailChecked = emailChecked;
+	public void setEmailCheck(String emailChecked) {
+		this.emailCheck = emailChecked;
 	}
 	
-	public String getEmailChecked() {
-		return emailChecked;
+	public String getEmailCheck() {
+		return emailCheck;
 	}
 	
 	public PersonDto() {
