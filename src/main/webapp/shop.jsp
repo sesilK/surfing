@@ -105,7 +105,9 @@ a {
 	%>
 		<a href="./cart.jsp?id=<%=id%>" style="text-decoration: none;">
 			<div class="cart_icon">
+				<% if(id==null){ } else {%>
 				<span id="cart_count"><%=sumQty%></span>
+				<% } %>
 			</div>
 		</a>
 	

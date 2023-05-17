@@ -18,7 +18,9 @@
 		
 		<a href="./cart.jsp?id=<%=id%>" style="text-decoration: none;">
 			<div class="cart_icon">
+				<% if(id==null){ } else {%>
 				<span id="cart_count"><%=sumQty%></span>
+				<% } %>
 			</div>
 		</a>
 		
@@ -40,39 +42,38 @@
 		<script>
 		//카트담기 버튼에 함수
 		  document.querySelector("#addBtn").addEventListener("click", function() {
-		    const id = '<%=id%>';
-		    const code = '<%=code%>';
-		
-		    $.ajax({
-		      async: true, // 비동기 true
-		      type: 'get', // GET 타입
-		      data: { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
-		        "id": id,
-		        "code": code
-		      },
-		      url: "./addToCart.jsp", // 타겟 url 주소
-		      dataType: "json", // json 형태로 받아오겠다
-		      contentType: "application/json; charset=UTF-8",
-		      success: function (data) {
-		        if (data.result === 'true') { //DB insert/update 성공
-		          $('#cart_count').text(data.sumQty);
-		        } else if (data.result === 'idNull') {
-		          alert("로그인을 해주세요."); // 로그인 안함
-		          location.href = "./member.jsp";
-		        }
-		      },
-		      error: function () {
-		        alert("오류 발생");
-		      }
-		    });
-		  });
-		
+				const id = '<%=id%>';
+				const code = $(this).parent().attr('id');
+				
+				$.ajax({
+					async : true, // 비동기 true
+					type : 'get', // GET 타입
+					data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
+						"id" : id,
+						"code" : code
+					},
+					url : "./addToCart.jsp", // 타겟 url 주소
+					dataType : "json", // json 형태로 받아오겠다
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						if (data.result === 'true') { //DB insert/update 성공
+							$('#cart_count').text(data.sumQty);
+						} else if (data.result === 'idNull') {
+							alert("로그인을 해주세요."); // 로그인 안함
+							location.href = "./member.jsp";
+						} 
+					},
+					error : function() {
+						alert("오류 발생");
+					}
+				})
+			}
 		//바로구매 버튼에 함수
 		document.querySelector("#buyNowBtn").addEventListener("click", function() {
 			const id = '<%=id%>';
 			const code = '<%=code%>';
 			
-			if (id == null || id =="") { // 로그인 안함
+			if (id == '' || id == null || id = 'null') { // 로그인 안함
 				alert("로그인을 해주세요."); 
 				location.href = "./member.jsp";
 			} else {
