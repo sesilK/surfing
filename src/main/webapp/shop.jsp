@@ -62,7 +62,7 @@ img {
 	font-size: large;
 	position: relative;
 	bottom: 15px;
-	left: 14px;
+	left: 3.5px;
 }
 
 </style>
