@@ -39,7 +39,11 @@ img {
 
 .pname, .price {
 	font-size: 11px;
+	width: 140px;
+	height: 15px;
 	text-align: center;
+	overflow: hidden;
+	color: black;
 }
 
 .btn:first-of-type {
@@ -64,7 +68,29 @@ img {
 	bottom: 15px;
 	left: 3.5px;
 }
-
+a {
+	text-decoration: none;
+}
+.w-btn-outline:hover {
+    cursor: pointer;
+	color: white;
+}
+.w-btn-blue-outline:hover {
+    background-color: #6aafe6;
+}
+.w-btn-pink-outline:hover {
+    background-color: #f199bc;
+}
+.w-btn-blue-outline {
+	border-radius: 10%;
+    border: 2px solid #6aafe6;
+    color: #6e6e6e;
+}
+.w-btn-pink-outline {
+	border-radius: 10%;
+    border: 2px solid #f199bc;
+    color: #6e6e6e;
+}
 </style>
 
 </head>
@@ -94,13 +120,13 @@ img {
 				<div class="pname"><%=item.getPname()%></div>
 				<div class="price"><%=item.getSprice()%></div>
 			</a>
-				<button type="button" class="btn cartBtn btn-primary addBtn">카트담기</button>
-				<button type="button" class="btn buyBtn btn-warning buyNowBtn">바로구매</button>			 
+				<button type="button" class="w-btn-outline w-btn-blue-outline addBtn">카트담기</button>
+				<button type="button" class="w-btn-outline w-btn-pink-outline buyNowBtn">바로구매</button>			 
 		</div>
 		<%
 		}
 		if(id != null && id.equals("admin")){ %>
-		<div class="product_box" style="position:relative; bottom: 150px; margin-top:180px;">
+		<div class="product_box">
 			<a href="./addProduct.jsp">
 			<img src="images/plus.png">
 			</a>	
@@ -163,5 +189,5 @@ img {
 			
 		}
 	</script>
-</body>
-</html>
+
+<%@ include file="footer.jsp"%>

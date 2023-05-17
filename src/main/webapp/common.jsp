@@ -223,7 +223,7 @@
 	</div>
 
 	<!-- 고정 nav -->
-	<div class="nav">
+	<div class="nav" id="targetElement">
 		<ul id="menulist">
 			<li><a href="./reserve.jsp">reserve</a></li>
 			<li><a href="./shop.jsp">shop</a></li>
@@ -231,7 +231,7 @@
 			<%
 			if (id == null) {
 			%>
-			<li class="nav-item " style="display :none" ></li>
+			<a href="member.jsp"><li class="nav-item">login</li></a>
 			<%
 			} else {
 			%>
@@ -247,6 +247,7 @@
 		<a href="reserve_check.jsp"><div>예약확인</div></a>
 		<a href="orderCheck.jsp"><div>주문내역</div></a>
 		<a href="cart.jsp"><div>장바구니</div></a>
+		<a href="signout_proc.jsp"><div>로그아웃</div></a>
 	</div>
 
 		<script

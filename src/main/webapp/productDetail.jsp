@@ -4,64 +4,9 @@
 <%@ page import="dao.ProductDao"%>
 <%@ page import="dto.ProductDto"%>
 <%@ page import="dto.CartDto"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-	h1 {
-		display: flex;
-		justify-content: center;
-	}
-	.container {
-		width: 90%;
-		margin: 0 auto;
-		/* border: 1px solid red; */
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	img {
-		width: 500px;
-	}
-	.pname, .price {
-		font-size: 16px;
-		text-align: center;
-	}
-	.btnBox {
-		display: flex;
-		justify-content: center;
-	}
-	.btn {
-		margin: 0px 3px;
-	}
-	.cart_icon {
-		width: 40px;
-		height: 40px;
-		position: fixed;
-		right: 30px;
-		bottom: 40px;
-		background-image: url('images/free-icon-add-cart.png');
-		background-size: contain;
-	}
-	#cart_count {
-		width: 10px;
-		color: red;
-		font-size: large;
-		position: relative;
-		bottom: 15px;
-		left: 3.5px;
-	}
-</style>
-</head>
-<body>
-	<%@ include file="common.jsp"%>
+
+<%@ include file="common.jsp"%>
+
 	<%
 		int code = Integer.parseInt(request.getParameter("code"));
 		ProductDao productDao = new ProductDao();
@@ -77,12 +22,12 @@
 			</div>
 		</a>
 		
-		<div class="container">
+		<div class="container_big">
 			<div class="btnBox">
 				<img src="images/<%=productDto.getFilename()%>">
 			</div>
 			<div class="pname"><%=productDto.getPname()%></div>
-			<div class="price">\<%=productDto.getSprice()%></div>
+			<div class="price"><%=productDto.getSprice()%>원</div><br>
 			<div class="btnBox">
 				<a href="./shop.jsp">
 				<button type="button" class="btn cartBtn btn-secondary">상품목록</button></a>
@@ -90,6 +35,8 @@
 				<button type="button" class="btn buyBtn btn-warning" id="buyNowBtn">바로구매</button>
 			</div>
 		</div>
+
+
 		<script>
 		//카트담기 버튼에 함수
 		  document.querySelector("#addBtn").addEventListener("click", function() {
@@ -134,5 +81,58 @@
 			
 		});
 		</script>
-</body>
-</html>
+
+
+<%@ include file="footer.jsp"%>
+
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	h1 {
+		display: flex;
+		justify-content: center;
+	}
+	.container_big {
+		width: 90%;
+		margin: 0 auto;
+		/* border: 1px solid red; */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	img {
+		width: 500px;
+	}
+	.pname, .price {
+		font-size: 16px;
+		text-align: center;
+	}
+	.btnBox {
+		display: flex;
+		justify-content: center;
+	}
+	.btn {
+		margin: 0px 3px;
+	}
+	.cart_icon {
+		width: 40px;
+		height: 40px;
+		position: fixed;
+		right: 30px;
+		bottom: 40px;
+		background-image: url('images/free-icon-add-cart.png');
+		background-size: contain;
+	}
+	#cart_count {
+		width: 10px;
+		color: red;
+		font-size: large;
+		position: relative;
+		bottom: 15px;
+		left: 3.5px;
+	}
+</style>

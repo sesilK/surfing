@@ -4,42 +4,23 @@
 <%@ page import="dao.ProductDao"%>
 <%@ page import="dto.ProductDto"%>
 <%@ page import="dto.CartDto"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-		table {
-			border-collapse: collapse;
-			margin: 20px;
-		}
-		th, td {
-			border: 1px solid black;
-			padding: 10px;
-			text-align: center;
-		}
-		button {
-			padding: 5px 10px;
-			background-color: white;
-			border: 1px solid black;
-			cursor: pointer;
-			margin-left: 10px;
-		}
-		button:hover {
-			background-color: lightgray;
-		}
-		#solid {
-			border-top: 1px solid black;
-		}
-	</style>
-</head>
-<body>
 	<%@ include file="common.jsp"%>
+
+
+	
+	<script>
+			// 특정 요소를 찾아 스크롤 위치를 설정
+			window.onload = function() {
+			let element = document.getElementById('targetElement');
+				element.scrollIntoView();
+			};
+	</script>
+	
+
 	<%String idParam = request.getParameter("id");
 		ProductDao productDao = new ProductDao();
 		List<CartDto> cartList = null;%>
-	<h1 style="margin-left:100px">장바구니</h1>
+	<h1>장바구니</h1>
 	<table>
 		<%if(id != null){
 			cartList = productDao.selectCartList(id);
@@ -67,7 +48,7 @@
 				<th style="text-align: center;">수량</th>
 				<th></th>	<!-- 수량증가 -->
 				<th>주문금액</th>
-				<th><button id="removeAllFromCart">전체삭제</button></th>	<!-- 삭제버튼 -->
+				<th><button id="removeAllFromCart" class="w-btn w-btn-gray">전체삭제</button></th>	<!-- 삭제버튼 -->
 			</tr>
 		</thead>
 		<%}}%>
@@ -89,17 +70,17 @@
 						</td>
 						
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
-								<img style="width:50px" src="images/<%=item.getFilename()%>"></a></td>
+								<img style="width:50px; margin-left: 20px;" src="images/<%=item.getFilename()%>"></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
 								<%=item.getPname()%></a></td>
 						<td><a href="./productDetail.jsp?code=<%=item.getCode()%>" style="color:black; text-decoration: none;">
 								<%=item.getStrPrice()%></a></td>
 						
-						<td><button class="decreaseQtyBtn">  -   </button></td>
+						<td><button class="decreaseQtyBtn qtyBtn">  -   </button></td>
 						<td id="qty_<%=item.getCode()%>"><%=item.getQty()%></td>
-						<td><button class="increaseQtyBtn">   +   </button></td>
+						<td><button class="increaseQtyBtn qtyBtn">   +   </button></td>
 						<td id="total_<%=item.getCode()%>"><%=item.getStrTotal()%></td>
-						<td><button class="removeFromCart">삭제</button></td>
+						<td><button class="removeFromCart w-btn w-btn-gray">삭제</button></td>
 					</tr>
 					<%
 					}%>
@@ -120,18 +101,16 @@
 			if(cartList.size() != 0) {%>
 		<tfoot>
 			<tr id="solid">
-				<td colspan="2"></td>
-				<td><a href="./shop.jsp"><button>상품 추가하러 가기</button></a></td>
-				<td colspan="2"></td>
+				<td colspan="5"></td>
 				<%
 				CartDto cartDto = productDao.sumQtyTotal(id);
 				int sumQty = cartDto.getQty();
 				String sumTotal = cartDto.getStrTotal();
 				%>
-				<td id="sumQty"><%=sumQty%></td>
+				<td id="sumQty"><strong><%=sumQty%></strong></td>
 				<td></td>
-				<td id="sumTotal"><%=sumTotal%></td>
-				<td><a href="./order.jsp?code=0"><button class="">주문하기</button></a></td>
+				<td id="sumTotal"><strong><%=sumTotal%></strong></td>
+				<td><a href="./order.jsp?code=0"><button class="w-btn w-btn-gra1 w-btn-gra-anim">주문하기</button></a></td>
 			</tr>
 		</tfoot>
 		<% }} %>
@@ -367,11 +346,80 @@
 			}
 		}
 
+
 	    </script>
 		
-	</script>
 
 	
 
-</body>
-</html>
+	<%@ include file="footer.jsp"%>
+	
+	<style>
+		table {
+			border-collapse: collapse;
+			margin: 20px;
+		}
+		th, td {
+			border: 1px solid black;
+			padding: 10px;
+			text-align: center;
+		}
+		button {
+			padding: 5px 10px;
+			background-color: white;
+			border: 1px solid black;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+		#solid {
+			border-top: 1px solid black;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		table, th, td {
+            border: none;
+		}
+		.w-btn {
+			position: relative;
+			border: none;
+			display: inline-block;
+			padding: 10px 20px;
+			border-radius: 15px;
+			text-decoration: none;
+			font-weight: 600;
+		}
+		.w-btn-gray {
+			background-color: #a3a1a1;
+			color: #e3dede;
+		}
+		.qtyBtn {
+			border-radius: 10%;
+			height: 20px;
+			width: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		#allCheck, .checkbox {
+			width: 18px;
+			height: 18px;
+			border: 2px solid #bcbcbc;
+		}
+		.w-btn-gra1 {
+			background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
+			color: white;
+		}
+		.w-btn-gra-anim {
+			background-size: 400% 400%;
+			animation: gradient1 5s ease infinite;
+		}
+		.decreaseQtyBtn {
+			position: relative;
+			left: 13px;
+		}
+		.increaseQtyBtn {
+			position: relative;
+			right: 21px;
+		}
+	</style>
