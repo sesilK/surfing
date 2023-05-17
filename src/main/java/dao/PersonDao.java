@@ -319,4 +319,44 @@ public int Emailauthentication(String id) {
 		return result;
 	}
 
+public PersonDto missingPersonInfoById(String name,String email) {
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
+	PersonDto personDto = null;
+	
+	//select 한개 단일
+	try {
+		conn = DBConnectionManager.getConnection();
+
+		String sql = "select * from person_info"
+					+" WHERE name = ? AND email = ?";
+
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, name);
+		psmt.setString(2, email);
+		
+		rs = psmt.executeQuery();
+
+
+		if(rs.next()) {
+			personDto = new PersonDto();
+			
+			personDto.setId(rs.getString("id"));
+			personDto.setPw(rs.getString("pw"));
+			personDto.setRating(rs.getInt("rating"));
+			personDto.setName(rs.getString("name"));
+			personDto.setAddress(rs.getString("address"));
+			personDto.setEmail(rs.getString("email"));
+			personDto.setEmailCheck(rs.getString("emailcheck"));
+		}
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		DBConnectionManager.close(rs, psmt, conn);			
+	}
+	
+	return personDto;
+}
 }
