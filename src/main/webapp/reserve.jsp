@@ -3,27 +3,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="dao.ReserveDao"%>
 <%@ page import="dto.ReserveDto"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-align: center;
-}
-.container {
-    height: 100%;
-    width: 900px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 li {
 	list-style: none;
@@ -31,8 +12,8 @@ li {
 
 .formbox {
 	background-color: rgb(240, 240, 240);
-	width: 100%;
 	height: 100px;
+	width: 100%;
 	padding: 35px;
 	display: inline-block;
 }
@@ -45,10 +26,10 @@ li {
 </style>
 
 </head>
-<body>
+
 	<%@ include file="common.jsp"%>
 	
-	<div class="container">
+
 		<div class="formbox">
 			<form name='reserveForm' action="reserve_proc.jsp" method="post">
 				<fieldset>
@@ -101,6 +82,7 @@ li {
 					불가)</li>
 			</ul>
 		</div>
+		<%@ include file="footer.jsp"%>
 	</div>
 
 
@@ -153,6 +135,3 @@ li {
 			
         </script>
 
-
-</body>
-</html>
