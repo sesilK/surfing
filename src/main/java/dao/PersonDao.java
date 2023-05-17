@@ -191,7 +191,7 @@ public class PersonDao {
 
 		return result;
 	}
-/*
+
 	// 이메일인증확인
 	public static boolean getUserEmailChecked(String id) {
 		Connection conn = null;
@@ -224,7 +224,7 @@ public class PersonDao {
 		
 		return result;
 	}
-*/
+
 	// 이메일인증...누구니?
 	public static String getUserEmail(String id) {
 		Connection conn = null;
@@ -303,7 +303,7 @@ public int Emailauthentication(String id) {
 					+	"WHERE id = ?";
 
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1,"TRUN");
+			psmt.setString(1,"TRUE");
 			psmt.setString(2,id);
 
 			result = psmt.executeUpdate();
