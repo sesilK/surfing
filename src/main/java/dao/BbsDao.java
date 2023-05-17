@@ -58,8 +58,8 @@ public class BbsDao {
 
 			String sql = "select no, id, title,"
 					+ " TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date, " // hh추가 (24시간																								// 시간설정)
-					+ " bbs_content from bbs "
-					+ "order by no";
+					+ " bbs_content, answer_check from bbs "
+					+ " order by no";
 //
 			psmt = conn.prepareStatement(sql);
 
@@ -75,6 +75,7 @@ public class BbsDao {
 				bbsDto.setTitle(rs.getString("title"));
 				bbsDto.setBbs_date(rs.getString("bbs_date"));
 				bbsDto.setBbs_content(rs.getString("bbs_content"));
+				bbsDto.setAnswer_check(rs.getInt("answer_check"));
 
 				bbsList.add(bbsDto);
 			}
@@ -100,7 +101,7 @@ public class BbsDao {
 
 			String sql = "SELECT no, id, title, "
 					+ " TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date, "
-					+ " bbs_content FROM bbs "
+					+ " bbs_content, answer_check, answer_content FROM bbs "
 					+ "WHERE no = ?";
 
 			psmt = conn.prepareStatement(sql);
@@ -117,6 +118,8 @@ public class BbsDao {
 				bbsDto.setTitle(rs.getString("title"));
 				bbsDto.setBbs_date(rs.getString("bbs_date"));
 				bbsDto.setBbs_content(rs.getString("bbs_content"));
+				bbsDto.setAnswer_check(rs.getInt("answer_check"));
+				bbsDto.setAnswer_content(rs.getString("answer_content"));
 
 			}
 
@@ -129,7 +132,7 @@ public class BbsDao {
 		return bbsDto;
 	}
 
-	// 업데이트
+	// 업데이트 (글수정)
 	public int updateBbs_con(String title, String bbs_content, int content_no, String writer_id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -139,7 +142,8 @@ public class BbsDao {
 		try {
 			conn = DBConnectionManager.getConnection();
 
-			String sql = "UPDATE bbs" + " SET title = ?, bbs_content = ?" + " WHERE no = ?" + " AND id = ?";
+			String sql = "UPDATE bbs "
+					   + " SET title = ?, bbs_content = ?" + " WHERE no = ?" + " AND id = ?";
 
 			psmt = conn.prepareStatement(sql);
 
@@ -158,7 +162,7 @@ public class BbsDao {
 		return result;
 	}
 
-	// delete
+	// delete 글 삭제
 	public int deleteBbs_con(int no) {
 
 		Connection conn = null;
@@ -188,4 +192,33 @@ public class BbsDao {
 		return result;
 	}
 
+	// 업데이트 (답변하기)
+	public int answerBbs_con(String answer, int no) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql = "UPDATE bbs "
+					   + " SET answer_check = 1, answer_content = ? WHERE no = ?";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, answer);
+			psmt.setInt(2, no);
+
+			result = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
+	
 }

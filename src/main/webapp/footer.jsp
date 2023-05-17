@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="container">
-<footer>
+</div>
+<div class =" footerbox">
 	<ul id="footerlist">
 		<li>이용약관</li>
 		<li>개인정보처리방침</li>
@@ -11,11 +11,9 @@
 	</ul>
 
 	<div id="footerSns">
-		<a href="https://instagram.com/plant._.j?igshid=YmMyMTA2M2Y"
-			target="_blank"> <img src="images/whitelongin.png"
-			style="width: 62px; margin-top: 20px;">
-		</a> <img src="images/whitelongin.png"> <img
-			src="images/whitelongin.png">
+		<img src="images/f1.png">
+		<img src="images/f2.png"> 
+		<img src="images/f3.png">
 	</div>
 
 	<div id="Accordion_wrap">
@@ -33,31 +31,34 @@
 			</span>
 		</div>
 	</div>
-</footer>
+
 
 <p style="font-size: small;">©Copyrights(C) 2023 GREEN WAVE. All
 	Rights Reserved.</p>
-</div>
+</div>	
 
 
 <style>
-/* 하단 메뉴바 */
-.container {
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
+
+ .footerbox {
+	width: 900px;
+	margin: 0 auto;
+	margin-top: 100px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden; /* 컨테이너 밖 요소들 안보이게 */
 }
+
+/* 하단 메뉴바 */
+
 #footerlist {
     display: flex;
     list-style: none;
     justify-content: space-evenly;
     width: 900px;
-    background-color: #ebf0e8;
-    color: black;
+    background-color:#585f54;
+    color: white;
 }
 
 #footerlist li {
@@ -70,7 +71,8 @@
     list-style: none;
     justify-content: right;
     height: 100px;
-    background-color: #333333;
+    width: 900px;
+    background-color:#585f54;
     color: white;
 }
 
@@ -79,6 +81,76 @@
     width: 50px;
     height: 60px;
 }
+
+/* 아코디언 css */
+.que:first-child {
+    border-top: 1px solid #dddddd;
+    background-color: #585f54;
+    color: white;
+    text-align: center;
+    width: 900px;
+}
+
+.que {
+    position: relative;
+    padding: 17px 0;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #dddddd;
+
+}
+
+.que::before {
+    display: inline-block;
+    font-size: 14px;
+    color: #82a8ee;
+    margin: 0 5px;
+}
+
+.que.on>span {
+    font-weight: bold;
+    color: #82a8ee;
+}
+
+.anw {
+    display: none;
+    overflow: hidden;
+    font-size: 14px;
+    background-color: #f4f4f2;
+    padding: 27px 0;
+}
+
+.anw::before {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    margin: 0 5px;
+}
+
+.arrow-wrap {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
+}
+
+.que .arrow-top {
+    display: none;
+}
+
+.que .arrow-bottom {
+    display: block;
+}
+
+.que.on .arrow-bottom {
+    display: none;
+}
+
+.que.on .arrow-top {
+    display: block;
+}
+
 </style>
 
 <script>

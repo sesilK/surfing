@@ -19,11 +19,111 @@
         display: inline-block;
     }
     
+    /* 약관동의, 회원정보를 입력해주세요 글씨 */
+        .container > p{
+            font-size: x-large;
+        }
+        /* <!-- terms and conditions --> */
+        .TandC{
+            border: 1px solid gray;
+            padding:16px;
+        }
+        /* 약관 동의서들  */
+        .TandC > div{
+            padding:4px;
+            display: flex;
+            justify-content: space-between;
+        }
+        /* 약관 간단 설명에서 (필수)  */
+        .TandC strong{
+            color:red;
+        }
+        /* 약관 상세보기 버튼  */
+        .TandC button{
+
+            background-color: transparent;
+            border: transparent;
+            text-decoration : underline;
+        }
+        /* 약관 상세보기 버튼 hover */
+        .TandC button:hover{
+            cursor: pointer;
+        }    
+        
+        h1{ 
+        margin-bottom : 50px;
+        }
+        h2,p{
+        margin :30px;
+        }
+        
+       
+        /* 회원 정보 박스 */
+        .MemberInfo_box{
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        /* 입력창 */
+        .MemberInfo_box input {
+            width: 100%;
+            height: 60px;
+            font-size: large;
+            padding:8px;
+            box-sizing : border-box;
+        }
+  
 </style>
 </head>	
+
 <body>
     <%@ include file = "common.jsp" %>
+    
     	<h1>회원가입</h1>
+    	
+    	 <!-- 이용약관 -->
+        <p>    
+            약관 동의
+        </p>
+
+        <!-- terms and conditions -->
+        <div class="TandC">
+
+            <!-- 전체 동의 -->
+            <div style="border-bottom: 1px solid gray;">
+                <span>전체 동의</span>
+                <input type="checkbox" name="" id="">
+            </div>
+            
+            <!-- 필수 1 -->
+            <div>
+                <span><strong>(필수)</strong> 개인회원 약관에 동의 <button>상세 보기</button></span>
+                <input type="checkbox" name="" id="">
+            </div>
+            
+            <!-- 필수 2 -->
+            <div>
+                <span><strong>(필수)</strong> 개인정보 수집 및 이용에 동의 <button>상세 보기</button></span>
+                <input type="checkbox" name="" id="">
+            </div>
+
+            <!-- 선택 1 -->
+            <div>
+                <span>(선택) 마케팅 정보 수신 동의 - 이메일 <button>상세 보기</button></span>
+                <input type="checkbox" name="" id="">
+            </div>
+            
+            <!-- 선택 2 -->
+            <div>
+                <span>(선택) 마케팅 정보 수신 동의 - SMS/MMS <button>상세 보기</button></span>
+                <input type="checkbox" name="" id="">
+            </div>
+
+        </div> 
+    	
+    	<h2>회원 정보를 입력해 주세요</h2>
+    	<div class="MemberInfo_box">
 		<form name="signupForm" action="signup_proc.jsp" method="post">
 			<Fieldset>
 	        <input type="text" id="id" name="id" placeholder="아이디 입력">
@@ -37,7 +137,7 @@
 	    	<input type="button" id="result" value="가입">
 	    	</Fieldset>
 		</form>
-
+		</div>
 		<script type="text/javascript">
 	
 		
@@ -84,6 +184,4 @@
 		});
 	</script>
 
-
-</body>
-</html>
+<%@ include file="footer.jsp"%>

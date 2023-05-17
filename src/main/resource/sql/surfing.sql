@@ -1,12 +1,12 @@
 -- 테이블 전체 삭제 후 재생성
-DROP TABLE s_product;       -- 상품
 DROP TABLE cart;            -- 장바구니
 DROP TABLE s_order_detail;  -- 주문상세내역
 DROP TABLE s_order;         -- 주문조회
-DROP TABLE lesson;          -- 레슨
 DROP TABLE reserve;         -- 예약
+DROP TABLE lesson;          -- 레슨
 DROP TABLE bbs;             -- 게시판
 DROP TABLE payment;         -- 결제
+DROP TABLE s_product;       -- 상품
 delete from person_info;    -- 회원 데이터
 DROP TABLE person_info;     -- 회원
 
@@ -91,6 +91,8 @@ id VARCHAR2(21) NOT NULL,
 title VARCHAR2(50) NOT NULL,
 bbs_date date default sysdate NOT NULL, 
 bbs_content VARCHAR2(2048),
+answer_check NUMBER(1) default 0 NOT NULL,
+answer_content VARCHAR2(2048),
 FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 관리자 계정 생성

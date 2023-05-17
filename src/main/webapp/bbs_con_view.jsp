@@ -58,6 +58,14 @@
 					<tr>
 						<td id="content" colspan="2"><%=bbsDto.getBbs_content()%></td>
 					</tr>
+					<%if(bbsDto.getAnswer_check()==1){ %>
+					<tr>
+						<th colspan="2">답변</th>
+					</tr>
+					<tr>
+						<td id="answer" colspan="2"><%=bbsDto.getAnswer_content()%></td>
+					</tr>
+					<%} %>
 				</table>
 			</form>
 		</div>
@@ -68,22 +76,40 @@
 			if (id.equals(bbsId)) {
 		%>
 		<button id="deleteBtn">삭제하기</button>
+		<% if(bbsDto.getAnswer_check()==0){%>
 		<button id="updateBtn" onclick="editPost()">수정하기</button>
-		<%
-		}
+		
+				<%
+		}}
+			if (id.equals("admin") && bbsDto.getAnswer_check()==0) {
+		%>
+			<form name="answerForm" method="post">
+				<input name="form_no" type="hidden" value="<%=bbsDto.getNo()%>"></input>
+				<input name="writer_id" type="hidden" value="<%=bbsDto.getId()%>"></input>
+				<input id="answer" name="answer">
+				<button id="answerBtn">답글남기기</button>
+			</form>
+		<%	
+			}
 		}
 		%>
-
-		<!-- 	<div class= "bbs_comment">
-		댓글<input type = text>
-		<button>댓글올리기</button>
-		</div> -->
-
 	</div>
 
 
 	<script>
-
+	
+//답글달기
+	document.getElementById('answerBtn').addEventListener('click', ()=>{
+		let form =document.answerForm;
+		let answer = document.getElementById("answer");
+		if(answer.value!=''){
+			form.action = 'bbs_answer_proc.jsp';
+			form.submit();
+		} else {
+			alert('답글 내용을 입력해주세요.');
+		}
+	});
+	
 //삭제하기
 		document.getElementById('deleteBtn').addEventListener('click', ()=>{
 			let form =document.DeleteForm;
