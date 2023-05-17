@@ -168,7 +168,7 @@
 	<div class ="topnav" style="position: absolute; z-index: 2">
 	 <a href="./home.jsp" style= "position:absolute ;right:360px;" ><img src="images/whitelogo.png"
                         style="width: 100px; height: 100px  "></a>
-	
+		<ul>
 			<%
 			if (id == null) {
 			%>
@@ -184,6 +184,7 @@
 			<%
 			}
 			%>
+		</ul>
 	</div>
 	<!-- 이미지 슬라이드 -->
 	<div class="headimg" style="position: relative; z-index: 1">
@@ -202,70 +203,18 @@
 			<%
 			if (id == null) {
 			%>
-			<li class="nav-item " style="display :none" >
-			</li>
+			<li class="nav-item " style="display :none" ></li>
 			<%
 			} else {
 			%>
-			<li class="nav-item" style="text-decoration: none;">
-					<%=id%>님
-			</li>
+			<li class="nav-item" style="text-decoration: none;"><%=id%>님</li>
 			<%
 			}
 			%>
 		</ul>
 	</div>
-</div>
 
-					<!-- <li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="index.jsp">Home</a></li> -->
-
-					<li class="nav-item"><a class="nav-link" href="reserve.jsp">reserve</a></li>
-					<li class="nav-item"><a class="nav-link" href="shop.jsp">shop</a></li>
-					
-					<li class="nav-item"><a class="nav-link" href="bbs.jsp">community</a></li>
-					<% if (id == null){ %>
-					
-						<li class="nav-item"><a class="nav-link" href="member.jsp">member</a></li>
-					
-					<% } else {%>
-					<li class="nav-item"><a class="nav-link" href="infoupdate.jsp">
-					<%=id%>님</a></li>
-					<li class="nav-item"><a class="nav-link" href="signout_proc.jsp" onclick="rogout()">sign-out</a></li>
-					<% }%>
-				</ul>
-			</div>
-
-		</div>
-		<!-- 이미지 슬라이드 -->
-		<div class="headimg" style="position: relative; z-index: 1">
-			<img class="mainSlides" src="images/head1.jpg"> <img
-				class="mainSlides" src="images/head2.jpg"> <img
-				class="mainSlides" src="images/head3.jpg"> <img
-				class="mainSlides" src="images/head4.jpg">
-		</div>
-
-		<!-- 고정 nav -->
-		<div class="nav">
-			<ul id="menulist">
-				<li><a href="reserve.jsp">reserve</a></li>
-				<li><a href="shop.jsp">shop</a></li>
-				<li><a href="bbs.jsp">community</a></li>
-				<%
-				if (id == null) {
-				%>
-				<li class="nav-item " style="display: none"></li>
-				<%
-				} else {
-				%>
-				<li class="nav-item" style="text-decoration: none;"><%=id%>님</li>
-				<%
-				}
-				%>
-			</ul>
-		</div>
-
-
+	
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
