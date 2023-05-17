@@ -50,7 +50,7 @@
 	String to = PersonDao.getUserEmail(id);
 	String subject = "서퍼들을 위한 이메일인증메일입니다";
 	String content = "다음 링크를 타서 이메일 인증을 진행해주세요 " +
-		"<a href='" + host + "emailCheckAction.jsp?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하기</a>";
+		"<a href='" + host + "emailCheckAction.jsp?code=" + new SHA256().getSHA256(to) + "&id=" + id +"'>이메일 인증하기</a>";
 	
 	Properties p = new Properties();
 	p.put("mail.smtp.user",from);
@@ -76,6 +76,11 @@
 		msg.addRecipient(Message.RecipientType.TO, toAddr);
 		msg.setContent(content, "text/html; charset = UTF8");
 		Transport.send(msg);
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('가입이 완료되었습니다 이메일인증해주세요.');");
+		script.println("location.href = 'home.jsp'");
+		script.println("</script>");
 	} catch(Exception e){
 		e.printStackTrace();
 		PrintWriter script = response.getWriter();
