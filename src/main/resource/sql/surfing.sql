@@ -19,7 +19,7 @@ name VARCHAR(21) NOT NULL,
 Address VARCHAR(200) NOT NULL,
 email VARCHAR(100) NOT NULL,
 emailHash VARCHAR(100) NOT NULL,
-emailCheck VARCHAR(100) NOT NULL);
+emailCheck VARCHAR(100) CHECK(emailCheck IN ('TRUE', 'FALSE')));
 
 -- 상품 테이블 생성
 CREATE TABLE s_product(
@@ -97,7 +97,7 @@ FOREIGN KEY (id) REFERENCES person_info(id));
 
 -- 관리자 계정 생성
 INSERT INTO person_info
-values ('admin', 'admin', '0', '관리자', '관리자주소', '관리자메일@mail.com', '이메일해시', '이메일체크');
+values ('admin', 'admin', '0', '관리자', '관리자주소', '관리자메일@mail.com', '이메일해시', 'TRUE');
 
 -- 레슨 테이블 데이터 생성
 INSERT INTO lesson VALUES ( 1, 'BEGINNER' ,80000,'Gabriel Medina'); 
