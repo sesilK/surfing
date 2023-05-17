@@ -21,15 +21,15 @@ h1 {
 	justify-content: center;
 }
 
-.container {
-	width: 90%;
+.product_container {
+	width: 900px;
 	margin: 0 auto;
 }
 
 .product_box {
-	width: 18.5%;
-	display: inline-block;
+	width: 15.5%;
 	margin: 3%;
+	display: inline-block;
 	/* border: 1px solid red; */
 }
 
@@ -70,8 +70,7 @@ img {
 </head>
 <body>
 	<%@ include file="common.jsp"%>
-	<h1>서핑 용품</h1>
-	
+
 	<%
 	ProductDao productDao = new ProductDao();
 	CartDto cartDto = productDao.sumQty(id);
@@ -84,7 +83,7 @@ img {
 			</div>
 		</a>
 	
-	<div class="container">
+	<div class="product_container">
 		<%
 		for (ProductDto item : productList) {
 		%>

@@ -92,7 +92,7 @@
 		</div>
 		<script>
 		//카트담기 버튼에 함수
-		  document.querySelector("#addBtn").addEventListener("click", () => {
+		  document.querySelector("#addBtn").addEventListener("click", function() {
 		    const id = '<%=id%>';
 		    const code = '<%=code%>';
 		
@@ -121,7 +121,7 @@
 		  });
 		
 		//바로구매 버튼에 함수
-		document.querySelector("#buyNowBtn").addEventListener("click", () => {
+		document.querySelector("#buyNowBtn").addEventListener("click", function() {
 			const id = '<%=id%>';
 			const code = '<%=code%>';
 			
