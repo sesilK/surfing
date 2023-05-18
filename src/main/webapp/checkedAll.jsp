@@ -6,6 +6,7 @@
 <%@ page import="dto.CartDto"%>
 
 <%
+	//장바구니 안에 전체체크박스 눌렀을때 나타나는 기능
 	response.setContentType("application/json"); // HTML 형식이 아닌 JSON 형식으로 쓰겠다
 	JSONObject obj = new JSONObject(); // JSON 객체를 담기위해 선언
 	

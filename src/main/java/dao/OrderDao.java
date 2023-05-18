@@ -14,7 +14,7 @@ import oracle.DBConnectionManager;
 
 public class OrderDao {
 	
-	//insert		주문하기(결제건 생성)
+	//insert		주문하기(결제건 생성)    주문내역 테이블 insert
 	public int makeOrder(String id, String payment) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -46,7 +46,7 @@ public class OrderDao {
 		return result;
 	}
 	
-	//select	최근 주문번호 찾기
+	//select	최근 주문번호 찾기  (찾아서 주문상세내역 테이블에 insert)
 	public int selectOrderNo(String id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -79,7 +79,7 @@ public class OrderDao {
 		return orderDto.getOrder_no();
 	}
 	
-	//insert		주문하기(상세내역 생성)
+	//insert		주문하기(상세내역 생성)  주문상세내역 테이블 insert
 	public int makeOrderDetail(String id, int order_no) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -110,7 +110,7 @@ public class OrderDao {
 		return result;
 	}
 	
-	//select	주문한 물품의 가지 수
+	//select	주문한 물품의 가지 수 확인
 	public int orderCount(String id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -174,7 +174,7 @@ public class OrderDao {
 		return result;
 	}
 	
-	//select	주문내역
+	//select	주문내역 조회
 	public List<OrderDto> orderList(String id){
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -214,7 +214,7 @@ public class OrderDao {
 		return orderList;
 	}
 	
-	//select (List)		주문상세목록
+	//select (List)		주문상세내역 조회
 	public List<OrderDto> orderDetailList(int order_no){
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -253,7 +253,7 @@ public class OrderDao {
 		return orderDetailList;
 	}
 	
-	//insert		바로구매로 주문하기(결제건 생성)
+	//insert		바로구매로 주문하기(결제건 생성)   주문내역 테이블 insert
 	public int nowOrder(String id, String payment,int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -285,7 +285,7 @@ public class OrderDao {
 		return result;
 	}
 	
-	//insert		바로구매로 주문하기(상세내역 생성)
+	//insert		바로구매로 주문하기(상세내역 생성)   주문상세내역 테이블 insert
 	public int nowOrderDetail(String id, int order_no, int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
