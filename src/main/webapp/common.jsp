@@ -56,6 +56,10 @@
 	object-fit: cover;
 }
 
+li {
+	list-style: none;
+}
+
 #menulist {
 	display: flex;
 	list-style: none;
