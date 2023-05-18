@@ -23,7 +23,7 @@ public class Api {
 				"&" + URLEncoder.encode("ObsCode", "UTF-8") + "=" + URLEncoder.encode("TW_0062", "UTF-8")); /* 페이지번호 */
 
 		urlBuilder.append("&" + URLEncoder.encode("Date", "UTF-8") + "="
-				+ URLEncoder.encode(getCurrentDate(), "UTF-8")); /* 한 페이지 결과 수 */
+				+ URLEncoder.encode("20230515", "UTF-8")); /* 한 페이지 결과 수 */
 									//getCurrentDate()
 		urlBuilder.append("&" + URLEncoder.encode("ResultType", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
 
