@@ -3,28 +3,44 @@
 <%@ page import="java.util.*"%>
 <%@ page import="dao.BbsDao"%>
 <%@ page import="dto.BbsDto"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>문의 게시판</title>
-</head>
-<style>
 
+<title>문의 게시판</title>
+
+<style>
 .bbs_table th {
+	border-top: 1px solid #ddd;
 	background-color: #EDE6C5;
-	border: 1px solid #ddd;
 	padding: 10px;
 	text-align: center;
 }
 
 .bbs_table td {
-	border: 1px solid #ddd;
+	border-top: 1px solid #ddd;
 	padding: 10px;
 	text-align: center;
+	text-decoration:none;
+}
+.bbs_box{
+	margin-bottom: 300px;
+}
+td >img {
+	width: 80px;
+	height: 30px;
+}
+
+#bbs_insertBtn{
+  border: 0;
+  outline: none;
+  margin: 10px;
+  background: black;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  float: right;
 }
 </style>
-<body>
+
 	<%@ include file="common.jsp"%>
 
 	<!-- 로그인해야됨 -->
@@ -33,13 +49,18 @@
 	request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 	%>
 
-	<div class="container">
+	<div class="bbs_box">
 		<div class="bbs_table">
+			<div style="display: inline-block; width: 100%;">
+			<h1>문의게시판</h1>
+			<button id="bbs_insertBtn">질문하기</button>
+			</div>
+			
 			<table>
 				<thead>
 					<tr>
-						<th>no</th>
-						<th>title</th>
+						<th style="width: 50px;">no</th>
+						<th style="width: 400px;">title</th>
 						<th>name</th>
 						<th>date</th>
 						<th>answer</th>
@@ -62,20 +83,18 @@
 						<td><%=item.getBbs_date()%></td>
 						
 					    <% if(item.getAnswer_check()==1){ %>
-					    <td>답변완료</td>
+					    <td><img src="images/answerok.png"></td>
 					    <%} else {%>
-					    <td>답변아직</td>
+					    <td><img src="images/answerno.png"></td>
 					    <%} %>
 					</tr>
 					<%}%>
 				</tbody>
 			</table>
 		</div>
-
-		<button id="bbs_insertBtn">문의하기</button>
 	</div>
 
-
+<%@ include file="footer.jsp"%>
 	<script>
 	//로그인 해야 글쓰기 가능 
 		document.getElementById('bbs_insertBtn').addEventListener('click', () => {
@@ -90,5 +109,3 @@
 		});
 
 </script>
-</body>
-</html>

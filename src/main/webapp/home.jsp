@@ -16,23 +16,47 @@ String temp = Api.getWater_temp();
 	justify-content: space-evenly;
 	margin-bottom:50px;
 }
+/*선생님소개*/
+
+.hover01{
+display: flex;
+}
+.hover01 img{
+width:230px;
+height:250px;
+margin:20px;
+}
+
+
+/* Zoom In */
+.t_box{
+margin:10px;
+padding:30px;
+}
+.hover01 figure img {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+.hover01 figure:hover img {
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
+}
 
 /* 인기상품 */
-.populerBox_text{
-	width:2000px;
+.list_text{
+	width:900px;
 	height:50px;
-	padding:20px;
 	display: flex;
 	list-style: none;
-	justify-content: space-evenly;
-	border: 1px solid #dddddd;
-}
-.populerBox_text>button{
-text-decoration: none;
-border-radius:5px;
+	justify-content: space-between;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	padding: 15px
 }
 
-.populerBox {
+.populerBox{
 	width: 18.5%;
 	display: flex;
 	margin: 3%;
@@ -60,19 +84,20 @@ border-radius:5px;
 
 /* 시간css */
  #current-time {
-/*                 position: absolute; */
-                color: black;
-            }
+	color: black;
+}
 
+.iframebox{
+margin:50px;
+}
 
 </style>
 <%@ include file="common.jsp"%>
 
 <h1 id="current-time"></h1>
 <div class="wather_api">
-
-	<span> 현재 수온:<%=temp%>°C <!-- 해운대해수욕장 -->
-	</span>
+	<!-- 수온 api  -->
+	<span> 현재 수온:<%=temp%>°C <!-- 해운대해수욕장 --></span>
 	<!-- 슈트추천-->
 	<%
 	String suit = "";
@@ -97,7 +122,7 @@ border-radius:5px;
 		style="width: 50px; height: auto;">
 	</span>
 </div>
-
+<!-- 시간 -->
  <script>
             const time = document.getElementById('current-time'); // id가 'current-time'인 요소
 
@@ -108,15 +133,39 @@ border-radius:5px;
             }, 1000);
         </script>
 
-<div class="populerBox_text">
-	<span>인기상품</span>
-	<button>
-		<a href="shop.jsp">더보기</a>
-	</button>
+<!-- 선생님소개 -->
+<div class="list_text">
+	<h3>Green Wave 의 최고의 강사진</h3>
+	<a href="reserve.jsp" style="text-decoration:none";>예약하기</a>
+</div>
+
+<div class="t_box">
+	<div class="hover01 column">
+		<div>
+			<figure>
+				<img src="images/teacher1.PNG" />
+			</figure>
+		</div>
+		<div>
+			<figure>
+				<img src="images/teacher2.PNG" />
+			</figure>
+		</div>
+		<div>
+			<figure>
+				<img src="images/teacher3.PNG" />
+			</figure>
+		</div>
+	</div>
+</div>
+
+<!-- 상품슬라이드 -->
+<div class="list_text">
+	<h3>인기상품</h3>
+	<a href="shop.jsp" style="text-decoration:none";>더보기</a>
 </div>
 
 <div class="populerBox">
-
 	<%
 	ProductDao productDao = new ProductDao();
 	List<ProductDto> productList = productDao.selectProductList();
@@ -138,7 +187,15 @@ border-radius:5px;
 	<%
 	}
 	%>
-
 </div>
+
+<div class="list_text">
+	<h3>찾아오시는 길</h3>
+</div>	
+<div class= "iframebox">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26095.323275171224!2d129.13978462747602!3d35.158730342854426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d5c0efe075f%3A0x9963b1d5c163ac98!2z7ZW07Jq064yA7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1684322192122!5m2!1sko!2skr" 
+width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+	
 
 <%@ include file="footer.jsp"%>

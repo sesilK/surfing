@@ -3,24 +3,21 @@
 <%@ page import="java.util.*"%>
 <%@ page import="dao.ReserveDao"%>
 <%@ page import="dto.ReserveDto"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.4.js"
-	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-	crossorigin="anonymous"></script>
 
-</head>
+<title>Insert title here</title>
 <style>
 .cancel-btn{
  border: 3px solid #519d9e;
     color: darkgray;
 }
+.reserve_check_box{
+margin-bottom:100px;
+margin-top:50px;
+}
+ 
 </style>
 
-<body>
+
 	<%@ include file="common.jsp"%>
 	
 	<!-- 로그인해야됨 -->
@@ -29,6 +26,7 @@
 	%>
 	<h1>예약확인창🤙🏾</h1>
 
+<div class="reserve_check_box">
 	<table class="table">
 		<thead>
 			<tr>
@@ -48,7 +46,7 @@
 				reserveList = reserveDao.selectReserveList(id);
 			} catch (Exception e) {
 			%>
-			<p>예외처리</p>
+		
 			<%
 			}
 
@@ -72,9 +70,10 @@
 			%>
 		</tbody>
 	</table>
+</div>
 
+<%@ include file="footer.jsp"%>
 
-</body>
 <script>
 	window.onload = function () {
 		let btnArr = document.querySelectorAll(".cancel-btn");
@@ -88,4 +87,3 @@
 		}
 	}
 </script>
-</html>

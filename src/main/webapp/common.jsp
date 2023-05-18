@@ -31,9 +31,15 @@
 	box-sizing: border-box;
 	text-align: center;
 	font-family: 'SUITE-Regular';
+	text-decoration: none;
+	color:black;
+}
+body{
+background-color: #dddddd;
 }
 
 .container {
+background-color:white;
 	width: 900px;
 	margin: 0 auto;
 	display: flex;
@@ -102,13 +108,13 @@
 .que::before {
 	display: inline-block;
 	font-size: 14px;
-	color: #82a8ee;
+	color: #ffffff;
 	margin: 0 5px;
 }
 
 .que.on>span {
 	font-weight: bold;
-	color: #82a8ee;
+	color: #000000;
 }
 
 .anw {

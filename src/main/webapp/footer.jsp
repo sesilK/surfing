@@ -43,7 +43,6 @@
  .footerbox {
 	width: 900px;
 	margin: 0 auto;
-	margin-top: 100px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

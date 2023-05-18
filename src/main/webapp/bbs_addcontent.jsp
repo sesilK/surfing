@@ -1,31 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <title>게시물 기입하는 곳</title>
-</head>
+
 <style>
-.input_bbs th>input {
+.addcon_box{
+	margin-bottom: 100px;
+	display:inline-block;
+}
+#TextinsertBtn{
+  border: 0;
+  outline: none;
+  margin: 10px;
+  background: black;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  float: right;
+}
+.addcon_box th>input {
 	background-color: #EDE6C5;
 	border: 1px solid #ddd;
 	padding: 10px;
 	text-align: center;
 	width : 800px;
-	height: 100px;
+	height: 80px;
 }
 
-.input_bbs td>input {
+.addcon_box td>input {
 	border: 1px solid #ddd;
 	padding: 10px;
 	text-align: center;
 	width : 800px;
-	height: 600px;
+	height: 500px;
 }
 </style>
-<body>
 
 	<%@ include file="common.jsp"%>
 
@@ -33,19 +43,19 @@
 	request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 	%>
 
-
+<div class="addcon_box">
+	<button id="TextinsertBtn">발행</button><br>
 	<table>
 		<tr>
-			<th><input type="text" id="inputTitle" name="title" placeholder="글제목">
-			</th>
+		<th><input type="text" id="inputTitle" name="title" placeholder="제목">
+		</th>
 		</tr>
+		
 		<tr>
-			<td><input type="text" id="inputText" name="content" placeholder="내용을입력하세요"></td>
+		<td><input type="text" id="inputText" name="content" placeholder="내용을입력하세요"></td>
 		</tr>
 	</table>
-	<button id="TextinsertBtn">발행</button>
-
-
+</div>
 
 <script>
  		document.getElementById('TextinsertBtn').addEventListener('click', ()=>{
@@ -91,5 +101,4 @@
 		}); 
 		
 	</script>
-</body>
-</html>
+<%@ include file="footer.jsp"%>
