@@ -10,7 +10,7 @@
 
 <%@ include file="common.jsp"%>
 
-
+<div style="margin-top:80px; margin-bottom: 300px;">
 <h1>주문 내역 확인</h1><br>
 <%
 	OrderDao orderDao = new OrderDao();
@@ -50,7 +50,7 @@
 %>
         </div>
     </div>
-
+</div>
 
     <!-- 아코디언 동작 -->
     <script defer>

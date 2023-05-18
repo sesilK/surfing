@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <title>Insert title here</title>
 <style>
     * {
@@ -75,68 +72,72 @@
         }
   
 </style>
-</head>	
 
-<body>
-    <%@ include file = "common.jsp" %>
-    
-<h1>회원가입</h1>
+<%@ include file="common.jsp"%>
+<div style="margin-top: 80px; margin-bottom: 300px;">
+	<h1>회원가입</h1>
 
-<!-- 이용약관 -->
-<p>
-    약관 동의
-</p>
+	<!-- 이용약관 -->
+	<p>약관 동의</p>
 
-<!-- terms and conditions -->
-<div class="TandC">
+	<!-- terms and conditions -->
+	<div class="TandC">
 
-    <!-- 전체 동의 -->
-    <div style="border-bottom: 1px solid gray;">
-        <span>전체 동의</span>
-        <input type="checkbox" id="selectAll" onchange="toggleCheckboxes()">
-    </div>
+		<!-- 전체 동의 -->
+		<div style="border-bottom: 1px solid gray;">
+			<span>전체 동의</span> <input type="checkbox" id="selectAll"
+				onchange="toggleCheckboxes()">
+		</div>
 
-    <!-- 필수 1 -->
-    <div>
-        <span><strong>(필수)</strong> 개인회원 약관에 동의 <button>상세 보기</button></span>
-        <input type="checkbox" id="required1" onchange="validateForm()">
-    </div>
+		<!-- 필수 1 -->
+		<div>
+			<span><strong>(필수)</strong> 개인회원 약관에 동의
+				<button>상세 보기</button></span> <input type="checkbox" id="required1"
+				onchange="validateForm()">
+		</div>
 
-    <!-- 필수 2 -->
-    <div>
-        <span><strong>(필수)</strong> 개인정보 수집 및 이용에 동의 <button>상세 보기</button></span>
-        <input type="checkbox" id="required2" onchange="validateForm()">
-    </div>
+		<!-- 필수 2 -->
+		<div>
+			<span><strong>(필수)</strong> 개인정보 수집 및 이용에 동의
+				<button>상세 보기</button></span> <input type="checkbox" id="required2"
+				onchange="validateForm()">
+		</div>
 
-    <!-- 선택 1 -->
-    <div>
-        <span>(선택) 마케팅 정보 수신 동의 - 이메일 <button>상세 보기</button></span>
-        <input type="checkbox" id="optional1">
-    </div>
+		<!-- 선택 1 -->
+		<div>
+			<span>(선택) 마케팅 정보 수신 동의 - 이메일
+				<button>상세 보기</button>
+			</span> <input type="checkbox" id="optional1">
+		</div>
 
-    <!-- 선택 2 -->
-    <div>
-        <span>(선택) 마케팅 정보 수신 동의 - SMS/MMS <button>상세 보기</button></span>
-        <input type="checkbox" id="optional2">
-    </div>
+		<!-- 선택 2 -->
+		<div>
+			<span>(선택) 마케팅 정보 수신 동의 - SMS/MMS
+				<button>상세 보기</button>
+			</span> <input type="checkbox" id="optional2">
+		</div>
 
-</div>
+	</div>
 
-<h2>회원 정보를 입력해 주세요</h2>
-<div class="MemberInfo_box">
-    <form name="signupForm" action="signup_proc.jsp" method="post">
-        <fieldset>
-            <input type="text" id="id" name="id" placeholder="아이디 입력">
-            <input type="button" name="checkid" value="중복확인" onclick="checkDuplicateId()">
-            <input type="password" name="pw" placeholder="비밀번호 입력">
-            <input type="password" name="pw2" placeholder="비밀번호 확인">
-            <div id="pw2-error" style="color: red"></div>
-            <input type="text" name="name" placeholder="이름">
-            <input type="text" name="address" placeholder="주소">
-            <input type="email" name="email" placeholder="이메일">
-            <input type="button" id="result" value="가입" disabled>
-        </fieldset>
-    </form>
+	<h2>회원 정보를 입력해 주세요</h2>
+	<div class="MemberInfo_box">
+		<form name="signupForm" action="signup_proc.jsp" method="post">
+			<fieldset>
+			
+				<input type="text" id="id" name="id" placeholder="아이디 입력"> 
+				<input type="button" name="checkid" value="중복확인" onclick="checkDuplicateId()"> 
+				<input type="password" name="pw" placeholder="비밀번호 입력"> <input type="password"
+					name="pw2" placeholder="비밀번호 확인">
+					
+				<div id="pw2-error" style="color: red"></div>
+				<br>
+				<input type="text" name="name" placeholder="이름"> 
+				<input type="text" name="address" placeholder="주소"> 
+				<input type="email" name="email" placeholder="이메일"> 
+				<input type="button" id="result" value="가입" disabled>
+			</fieldset>
+		</form>
+	</div>
 </div>
 
 <script type="text/javascript">

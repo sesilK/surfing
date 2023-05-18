@@ -7,6 +7,10 @@
 <title>문의 게시판</title>
 
 <style>
+.bbs_box{
+	margin-top:80px;
+	margin-bottom: 300px;
+}
 .bbs_table th {
 	border-top: 1px solid #ddd;
 	background-color: #EDE6C5;
@@ -19,9 +23,6 @@
 	padding: 10px;
 	text-align: center;
 	text-decoration:none;
-}
-.bbs_box{
-	margin-bottom: 300px;
 }
 td >img {
 	width: 80px;
@@ -109,7 +110,4 @@ td >img {
 		});
 
 </script>
-<<<<<<< HEAD
-=======
-	<%@ include file="footer.jsp"%>
->>>>>>> ft-230517-css-ss
+

@@ -9,6 +9,11 @@ li {
 	list-style: none;
 }
 
+.reserve_box {
+	margin-bottom: 100px;
+	margin-top: 50px;
+}
+
 .formbox {
 	background-color: rgb(240, 240, 240);
 	height: 100px;
@@ -21,25 +26,24 @@ li {
 	margin-left: 0px;
 }
 
+
+/* 레슨정보 */
 #lesson_list {
 	margin: 30px;
 }
-
-.reserve_box {
-	margin-bottom: 100px;
-	margin-top: 50px;
+#lesson_list> button{
+	margin: 40px;          
+	width:100px;
+	background-color: white;
 }
-
-/* 레슨정보 */
 table {
-	width: 100%;
+	margin-left:220px;
+	width: 400px;
 	border-top: 1px solid #444444;
-	border-collapse: collapse;
 }
 
 th, td {
 	border-bottom: 1px solid #444444;
-	border-left: 1px solid #444444;
 	padding: 10px;
 }
 
@@ -119,7 +123,7 @@ img {
 
 		<!-- 토글박스 -->
 		<div id="div1" style="display: none;">
-			<h5>전문적인 코치들과 함께 인생 첫 파도를 타는 짜릿함을 느껴보세요!</h5>
+			<h5>전문적인 코치들과 함께 인생 첫 파도를 타는 짜릿함을 느껴보세요!</h5><br>
 			<img src="images/teacher1.PNG" />
 			<br><br><br>
 			<p>지상 교육을 통해 패들, 테이크오프 까지 배우고 스스로 거품 파도를 잡아 롱 라이딩 할 수 있도록 도와드릴게요!</p>
@@ -129,7 +133,7 @@ img {
 		</div>
 
 		<div id="div2" style="display: none">
-			<h5>스스로 거품 파도를 잡아서 라이딩이 가능한 분들을 위한 강습!</h5>
+			<h5>스스로 거품 파도를 잡아서 라이딩이 가능한 분들을 위한 강습!</h5><br>
 			<img src="images/teacher2.PNG" />
 			<br><br><br>
 			<p>지상 교육을 통해 패들, 테이크오프 까지 배우고 스스로 거품 파도를 잡아 롱 라이딩 할 수 있도록 도와드릴게요!</p>
@@ -138,7 +142,7 @@ img {
 		</div>
 
 		<div id="div3" style="display: none;">
-			<h5>스스로 그린웨이브를 잡아서 라이딩이 가능한 분들을 위한 강습!</h5>
+			<h5>스스로 그린웨이브를 잡아서 라이딩이 가능한 분들을 위한 강습!</h5><br>
 			<img src="images/teacher3.PNG" />
 			<br><br><br>
 			<p>강사의 도움 없이 스스로 무릎사이즈의 깨지지 않은 파도 잡기 가능한 분</p>
@@ -149,7 +153,7 @@ img {
 		<div id="div4" style="display: none">
 			<table style="text-align: center;">
 				<tr>
-					<th rowspan="2">서핑레슨<br> 기준 :1세션
+					<th rowspan="2">서핑레슨
 					</th>
 					<td>BEGINNER 100,000원</td>
 					<td>LEARNNE 100,000원</td>

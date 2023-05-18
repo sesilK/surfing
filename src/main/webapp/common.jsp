@@ -13,6 +13,16 @@
 </head>
 
 <style>
+
+		.video-background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: -1;
+		}
 @font-face {
 	font-family: 'SUITE-Regular';
 	src:
@@ -36,7 +46,7 @@ background-color: #dddddd;
 }
 
 .container {
-background-color:white;
+	background-color:white;
 	width: 900px;
 	margin: 0 auto;
 	display: flex;
@@ -72,7 +82,6 @@ li {
 	justify-content: space-evenly;
 	width: 900px;
 	background-color: #585f54;
-	margin-bottom: 100px;
 }
 
 #menulist li {
@@ -197,9 +206,9 @@ li {
 	}
 	%>
 
-
+	
 	<!-- 홈버튼 회원가입여부 고정 -->
-	<div class ="container">
+	<div class ="container" backgroun>
 	<div class ="topnav" style="position: absolute; z-index: 2">
 	<a href="./home.jsp" style= "position:absolute ;right:360px;" ><img src="images/whitelogo.png"
                         style="width: 100px; height: 100px  "></a>
@@ -249,7 +258,7 @@ li {
 		</ul>
 	</div>
 
-	<div id="panel">
+	<div id="panel" style="background:white;">
 		<a href="infoupdate.jsp"><div>정보수정</div></a>
 		<a href="reserve_check.jsp"><div>예약확인</div></a>
 		<a href="orderCheck.jsp"><div>주문내역</div></a>

@@ -9,6 +9,7 @@
 <style>
 .view_container {
 	margin-bottom: 100px;
+	margin-top:80px;
 }
 
 .board {
@@ -70,13 +71,13 @@ BbsDao dao = new BbsDao();
 BbsDto bbsDto = dao.selectBbsByNo(no);
 %>
 
+<div class="view_container">
+
 	<div class="viewtop_box">
 		<h1>
 			no.<%=bbsDto.getNo()%> <%=bbsDto.getId()%>님 문의사항
 		</h1>
 	</div>
-<div class="view_container">
-
 
 	<div class="bbs_view">
 		<form name="DeleteForm" method="post">
@@ -93,7 +94,7 @@ BbsDto bbsDto = dao.selectBbsByNo(no);
 				<tr>
 					<th>내용</th>
 				</tr>
-				<tr style="height: 400px;">
+				<tr style="height: 200px;">
 					<td id="content"><%=bbsDto.getBbs_content()%></td>
 				</tr>
 			</table>

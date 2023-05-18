@@ -59,7 +59,7 @@ public class BbsDao {
 			String sql = "select no, id, title,"
 					+ " TO_CHAR(bbs_date, 'YYYY-MM-DD HH24:MI') bbs_date, " // hh추가 (24시간																								// 시간설정)
 					+ " bbs_content, answer_check from bbs "
-					+ " order by no";
+					+ " order by no desc";
 //
 			psmt = conn.prepareStatement(sql);
 

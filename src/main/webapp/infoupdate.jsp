@@ -67,45 +67,50 @@
 
 
 
-
+<div style="margin-top: 80px; margin-bottom: 300px;">
 	<div class="MemberInfo_box">
-	<form action="infoUpDate_Check.jsp" method="post">
-	<table>
-		<thead> <h1>회원정보 수정</h1></thead>
-		<tbody>
-			<tr>
-				<td><h5>아이디</h5></td>
-				<td><input id="id" type="text" name="id" value="<%= persondto.getId()%>" readonly></td>
-			</tr>
-			<tr>
-				<td><h5>현재 비밀번호</h5></td>
-				<td><input type="password" id="before" name="beforePw"></td>
-			</tr>
-			<tr>
-				<td><h5>변경할 비밀번호</h5></td>
-				<td><input type="password" id="after" name="afterPw"></td>
-			</tr>
-			<tr>
-				<td><h5>이름</h5></td>
-				<td><input type="text" name="name" value="<%= persondto.getName()%>" readonly></td>
-			</tr>
-			<tr>
-				<td><h5>주소</h5></td>
-				<td><input type="text" name="address"></td>
-			</tr>
-			<tr>
-				<td><h5>이메일</h5></td>
-				<td><input type="text" name="email"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="수정" class="submit"></td>
-			</tr>
-		</tbody>
-	</table>
-	</form>
+		<form action="infoUpDate_Check.jsp" method="post">
+			<table>
+				<thead style="margin-bottom: 30px;"> 
+					<h1>회원정보 수정</h1>
+				</thead>
+				<tbody>
+					<tr>
+						<td><h5>아이디</h5></td>
+						<td><input id="id" type="text" name="id"
+							value="<%=persondto.getId()%>" readonly></td>
+					</tr>
+					<tr>
+						<td><h5>현재 비밀번호</h5></td>
+						<td><input type="password" id="before" name="beforePw"></td>
+					</tr>
+					<tr>
+						<td><h5>변경할 비밀번호</h5></td>
+						<td><input type="password" id="after" name="afterPw"></td>
+					</tr>
+					<tr>
+						<td><h5>이름</h5></td>
+						<td><input type="text" name="name"
+							value="<%=persondto.getName()%>" readonly></td>
+					</tr>
+					<tr>
+						<td><h5>주소</h5></td>
+						<td><input type="text" name="address"></td>
+					</tr>
+					<tr>
+						<td><h5>이메일</h5></td>
+						<td><input type="text" name="email"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="수정"
+							class="submit"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
 	</div>
-	
-	
+</div>
+
 <%}%>
 <%@ include file="footer.jsp"%>
 

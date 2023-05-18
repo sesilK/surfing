@@ -6,15 +6,32 @@
 
 <title>Insert title here</title>
 <style>
-.cancel-btn{
- border: 3px solid #519d9e;
-    color: darkgray;
+.reserve_check_box {
+	margin-top: 80px;
+	margin-bottom: 300px;
 }
-.reserve_check_box{
-margin-bottom:100px;
-margin-top:50px;
+.check_table{
+margin:60px;
 }
- 
+.cancel-btn {
+	padding : 5px;
+	border: 1px solid gray;
+	color: darkgray;
+	cursor: pointer;
+}
+th {
+	background-color: #EDE6C5;
+	border-top: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+	width: 800px;
+}
+
+td {
+	border-top: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
 </style>
 
 
@@ -24,57 +41,62 @@ margin-top:50px;
 	<%
 	id = (String)session.getAttribute("id");
 	%>
-	<h1>예약확인창🤙🏾</h1>
 
 <div class="reserve_check_box">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>예약일자</th>
-				<th>인원</th>
-				<th>레벨</th>
-				<th>예약상태</th>
-				<th>강습당담자</th>
-				<th><th>
-			</tr>
-		</thead>
-		<tbody>
-			<%
-			ReserveDao reserveDao = new ReserveDao();
-			List<ReserveDto> reserveList = null;
-			try {
-				reserveList = reserveDao.selectReserveList(id);
-			} catch (Exception e) {
-			%>
-		
-			<%
-			}
+	<h1>예약확인창🤙🏾</h1>
+	<div class="check_table">
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="width:20%">예약일자</th>
+					<th>인원</th>
+					<th>레벨</th>
+					<th>예약상태</th>
+					<th>강습당담자</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+				ReserveDao reserveDao = new ReserveDao();
+				List<ReserveDto> reserveList = null;
+				try {
+					reserveList = reserveDao.selectReserveList(id);
+				} catch (Exception e) {
+				%>
 
-			/* 		List<ReserveDto> reserveList = reserveDao.selectReserveList("admin"); */
+				<%
+				}
 
-			for (ReserveDto item : reserveList) {
-			%>
-			<tr class="" id="<%=item.getNo()%>">
-				<td><%=item.getDate()%></td>
-				<td><%=item.getPersons()%></td>
-				<td><%=item.getStage()%></td>
-				<td><%=item.getState()%></td>
-				<td><%=item.getTeacher()%></td>
-				<td><% if(item.getState().equals("예약완료")) { %>
-					<button class="cancel-btn" id='cancel_<%=item.getNo()%>'>예약취소</button>
-				<%}%>
-				</td>
-			</tr>
-			<%
-			}
-			%>
-		</tbody>
-	</table>
+				/* 		List<ReserveDto> reserveList = reserveDao.selectReserveList("admin"); */
+
+				for (ReserveDto item : reserveList) {
+				%>
+				<tr class="" id="<%=item.getNo()%>">
+					<td><%=item.getDate()%></td>
+					<td><%=item.getPersons()%></td>
+					<td><%=item.getStage()%></td>
+					<td><%=item.getState()%></td>
+					<td><%=item.getTeacher()%></td>
+					<td>
+						<%
+						if (item.getState().equals("예약완료")) {
+						%>
+						<button class="cancel-btn" id='cancel_<%=item.getNo()%>'>예약취소</button>
+						<%
+						}
+						%>
+					</td>
+				</tr>
+				<%
+				}
+				%>
+			</tbody>
+		</table>
+	</div>
 </div>
-
 <%@ include file="footer.jsp"%>
-
-<script>
+	<script>
 	window.onload = function () {
 		let btnArr = document.querySelectorAll(".cancel-btn");
 		for(let btn of btnArr) {

@@ -41,7 +41,8 @@
 		location.href = "./cart.jsp?id=<%=id%>";
 	</script>
  <%} else { %>
-
+<div class="order_box" style="margin-top:80px;
+	margin-bottom: 300px;">
 <h1>주문 정보</h1><br>
 <p>주문자명<input id="info1" value="<%=personDto.getName()%>"></p><br>
 <p>받을주소<input id="info2" value="<%=personDto.getAddress()%>" style="width: 400px;"></p><br>
@@ -103,7 +104,7 @@
 <button type="button" onclick="pay()">결제하기</button>
 <input type="hidden" name="code" value="<%=code%>">
 </form>
-
+</div>
 
 <script>
 	function pay() {

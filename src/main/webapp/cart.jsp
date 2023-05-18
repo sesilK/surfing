@@ -20,6 +20,8 @@
 	<%String idParam = request.getParameter("id");
 		ProductDao productDao = new ProductDao();
 		List<CartDto> cartList = null;%>
+		
+		<div class="cart_box" style="margin-top:80px; margin-bottom: 300px;">
 	<h1>장바구니</h1>
 	<table>
 		<%if(id != null){
@@ -116,6 +118,7 @@
 		<% }} %>
 
 	</table>
+	</div>
 
 	<script>
 		//체크박스

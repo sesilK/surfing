@@ -63,6 +63,7 @@
 #footerlist li {
     padding: 30px;
     text-align: center;
+    color: white;
 }
 
 #footerSns {
