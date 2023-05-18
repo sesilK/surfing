@@ -319,4 +319,119 @@ public int Emailauthentication(String id) {
 		return result;
 	}
 
+	// 아이디 찾기 조회 메소드
+public PersonDto missingPersonInfoById(String name,String email) {
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
+	PersonDto personDto = null;
+	
+	//select 한개 단일
+	try {
+		conn = DBConnectionManager.getConnection();
+
+		String sql = "select * from person_info"
+					+" WHERE name = ? AND email = ?";
+
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, name);
+		psmt.setString(2, email);
+		
+		rs = psmt.executeQuery();
+
+
+		if(rs.next()) {
+			personDto = new PersonDto();
+			
+			personDto.setId(rs.getString("id"));
+			personDto.setPw(rs.getString("pw"));
+			personDto.setRating(rs.getInt("rating"));
+			personDto.setName(rs.getString("name"));
+			personDto.setAddress(rs.getString("address"));
+			personDto.setEmail(rs.getString("email"));
+			personDto.setEmailCheck(rs.getString("emailcheck"));
+		}
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		DBConnectionManager.close(rs, psmt, conn);			
+	}
+	
+	return personDto;
+}
+	// 비밀번호 찾기 조회 메소드
+public PersonDto missingPersoninfoPW(String name,String id, String email) {
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
+	PersonDto personDto = null;
+	
+	//select 한개 단일
+	try {
+		conn = DBConnectionManager.getConnection();
+
+		String sql = "select * from person_info"
+					+" WHERE name = ? AND id = ? AND email = ?";
+
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, name);
+		psmt.setString(2, id);
+		psmt.setString(3, email);
+		
+		rs = psmt.executeQuery();
+
+
+		if(rs.next()) {
+			personDto = new PersonDto();
+			
+			personDto.setId(rs.getString("id"));
+			personDto.setPw(rs.getString("pw"));
+			personDto.setRating(rs.getInt("rating"));
+			personDto.setName(rs.getString("name"));
+			personDto.setAddress(rs.getString("address"));
+			personDto.setEmail(rs.getString("email"));
+			personDto.setEmailCheck(rs.getString("emailcheck"));
+			
+		}
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		DBConnectionManager.close(rs, psmt, conn);			
+	}
+	
+	return personDto;
+}
+
+public int PWInitialization(String id) {
+	
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
+	int result = 0;
+
+	try {
+		conn = DBConnectionManager.getConnection();
+
+		String sql= "UPDATE person_info "
+				+	"SET pw = ? "
+				+	"WHERE id = ?";
+
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1,"1234");
+		psmt.setString(2,id);
+
+		result = psmt.executeUpdate();
+
+		System.out.println("처리결과: " + result);
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		DBConnectionManager.close(rs, psmt, conn);
+	}
+
+	return result;
+}
 }
