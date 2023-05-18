@@ -5,31 +5,36 @@
 <%@ page import="dto.ProductDto"%>
 <%@ page import="dao.Api"%>
 <%
-String temp = Api.getWater_temp();
+String temp = "";
+try {
+    temp = Api.getWater_temp();
+} catch (Exception e) {
+    e.printStackTrace();
+}
 %>
 
 <style>
-.wather_api{
-	margin-top:20px;
+.wather_api {
+	margin-top: 20px;
 	display: flex;
-	width:1500px;
+	width: 1500px;
 	justify-content: space-evenly;
-	margin-bottom:50px;
+	margin-bottom: 50px;
 }
 
 /* 인기상품 */
-.populerBox_text{
-	width:2000px;
-	height:50px;
-	padding:20px;
+.populerBox_text {
+	width: 2000px;
+	height: 50px;
+	padding: 20px;
 	display: flex;
 	list-style: none;
 	justify-content: space-evenly;
 	border: 1px solid #dddddd;
 }
-.populerBox_text>button{
-text-decoration: none;
-border-radius:5px;
+.populerBox_text>button {
+	text-decoration: none;
+	border-radius: 5px;
 }
 
 .populerBox {
@@ -40,30 +45,28 @@ border-radius:5px;
 }
 
 @keyframes slide {
-  0% {
-    transform: translateX(-200%);
-  }
-  30% {
-    transform: translateX(-400%);
-  }
-  60% {
-    transform: translateX(-600%);
-  }
-  90% {
-    transform: translateX(-800%);
-  }
-  100% {
-    transform: translateX(-900%);
-  }
+	0% {
+		transform: translateX(-200%);
+	}
+	30% {
+		transform: translateX(-400%);
+	}
+	60% {
+		transform: translateX(-600%);
+	}
+	90% {
+		transform: translateX(-800%);
+	}
+	100% {
+		transform: translateX(-900%);
+	}
 
 }
 
 /* 시간css */
- #current-time {
-/*                 position: absolute; */
-                color: black;
-            }
-
+#current-time {
+	color: black;
+}
 
 </style>
 <%@ include file="common.jsp"%>
@@ -77,20 +80,23 @@ border-radius:5px;
 	<%
 	String suit = "";
 	String image = "";
-	 double waterTemp = Double.parseDouble(temp); 
-	/* 	double waterTemp = 14.0; */
-	if (waterTemp < 15) {
-		suit = "5/4mm 추천드려요";
-		image="images/w1.jpg";
-	} else if (waterTemp >= 15 && waterTemp < 22) {
-		suit = "4/3mm 추천드려요";
-		image="images/w2.jpg";
-	} else if (waterTemp >= 22 && waterTemp < 26) {
-		suit = "2mm 추천드려요";
-		image="images/w3.jpg";
-	} else if (waterTemp >= 26) {
-		suit = "1mm or 보드숏 , 수영복 입으세요";
-		image="images/w4.jpg";
+	try {
+		double waterTemp = Double.parseDouble(temp);
+		if (waterTemp < 15) {
+			suit = "5/4mm 추천드려요";
+			image = "images/w1.jpg";
+		} else if (waterTemp >= 15 && waterTemp < 22) {
+			suit = "4/3mm 추천드려요";
+			image = "images/w2.jpg";
+		} else if (waterTemp >= 22 && waterTemp < 26) {
+			suit = "2mm 추천드려요";
+			image = "images/w3.jpg";
+		} else if (waterTemp >= 26) {
+			suit = "1mm or 보드숏 , 수영복 입으세요";
+			image = "images/w4.jpg";
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
 	%>
 	<span> 현재 웨트슈트는 <%=suit%> <img src="<%=image%>" alt="<%=suit%>"
@@ -98,15 +104,15 @@ border-radius:5px;
 	</span>
 </div>
 
- <script>
-            const time = document.getElementById('current-time'); // id가 'current-time'인 요소
+<script>
+	const time = document.getElementById('current-time'); // id가 'current-time'인 요소
 
-            // 1초마다 현재 시각 업데이트
-            setInterval(() => {
-                const date = new Date(); // 새로운 Date 객체 생성
-                time.innerHTML = date.toLocaleTimeString();
-            }, 1000);
-        </script>
+	// 1초마다 현재 시각 업데이트
+	setInterval(() => {
+		const date = new Date(); // 새로운 Date 객체 생성
+		time.innerHTML = date.toLocaleTimeString();
+	}, 1000);
+</script>
 
 <div class="populerBox_text">
 	<span>인기상품</span>
