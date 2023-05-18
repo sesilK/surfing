@@ -69,7 +69,7 @@
 <style>
     .area {
         display: flex;
-        height: 600px;
+        height: auto;
         width: 900px;
         border: 1px solid rgb(207, 207, 207);
         background-color: #f0f0f0;
@@ -129,7 +129,6 @@
     
     .accordion .accordion_item.open > button {
         border: 0;
-        color: #f27a62;
         background-color: rgba(240,142,124,0.3);
     }
     
@@ -140,7 +139,6 @@
     .accordion .accordion_item.open  > .accordion_content {
         display: flex;
         flex: 1 1 1px;
-        overflow-y: auto;
     }
     
     .accordion .accordion_item  > .accordion_content::-webkit-scrollbar {
