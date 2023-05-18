@@ -116,31 +116,29 @@ margin:50px;
 	<%@ include file="common.jsp"%>
 <div class="home_box">
 
-	<h1 id="current-time"></h1>
-	<div class="wather_api">
-		<!-- 수온 api  -->
-		<span> 현재 수온:<%=temp%>°C <!-- 해운대해수욕장 --></span>
-		<!-- 슈트추천-->
-		<%
-		String suit = "";
-		String image = "";
-		try {
-			double waterTemp = Double.parseDouble(temp);
-			if (waterTemp < 15) {
-				suit = "5/4mm 추천드려요";
-				image = "images/w1.jpg";
-			} else if (waterTemp >= 15 && waterTemp < 22) {
-				suit = "4/3mm 추천드려요";
-				image = "images/w2.jpg";
-			} else if (waterTemp >= 22 && waterTemp < 26) {
-				suit = "2mm 추천드려요";
-				image = "images/w3.jpg";
-			} else if (waterTemp >= 26) {
-				suit = "1mm or 보드숏 , 수영복 입으세요";
-				image = "images/w4.jpg";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+<h1 id="current-time"></h1>
+<div class="wather_api">
+	<!-- 수온 api  -->
+	<span> 현재 수온:<%=temp%>°C <!-- 해운대해수욕장 --></span>
+	<!-- 슈트추천-->
+	<%
+	String suit = "";
+	String image = "";
+	try {
+		/* double waterTemp = Double.parseDouble(temp); */
+		double waterTemp = 9.0; //옷입히기
+		if (waterTemp < 15) {
+			suit = "5/4mm 추천드려요";
+			image = "images/w1.jpg";
+		} else if (waterTemp >= 15 && waterTemp < 22) {
+			suit = "4/3mm 추천드려요";
+			image = "images/w2.jpg";
+		} else if (waterTemp >= 22 && waterTemp < 26) {
+			suit = "2mm 추천드려요";
+			image = "images/w3.jpg";
+		} else if (waterTemp >= 26) {
+			suit = "1mm or 보드숏 , 수영복 입으세요";
+			image = "images/w4.jpg";
 		}
 		%>
 		<span> 현재 웨트슈트는 <%=suit%> <img src="<%=image%>" alt="<%=suit%>"
