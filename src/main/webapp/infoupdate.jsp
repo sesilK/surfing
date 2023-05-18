@@ -91,11 +91,11 @@
 			</tr>
 			<tr>
 				<td><h5>주소</h5></td>
-				<td><input type="text" name="address"></td>
+				<td><input type="text" name="address" value="<%= persondto.getAddress()%>"></td>
 			</tr>
 			<tr>
 				<td><h5>이메일</h5></td>
-				<td><input type="text" name="email"></td>
+				<td><input type="text" name="email" value="<%= persondto.getEmail()%>"></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="수정" class="submit"></td>
