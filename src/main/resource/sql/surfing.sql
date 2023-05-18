@@ -142,4 +142,6 @@ SELECT * FROM lesson;         -- 레슨
 SELECT * FROM reserve;        -- 예약
 SELECT * FROM bbs;            -- 게시판
 
+update person_info set emailcheck = 'TRUE' where id= 'admin';
+
 COMMIT;
