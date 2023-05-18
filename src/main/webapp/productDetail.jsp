@@ -33,17 +33,18 @@
 			<div class="btnBox">
 				<a href="./shop.jsp">
 				<button type="button" class="btn cartBtn btn-secondary">상품목록</button></a>
-				<button type="button" class="btn cartBtn btn-primary" id="addBtn">카트담기</button></a>
-				<button type="button" class="btn buyBtn btn-warning" id="buyNowBtn">바로구매</button>
+				<button type="button" class="btn cartBtn btn-primary" onclick="addBtn()">카트담기</button>
+				<button type="button" class="btn buyBtn btn-warning" onclick="buyNowBtn()">바로구매</button>
 			</div>
 		</div>
 
 
 		<script>
 		//카트담기 버튼에 함수
-		  document.querySelector("#addBtn").addEventListener("click", function() {
+		  function addBtn() {
+			  
 				const id = '<%=id%>';
-				const code = $(this).parent().attr('id');
+				const code = '<%=code%>';
 				
 				$.ajax({
 					async : true, // 비동기 true
@@ -67,20 +68,22 @@
 						alert("오류 발생");
 					}
 				})
-			}
+			};
+			
 		//바로구매 버튼에 함수
-		document.querySelector("#buyNowBtn").addEventListener("click", function() {
+		function buyNowBtn() {
 			const id = '<%=id%>';
 			const code = '<%=code%>';
 			
-			if (id == '' || id == null || id = 'null') { // 로그인 안함
+			if (id == 'null') { // 로그인 안함
 				alert("로그인을 해주세요."); 
 				location.href = "./member.jsp";
 			} else {
 				location.href = "./order.jsp?code="+code;
 			}
 			
-		});
+		};
+
 		</script>
 
 

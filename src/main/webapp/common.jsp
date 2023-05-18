@@ -6,12 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-	crossorigin="anonymous"></script>
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.4.js"
-	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
 	crossorigin="anonymous"></script>
 </head>
 
@@ -231,7 +228,7 @@
 			<%
 			if (id == null) {
 			%>
-			<a href="member.jsp"><li class="nav-item">login</li></a>
+			<a href="member.jsp" style="text-decoration: none;"><li class="nav-item">login</li></a>
 			<%
 			} else {
 			%>

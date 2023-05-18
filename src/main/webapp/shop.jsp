@@ -182,7 +182,7 @@ a {
 			const id = '<%=id%>';
 			const code = $(this).parent().attr('id');
 			
-			if (id == null || id =="") { // 로그인 안함
+			if (id == 'null') { // 로그인 안함
 				alert("로그인을 해주세요."); 
 				location.href = "./member.jsp";
 			} else {
