@@ -109,3 +109,7 @@ td >img {
 		});
 
 </script>
+<<<<<<< HEAD
+=======
+	<%@ include file="footer.jsp"%>
+>>>>>>> ft-230517-css-ss

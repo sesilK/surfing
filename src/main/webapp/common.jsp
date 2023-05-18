@@ -6,12 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-	crossorigin="anonymous"></script>
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.4.js"
-	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
 	crossorigin="anonymous"></script>
 </head>
 
@@ -63,6 +60,10 @@ background-color:white;
 	width: 900px;
 	height: 400px;
 	object-fit: cover;
+}
+
+li {
+	list-style: none;
 }
 
 #menulist {
@@ -155,6 +156,34 @@ background-color:white;
 .que.on .arrow-top {
 	display: block;
 }
+#mem_accordion {
+    cursor: pointer;
+    padding: 18px;
+    outline: none;
+    transition: 0.4s;
+}
+
+#panel {
+	width: 107px;
+    padding: 0 18px;
+    background-color: transparent;
+	position: absolute;
+	right: 245px;
+	top: 460px;
+	z-index: 100;
+	display: none;
+    overflow: hidden;
+}
+
+#panel a {
+	text-decoration: none;
+}
+
+#panel div {
+	padding: 5px;
+	color: black;
+}
+
 </style>
 
 <body>
@@ -172,7 +201,7 @@ background-color:white;
 	<!-- 홈버튼 회원가입여부 고정 -->
 	<div class ="container">
 	<div class ="topnav" style="position: absolute; z-index: 2">
-	 <a href="./home.jsp" style= "position:absolute ;right:360px;" ><img src="images/whitelogo.png"
+	<a href="./home.jsp" style= "position:absolute ;right:360px;" ><img src="images/whitelogo.png"
                         style="width: 100px; height: 100px  "></a>
 		<ul>
 			<%
@@ -199,9 +228,9 @@ background-color:white;
 		<img class="mainSlides" src="images/head3.jpg"> 
 		<img class="mainSlides" src="images/head4.jpg">
 	</div>
-	
+
 	<!-- 고정 nav -->
-	<div class="nav">
+	<div class="nav" id="targetElement">
 		<ul id="menulist">
 			<li><a href="./reserve.jsp">reserve</a></li>
 			<li><a href="./shop.jsp">shop</a></li>
@@ -209,18 +238,25 @@ background-color:white;
 			<%
 			if (id == null) {
 			%>
-			<li class="nav-item " style="display :none" ></li>
+			<a href="member.jsp" style="text-decoration: none;"><li class="nav-item">login</li></a>
 			<%
 			} else {
 			%>
-			<li class="nav-item" style="text-decoration: none;"><%=id%>님</li>
+			<li class="nav-item" id="mem_accordion" style="text-decoration: none;"><a><%=id%>님</a></li>
 			<%
 			}
 			%>
 		</ul>
 	</div>
 
-	
+	<div id="panel">
+		<a href="infoupdate.jsp"><div>정보수정</div></a>
+		<a href="reserve_check.jsp"><div>예약확인</div></a>
+		<a href="orderCheck.jsp"><div>주문내역</div></a>
+		<a href="cart.jsp"><div>장바구니</div></a>
+		<a href="signout_proc.jsp"><div>로그아웃</div></a>
+	</div>
+
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -246,4 +282,25 @@ background-color:white;
 				x[myIndex - 1].style.display = "block";
 				setTimeout(carousel, 2000); // Change image every 2 seconds
 			}
+			
+			document.getElementById("mem_accordion").addEventListener("mouseover", function() {
+				let panel = document.getElementById("panel");
+				panel.style.display = "block";
+			});
+
+			document.getElementById("mem_accordion").addEventListener("mouseout", function() {
+				let panel = document.getElementById("panel");
+				panel.style.display = "none";
+			});
+
+			document.getElementById("panel").addEventListener("mouseover", function() {
+				let panel = document.getElementById("panel");
+				panel.style.display = "block";
+			});
+
+			document.getElementById("panel").addEventListener("mouseout", function() {
+				let panel = document.getElementById("panel");
+				panel.style.display = "none";
+			});
+
 		</script>

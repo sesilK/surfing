@@ -17,20 +17,20 @@
 <body>
 	<%@ include file="common.jsp"%>
 	<% ProductDao productDao = new ProductDao(); %>
-    <h1>상품 추가 페이지</h1>
+    <h1>신규 상품 등록</h1><br><br>
     <form name="productAddForm" action="upload.jsp" method="post" enctype="multipart/form-data"> 
 
             <label for="inputPname">상품명&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="pname" id="inputPname"><br>
+            <input type="text" name="pname" id="inputPname"><br><br>
             
             <label for="inputPrice">판매가</label>
-            <input type="text" name="price" id="inputPrice"><br>
+            <input type="text" name="price" id="inputPrice"><br><br>
             
             <label for="inputStock">입고수량</label>
-            <input type="text" name="stock" id="inputStock"><br>
+            <input type="text" name="stock" id="inputStock"><br><br>
 
             <label for="inputImage">이미지&nbsp;&nbsp;&nbsp;</label>
-            <input type="file" name="file" id="inputImage" accept="image/*"><br>
+            <input type="file" name="file" id="inputImage" accept="image/*" style="width:180px"><br><br>
                
             <button id="uploadBtn" type="button" style="margin: 30px 320px;" onclick="Upload()">Upload</button>
             <br>
@@ -98,7 +98,4 @@
 		}
 	}
 	</script>
-
-
-</body>
-</html>
+<%@ include file="footer.jsp"%>
