@@ -127,7 +127,7 @@ margin:50px;
 	String image = "";
 	try {
 		/* double waterTemp = Double.parseDouble(temp); */
-		double waterTemp = 26.0; //옷입히기
+		double waterTemp = 14.0; //옷입히기
 		if (waterTemp < 15) {
 			suit = "5/4mm 추천드려요";
 			image = "images/w1.jpg";
@@ -146,7 +146,7 @@ margin:50px;
 	}
 	%>
 	<span> 현재 웨트슈트는 <%=suit%> <img src="<%=image%>" alt="<%=suit%>"
-		style="width: 50px; height: auto;">
+		style="width: 100px; height: auto;">
 	</span><br><br><br>
 </div>
 <!-- 시간 -->
