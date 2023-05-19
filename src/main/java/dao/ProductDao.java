@@ -14,7 +14,7 @@ import oracle.DBConnectionManager;
 
 public class ProductDao {
 
-	//select (List)		상품목록
+	//select (List)		상품목록 조회
 	public List<ProductDto> selectProductList(){
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -54,7 +54,7 @@ public class ProductDao {
 		return productList;
 	}
 	
-	//select	상품 상세정보
+	//select	상품 상세정보 (상품 1개 조회)
 	public ProductDto selectProductByCode(int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -96,7 +96,7 @@ public class ProductDao {
 	}
 
 	
-	//select (List)	 장바구니 목록
+	//select (List)	 장바구니 목록 조회 
 	public List<CartDto> selectCartList(String id){
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -329,7 +329,7 @@ public class ProductDao {
 		}
 		
 		
-	//select	장바구니에 이미 있는지 확인하고 반환
+	//select	장바구니에 이미 있는지 확인하고 있으면 CartDto에 담아서 반환
 	public CartDto alreadyInCart(String id,int code) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -374,7 +374,7 @@ public class ProductDao {
 		return cartDto;
 	}
 	
-	//select	장바구니 아이콘 수량
+	//select	장바구니 아이콘에 들어갈 수량 확인
 	public CartDto sumQty(String id) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -409,7 +409,7 @@ public class ProductDao {
 	}
 	
 	
-	//select	장바구니 수량 체크 / 총금액 체크
+	//select	장바구니안에 전체수량 체크 / 총금액 체크
 		public CartDto sumQtyTotal(String id) {
 			Connection conn = null;
 			PreparedStatement psmt = null;
@@ -583,7 +583,7 @@ public class ProductDao {
 			return result;
 		}		
 		
-		//select (List)	 주문할 상품 리스트 정보
+		//select (List)	 주문할 상품 리스트 정보 조회
 		public List<CartDto> orderList(String id){
 			Connection conn = null;
 			PreparedStatement psmt = null;

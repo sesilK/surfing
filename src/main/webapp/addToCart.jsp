@@ -7,22 +7,23 @@
 <%@ page import="dto.CartDto"%>
 
 <%
-	response.setContentType("application/json"); // HTML 형식이 아닌 JSON 형식으로 쓰겠다
-	JSONObject obj = new JSONObject(); // JSON 객체를 담기위해 선언
+	//카트담기 기능
+	response.setContentType("application/json"); 
+	JSONObject obj = new JSONObject(); 
 	
-	request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
+	request.setCharacterEncoding("UTF-8"); 
 	
 	String id = request.getParameter("id");
 	int code = Integer.parseInt(request.getParameter("code"));
 	
-	ProductDao productDao = new ProductDao(); // DB 처리하기위한 자바 DAO 클래스 선언
-	CartDto cartDto = productDao.alreadyInCart(id, code); 	//카트에 이미 들어있는 객체	
+	ProductDao productDao = new ProductDao();
+	CartDto cartDto = productDao.alreadyInCart(id, code);
 	
 	int result = 0;
 	
-	if (cartDto != null) {
+	if (cartDto != null) {	//카트에 이미 있는 상품이면 수량 컬럼을 +1 update
 		result = productDao.increaseQty(id, code);	//성공하면 1, 아니면 0
-	} else if (cartDto == null){
+	} else if (cartDto == null){	//카트에 없는 상품이면 장바구니 테이블에 insert
 		result = productDao.addToCart(id, code);	//성공하면 1, 아니면 0
 	}
 
@@ -32,13 +33,13 @@
 		int sumQty = cartDto.getQty();
 		List<ProductDto> productList = productDao.selectProductList();
 		
-		obj.put("result", "true"); // json 객체의 result 키에 true 넣기
-		obj.put("sumQty", sumQty); // json 객체의 sumQty 키에 sumQty 넣기
+		obj.put("result", "true"); //카트담기 성공
+		obj.put("sumQty", sumQty); //
 	} else {
-		obj.put("result", "idNull"); // json 객체의 result 키에 false 넣기
+		obj.put("result", "idNull"); //카트담기 실패
 	} 
 	
-	response.getWriter().write(obj.toString()); // 최종으로 만들어둔 json 객체를 완성해서 뿌림
+	response.getWriter().write(obj.toString());
 		
  
 %>

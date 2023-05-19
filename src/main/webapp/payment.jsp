@@ -16,7 +16,7 @@
 <body>
 	<%@ include file="common.jsp"%>
 	<%
-	
+	//결제하기 버튼 눌렀을때 나타나는 기능
 	int code = Integer.parseInt(request.getParameter("code"));
 	String payment = request.getParameter("payment");
 	
