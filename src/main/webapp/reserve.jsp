@@ -14,16 +14,21 @@ li {
 	margin-top: 50px;
 }
 
-.formbox {
-	background-color: rgb(240, 240, 240);
-	height: 100px;
-	width: 100%;
-	padding: 35px;
-	display: inline-block;
-	margin-bottom:30px;
-}
 #insertBtn {
 	margin-left: 0px;
+}
+/* 예약박스 */
+fieldset{
+	border:none;
+	background-color: rgb(217, 226, 231);
+	width: 80%;
+	height: 100px;
+	margin: auto;
+	margin-bottom:40px;
+	padding-top:10px;
+}
+input ,label{
+margin : 10px;
 }
 
 
@@ -101,11 +106,12 @@ img {
 	<div class="formbox">
 		<form name='reserveForm' action="reserve_proc.jsp" method="post">
 			<fieldset>
-				<label for="date">날짜🗓</label> <input type="date" id="date"
+				<label for="date">예약날짜</label> <input type="date" id="date"
 					class="date" name="date" required> <label for="time">시간⌚</label>
 				10시<input type="radio" name="time" value="10시" checked> 1시<input
 					type="radio" name="time" value="1시"> 3시<input type="radio"
-					name="time" value="3시"> <label for="stage">강습선택🏄🏾‍♂️</label>
+					name="time" value="3시"> 
+					<br><label for="stage">강습선택🏄🏾‍♂️</label>
 				<select id="stage" name="stage" required>
 					<option value="1">BEGINNER</option>
 					<option value="2">LEARNNE</option>

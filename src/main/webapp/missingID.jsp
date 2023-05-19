@@ -13,8 +13,8 @@
 	color: white;
 	border-radius: 15px;
 	}
-
 </style>
+
 <div style="margin-top:80px; margin-bottom: 200px;">
 <form action="missingID_check.jsp">
 <h1>아이디 찾기🔍</h1>
