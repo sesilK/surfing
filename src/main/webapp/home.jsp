@@ -123,7 +123,7 @@ margin:50px;
 	String image = "";
 	try {
 		/* double waterTemp = Double.parseDouble(temp); */
-		double waterTemp = 9.0; //옷입히기
+		double waterTemp = 26.0; //옷입히기
 		if (waterTemp < 15) {
 			suit = "5/4mm 추천드려요";
 			image = "images/w1.jpg";

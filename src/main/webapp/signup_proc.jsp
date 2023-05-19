@@ -40,7 +40,7 @@
 		} else {
 	%>
 			<script>
-			alert('가입 실패...');
+			alert('중복된 아이디입니다.');
 			location.href = './signup.jsp';
 				//location.href = '.';
 			</script>
