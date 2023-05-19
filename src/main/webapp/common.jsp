@@ -176,7 +176,7 @@ li {
     padding: 0 18px;
     background-color: transparent;
 	position: absolute;
-	right: 245px;
+	right: 270px;
 	top: 460px;
 	z-index: 100;
 	display: none;
