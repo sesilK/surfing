@@ -17,8 +17,9 @@
 <body>
 	<%@ include file="common.jsp"%>
 	<div style="margin-top:80px; margin-bottom: 300px;">
-	<% ProductDao productDao = new ProductDao(); 
-	if(id.equals("admin")){%>
+	<% ProductDao productDao = new ProductDao();
+	if(session.getAttribute(id)==null){
+	}else if(id.equals("admin")){%>
     <h1>신규 상품 등록</h1><br><br>
     <form name="productAddForm" action="upload.jsp" method="post" enctype="multipart/form-data"> 
 
