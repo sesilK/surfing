@@ -113,6 +113,46 @@ padding:30px;
 margin:50px;
 }
 
+.buttons{
+ margin: 10px
+}
+.buttons>button{
+  background:#bdbfc0;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:40px;
+  font-size:20px;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+button:hover{
+  background:#fff;
+  color:#354e58;
+}
+.buttons>button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #bdbfc0;
+  transition:400ms ease all;
+}
+.buttons>button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.buttons>button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
 </style>
 <%@ include file="common.jsp"%>
 <div class="home_box">
@@ -215,8 +255,8 @@ margin:50px;
 	}
 	%>
 </div>
-
-	<!-- 지도 -->
+<!--
+	지도
 <div class="list_text">
 	<h3>찾아오시는 길</h3>
 </div>	
@@ -224,6 +264,43 @@ margin:50px;
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26095.323275171224!2d129.13978462747602!3d35.158730342854426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d5c0efe075f%3A0x9963b1d5c163ac98!2z7ZW07Jq064yA7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1684322192122!5m2!1sko!2skr" 
 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
+-->
+
+<div class="list_text">
+    <h3>찾아오시는 길</h3>
+</div>
+
+<div class="buttons">
+    <button onclick="showMap(1)">부산 서핑스팟</button>
+    <button onclick="showMap(2)">양양 서핑스팟</button>
+    <button onclick="showMap(3)">태안 서핑스팟</button>
+</div>
+<br>
+<div class="map-container">
+    <div id="map1" class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26095.323275171224!2d129.13978462747602!3d35.158730342854426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d5c0efe075f%3A0x9963b1d5c163ac98!2z7ZW07Jq064yA7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1684322192122!5m2!1sko!2skr" 
+width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div id="map2" class="map" style="display: none;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25162.664411988306!2d128.74215654103443!3d37.96935613613608!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fdf5676467d7c41%3A0x7b84bba5283b70be!2z7J246rWs7ZW067OA!5e0!3m2!1sko!2skr!4v1684464583064!5m2!1sko!2skr"
+     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div id="map3" class="map" style="display: none;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51125.394173261346!2d126.06853113553557!3d36.78646638743562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357a16dab94bdbef%3A0x2925a7eed94473c3!2z66eM66as7Y-s7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1684464625270!5m2!1sko!2skr"
+     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+</div>
+<br><br><br>
+<script>
+    function showMap(mapNumber) {
+        // 모든 지도 숨기기
+        var maps = document.getElementsByClassName("map");
+        for (var i = 0; i < maps.length; i++) {
+            maps[i].style.display = "none";
+        }
+        
+        // 선택한 지도 보이기
+        var map = document.getElementById("map" + mapNumber);
+        if (map) {
+            map.style.display = "block";
+            
+        }
+    }
+</script>
 	
 
 <%@ include file="footer.jsp"%>
