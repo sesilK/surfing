@@ -56,6 +56,7 @@ public class Api {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		// 포맷 적용하여 문자열로 변환
 		String formattedDate = currentDate.format(formatter);
+		System.out.println(formattedDate);
 		return formattedDate;
 	}
 	

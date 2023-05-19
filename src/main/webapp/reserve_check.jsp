@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="dao.ReserveDao"%>
 <%@ page import="dto.ReserveDto"%>
+<%@ page import="dao.Api"%>
 
 <title>Insert title here</title>
 <style>
@@ -81,10 +82,14 @@ td {
 					<td>
 						<%
 						if (item.getState().equals("예약완료")) {
+							Api api = new Api();
+							int currentDate = Integer.parseInt(api.getCurrentDate()); //현재날짜
+							int reserveDate = reserveDao.cancleLimit(item.getDate());	//예약날짜
+							if (reserveDate>currentDate){ //예약날짜가 현재날짜보다 작아야만 예약취소버튼 출력
 						%>
 						<button class="cancel-btn" id='cancel_<%=item.getNo()%>'>예약취소</button>
 						<%
-						}
+						}}
 						%>
 					</td>
 				</tr>

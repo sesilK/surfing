@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.ProductDto;
 import dto.ReserveDto;
 import oracle.DBConnectionManager;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ReserveDao {
 
@@ -62,6 +65,46 @@ public class ReserveDao {
 		return reserveList;
 	}
 
+	// select 예약날짜에서 날짜만 int 타입으로 뽑아오기
+	public int cancleLimit(String reserveDate) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		ReserveDto reserveDto = null;
+//		List<LessonDto> lessonList = null;
+
+		// Select
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문! // 선생님 여기서 불러와.. 서브쿼리인지 스칼렛인지 뭔지 해줘
+			String sql = "select reserve_date "
+					+ " from reserve r "
+					+ " WHERE reserve_date = ? ";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, reserveDate);
+			rs = psmt.executeQuery(); // 쿼리를 실행!!
+
+			if (rs.next()) {
+				reserveDto = new ReserveDto();
+				
+				reserveDto.setDate(rs.getString("reserve_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+        String dateString = reserveDto.getDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H시");
+        LocalDate date = LocalDate.parse(dateString, formatter);
+        int number = date.getYear() * 10000 + date.getMonthValue() * 100 + date.getDayOfMonth();
+        //System.out.println(number);
+		return number;
+	}
+	
 	// update 예약취소
 	public int reserveCancel(int no) {
 
