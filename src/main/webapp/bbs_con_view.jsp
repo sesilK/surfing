@@ -123,7 +123,7 @@ BbsDto bbsDto = dao.selectBbsByNo(no);
 	if (id != null) { //로그인 안하면 비교대상이 없기때문에
 		if (id.equals(bbsId)) {
 	%>
-	<button id="deleteBtn">글 삭제하기</button>
+	<button id="deleteBtn" onclick="deletePost()">글 삭제하기</button>
 	<%
 	if (bbsDto.getAnswer_check() == 0) {
 	%>
@@ -164,13 +164,13 @@ BbsDto bbsDto = dao.selectBbsByNo(no);
 	});
 	
 //삭제하기
-		document.getElementById('deleteBtn').addEventListener('click', ()=>{
+		function deletePost() {
 			let form =document.DeleteForm;
 			if(confirm('삭제 하시겠습니까?')){
 				form.action = 'bbs_delete_proc.jsp';
 				form.submit();
 			}
-		});
+		};
 
 
 //수정하기

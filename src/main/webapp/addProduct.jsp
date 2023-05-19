@@ -39,7 +39,7 @@
 
 	<script>
 	
-	//선택한 이미지 미리보기
+	//선택한 이미지 미리보기 기능
 	const fileInput = document.getElementById("inputImage");
 	const handleFiles = (e) => {
 	  const selectedFile = [...fileInput.files]; 
@@ -71,9 +71,9 @@
 			if(confirm('상품을 등록하시겠습니까?')){
 				
 				$.ajax({
-					async : true, // 비동기 true
-					type : 'get', // GET 타입
-					data : { // 넘겨줄 매개변수, 실제로 ?id=input_id 형식으로 넘어감
+					async : true,
+					type : 'get', 
+					data : {
 						"pname" : pname,
 						"price" : price,
 						"stock" : stock,
@@ -83,10 +83,10 @@
 					dataType : "json", // json 형태로 받아오겠다
 					contentType : "application/json; charset=UTF-8",
 					success : function(data) {            
-						if (data.result === 'true') { //DB update 성공
+						if (data.result === 'true') { //DB insert 성공
 							alert("추가 성공");
 							form.submit();
-						} else if (data.result === 'false') {
+						} else if (data.result === 'false') { //DB insert 실패
 							alert("실패");
 						}
 					},

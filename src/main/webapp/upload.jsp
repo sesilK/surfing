@@ -9,7 +9,9 @@
 <%@ page import="com.oreilly.servlet.MultipartRequest"%>
 
 
-<% String directory = application.getRealPath("/images/");
+<%
+   //상품추가 페이지에서 업로드 버튼 누르면 나타나는 기능
+   String directory = application.getRealPath("/images/");
    int maxSize = 1024 * 1024 * 100; //100mb
    String encoding = "UTF-8";
    
