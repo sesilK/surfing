@@ -18,8 +18,8 @@
     PersonDao personDao = new PersonDao();
     int result = personDao.login(personDto.getId(), personDto.getPw());
 	PersonDto personDto1 = personDao.selectPersonInfoById(personDto.getId()); 
-    String check = personDto1.getEmailCheck();
     if (result == 1){		
+        String check = personDto1.getEmailCheck();
     	if(check.equals("TRUE")){ 	
     		if(idsave != null){
     			Cookie idsavecookie = new Cookie("idsave", id);
