@@ -120,7 +120,7 @@ margin:50px;
 <h1 id="current-time"></h1>
 <div class="wather_api">
 	<!-- 수온 api  -->
-	<span> 현재 수온:<%=temp%>°C <!-- 해운대해수욕장 --></span>
+	<br><span> 현재 수온:<%=temp%>°C <!-- 해운대해수욕장 --></span><br>
 	<!-- 슈트추천-->
 	<%
 	String suit = "";
@@ -147,7 +147,7 @@ margin:50px;
 	%>
 	<span> 현재 웨트슈트는 <%=suit%> <img src="<%=image%>" alt="<%=suit%>"
 		style="width: 50px; height: auto;">
-	</span>
+	</span><br><br><br>
 </div>
 <!-- 시간 -->
  <script>

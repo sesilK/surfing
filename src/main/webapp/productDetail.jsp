@@ -14,7 +14,7 @@
 		CartDto cartDto = productDao.sumQty(id);
 		int sumQty = cartDto.getQty();
 	%>
-		<h1>상품 상세정보</h1>
+		<br><br><br><br><h1>상품 상세정보</h1>
 		
 		<a href="./cart.jsp?id=<%=id%>" style="text-decoration: none;">
 			<div class="cart_icon">
@@ -36,7 +36,7 @@
 				<button type="button" class="btn cartBtn btn-primary" onclick="addBtn()">카트담기</button>
 				<button type="button" class="btn buyBtn btn-warning" onclick="buyNowBtn()">바로구매</button>
 			</div>
-		</div>
+		</div><br><br><br><br>
 
 
 		<script>

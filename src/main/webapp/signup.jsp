@@ -60,6 +60,7 @@
             display: flex;
             flex-direction: column;
             width: 300px;
+            margin: 0 auto;
         }
 
         /* 입력창 */
@@ -74,7 +75,7 @@
 </style>
 
 <%@ include file="common.jsp"%>
-<div style="margin-top: 80px; margin-bottom: 300px;">
+<div style="margin-top: 80px; margin-bottom: 120px;">
 	<h1>회원가입</h1>
 
 	<!-- 이용약관 -->
