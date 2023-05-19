@@ -17,7 +17,8 @@
 <body>
 	<%@ include file="common.jsp"%>
 	<div style="margin-top:80px; margin-bottom: 300px;">
-	<% ProductDao productDao = new ProductDao(); %>
+	<% ProductDao productDao = new ProductDao(); 
+	if(id.equals("admin")){%>
     <h1>신규 상품 등록</h1><br><br>
     <form name="productAddForm" action="upload.jsp" method="post" enctype="multipart/form-data"> 
 
@@ -37,6 +38,7 @@
             <br>
             <img id="previewImg" width="400px">
 	</form>
+	<%} %>
 </div>
 	<script>
 	
