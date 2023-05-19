@@ -7,9 +7,9 @@
 <%
 String temp = "";
 try {
-	temp = Api.getWater_temp();
+    temp = Api.getWater_temp();
 } catch (Exception e) {
-	e.printStackTrace();
+    e.printStackTrace();
 }
 %>
 
@@ -17,10 +17,10 @@ try {
 .home_box{
 margin-top:50px;
 width:100%;
-}
-.wather_api {
+}r_api {
 	margin-top: 20px;
 	display: flex;
+	width: 1500px;
 	justify-content: space-evenly;
 	margin-bottom: 50px;
 }
@@ -65,6 +65,7 @@ padding:30px;
 }
 
 .populerBox_text {
+	width: 2000px;
 	height: 50px;
 	padding: 20px;
 	display: flex;
@@ -113,7 +114,7 @@ margin:50px;
 }
 
 </style>
-	<%@ include file="common.jsp"%>
+<%@ include file="common.jsp"%>
 <div class="home_box">
 
 <h1 id="current-time"></h1>
@@ -140,13 +141,16 @@ margin:50px;
 			suit = "1mm or 보드숏 , 수영복 입으세요";
 			image = "images/w4.jpg";
 		}
-		%>
-		<span> 현재 웨트슈트는 <%=suit%> <img src="<%=image%>" alt="<%=suit%>"
-			style="width: 50px; height: auto;">
-		</span>
-	</div>
-	<!-- 시간 -->
-	<script>
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	%>
+	<span> 현재 웨트슈트는 <%=suit%> <img src="<%=image%>" alt="<%=suit%>"
+		style="width: 50px; height: auto;">
+	</span>
+</div>
+<!-- 시간 -->
+ <script>
             const time = document.getElementById('current-time'); // id가 'current-time'인 요소
 
 	// 1초마다 현재 시각 업데이트
@@ -156,73 +160,70 @@ margin:50px;
 	}, 1000);
 </script>
 
-	<!-- 선생님소개 -->
-	<div class="list_text">
-		<h3>Green Wave 의 최고의 강사진</h3>
-		<a href="reserve.jsp" style="text-decoration: none";>예약하기</a>
-	</div>
+<!-- 선생님소개 -->
+<div class="list_text">
+	<h3>Green Wave 의 최고의 강사진</h3>
+	<a href="reserve.jsp" style="text-decoration:none";>예약하기</a>
+</div>
 
-	<div class="t_box">
-		<div class="hover01 column">
-			<div>
-				<figure>
-					<img src="images/teacher1.PNG" />
-				</figure>
-			</div>
-			<div>
-				<figure>
-					<img src="images/teacher2.PNG" />
-				</figure>
-			</div>
-			<div>
-				<figure>
-					<img src="images/teacher3.PNG" />
-				</figure>
-			</div>
+<div class="t_box">
+	<div class="hover01 column">
+		<div>
+			<figure>
+				<img src="images/teacher1.PNG" />
+			</figure>
 		</div>
-	</div>
-
-	<!-- 상품슬라이드 -->
-	<div class="list_text">
-		<h3>인기상품</h3>
-		<a href="shop.jsp" style="text-decoration: none";>더보기</a>
-	</div>
-
-	<div class="populerBox">
-		<%
-		ProductDao productDao = new ProductDao();
-		List<ProductDto> productList = productDao.selectProductList();
-		%>
-
-		<%
-		for (ProductDto item : productList) {
-		%>
-
-		<div class="product_box" id="<%=item.getCode()%>">
-			<a href="./productDetail.jsp?code=<%=item.getCode()%>"
-				style="text-decoration: none;"> <img
-				src="images/<%=item.getFilename()%>"
-				style="width: 150px; margin: 30px;">
-			</a>
-			<div class="pname" style="font-size: small;"><%=item.getPname()%></div>
-			<div class="price" style="font-size: small;"><%=item.getSprice()%></div>
+		<div>
+			<figure>
+				<img src="images/teacher2.PNG" />
+			</figure>
 		</div>
-		<%
-		}
-		%>
-	</div>
-	
-	<!-- 지도 -->
-	<div class="list_text">
-		<h3>찾아오시는 길</h3>
-	</div>
-	<div class="iframebox">
-		<iframe
-			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26095.323275171224!2d129.13978462747602!3d35.158730342854426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d5c0efe075f%3A0x9963b1d5c163ac98!2z7ZW07Jq064yA7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1684322192122!5m2!1sko!2skr"
-			width="600" height="450" style="border: 0;" allowfullscreen=""
-			loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		<div>
+			<figure>
+				<img src="images/teacher3.PNG" />
+			</figure>
+		</div>
 	</div>
 </div>
 
+<!-- 상품슬라이드 -->
+<div class="list_text">
+	<h3>인기상품</h3>
+	<a href="shop.jsp" style="text-decoration:none";>더보기</a>
+</div>
+
+<div class="populerBox">
+	<%
+	ProductDao productDao = new ProductDao();
+	List<ProductDto> productList = productDao.selectProductList();
+	%>
+
+	<%
+	for (ProductDto item : productList) {
+	%>
+
+	<div class="product_box" id="<%=item.getCode()%>">
+		<a href="./productDetail.jsp?code=<%=item.getCode()%>"
+			style="text-decoration: none;"> <img
+			src="images/<%=item.getFilename()%>"
+			style="width: 150px; margin: 30px;">
+		</a>
+		<div class="pname" style="font-size: small;"><%=item.getPname()%></div>
+		<div class="price" style="font-size: small;"><%=item.getSprice()%></div>
+	</div>
+	<%
+	}
+	%>
+</div>
+
+	<!-- 지도 -->
+<div class="list_text">
+	<h3>찾아오시는 길</h3>
+</div>	
+<div class= "iframebox">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26095.323275171224!2d129.13978462747602!3d35.158730342854426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688d5c0efe075f%3A0x9963b1d5c163ac98!2z7ZW07Jq064yA7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1684322192122!5m2!1sko!2skr" 
+width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+	
 
 <%@ include file="footer.jsp"%>
