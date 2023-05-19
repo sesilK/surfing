@@ -27,7 +27,7 @@
 	<%
 			}	else {%>
 				<script>
-					alert('수정실패');
+					alert('빈칸없이 채워주세요!!!!!!');
 				</script>
 			<%}
 	} else {

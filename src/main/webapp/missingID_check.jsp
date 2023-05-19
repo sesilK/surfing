@@ -12,6 +12,7 @@
 	
 	PersonDto personDto = personDao.missingPersonInfoById(name,email);
 	
+	if(personDto != null){
 	id = personDto.getId();
 	%>	<br><br><br>
 		<p>당신의 아이디는 "<%=id%>" 입니다.</p>
@@ -26,5 +27,11 @@
 	}
 
 	</script>
-	
+	<%}else{ %>
+		<script>
+			alert('옳바른 정보가 아닙니다. 다시 입력해주세요');
+			history.back();
+			 
+		</script>
+	<%} %>
 <%@ include file="footer.jsp"%>
