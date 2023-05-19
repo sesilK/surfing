@@ -13,7 +13,6 @@
 </head>
 
 <style>
-
 		.video-background {
 			position: absolute;
 			top: 0;

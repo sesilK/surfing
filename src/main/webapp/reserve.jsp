@@ -31,11 +31,6 @@ li {
 #lesson_list {
 	margin: 30px;
 }
-#lesson_list> button{
-	margin: 40px;          
-	width:100px;
-	background-color: white;
-}
 table {
 	margin-left:220px;
 	width: 400px;
@@ -55,6 +50,48 @@ img {
 	width: 300px;
 	height: 400px;
 }
+
+/* 레슨버튼 */
+
+#lesson_list>button{
+  background:#bdbfc0;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:40px;
+  font-size:20px;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+#lesson_list>button:hover{
+  background:#fff;
+  color:#354e58;
+}
+#lesson_list>button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #bdbfc0;
+  transition:400ms ease all;
+}
+#lesson_list>button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+#lesson_list>button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+
+
 </style>
 
 
